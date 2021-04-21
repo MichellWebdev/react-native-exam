@@ -41,6 +41,10 @@ const SignupScreen = ({
   const [password, setPassword] = useState('');
   const [passwordValid, setPasswordValid] = useState(false);
 
+  const handleSignup = () => {
+    passwordValid && emailValid ? navigation.navigate('Login') : null;
+  };
+
   return (
     <View style={styles.signupContainer}>
       <Input
@@ -60,12 +64,7 @@ const SignupScreen = ({
         onValid={valid => setPasswordValid(valid)}
         setContent={content => setPassword(content)}
       />
-      <Button
-        buttonText={buttonText}
-        onPress={() => {
-          navigation.navigate('Login');
-        }}
-      />
+      <Button buttonText={buttonText} onPress={handleSignup} />
     </View>
   );
 };

@@ -1,10 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+// Custom components
+import Profile from './profile/Profile';
+
 const Menu = props => {
   return (
     <View style={styles.menuContainer}>
-      <Text>Menu</Text>
+      <Profile />
     </View>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 // Redux
 // import { useDispatch, useSelector } from 'react-redux';
@@ -13,6 +14,7 @@ import Input from './../components/common/Input';
 import Button from '../components/common/Button';
 
 interface SignupLabels {
+  signupLabel: string;
   emailLabel: string;
   emailPlaceholder: string;
   errorMessageEmail: string;
@@ -20,9 +22,11 @@ interface SignupLabels {
   passwordPlaceholder: string;
   passwordErrorMessage: string;
   buttonText: string;
+  loginRedirectLabel: string;
 }
 
 const SignupScreen = ({
+  signupLabel = 'Signup to get access',
   emailLabel = 'Email',
   emailPlaceholder = 'email@student.cbs.dk',
   errorMessageEmail = 'Please fill out Email',
@@ -30,6 +34,7 @@ const SignupScreen = ({
   passwordPlaceholder = '******',
   passwordErrorMessage = 'Please fill out password',
   buttonText = 'Signup',
+  loginRedirectLabel = 'Already have a user? Log in',
 }: SignupLabels) => {
   const navigation = useNavigation();
 
@@ -47,6 +52,10 @@ const SignupScreen = ({
 
   return (
     <View style={styles.signupContainer}>
+      <View>
+        <Image style={styles.signupImage} source={require('../assets/images/cbsStudentsLogo.png')} />
+      </View>
+      <Text style={styles.signupHeader}>{signupLabel}</Text>
       <Input
         label={emailLabel}
         inputValid={emailValid}
@@ -65,13 +74,37 @@ const SignupScreen = ({
         setContent={content => setPassword(content)}
       />
       <Button buttonText={buttonText} onPress={handleSignup} />
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('Login');
+        }}>
+        <Text style={styles.loginRedirect}>{loginRedirectLabel}</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   signupContainer: {
+    backgroundColor: 'white', // not working properly
+  },
+  signupImage: {
+    alignSelf: 'center',
+    marginTop: 70,
+    marginBottom: 30,
+  },
+  signupHeader: {
+    marginBottom: 20,
     marginTop: 30,
+    fontSize: 24,
+    marginLeft: 20,
+    fontWeight: 'bold',
+    color: '#5050A5',
+  },
+  loginRedirect: {
+    textAlign: 'center',
+    marginTop: 20,
+    color: '#5050A5',
   },
 });
 

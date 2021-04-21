@@ -80,9 +80,9 @@ function StackNavigatorSignup() {
       <Stack.Screen
         name='Signup'
         component={Signup}
-        // options={{
-        //   headerShown: false,
-        // }}
+        options={{
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name='Login'
@@ -136,7 +136,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },

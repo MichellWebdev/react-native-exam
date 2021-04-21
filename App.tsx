@@ -10,21 +10,21 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Screens components
-import Home from './screens/Home';
-import Discover from './screens/Discover';
-import Chat from './screens/Chat';
-import Menu from './screens/Menu';
-import EditProfile from './screens/profile/EditProfile';
+import Home from './screens/HomeScreen';
+import Discover from './screens/DiscoverScreen';
+import Chat from './screens/ChatScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import EditProfile from './components/profile/EditProfile';
 
 function StackNavigationMenu() {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name='Menu'
-        component={Menu}
+        name='ProfileScreen'
+        component={ProfileScreen}
         options={{
-          headerTitle: 'Menu',
+          headerTitle: 'Profile',
           headerTitleAlign: 'center',
           headerTitleStyle: {
             color: '#5050A5',

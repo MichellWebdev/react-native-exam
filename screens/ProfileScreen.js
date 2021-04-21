@@ -2,22 +2,22 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 // Custom components
-import Profile from './profile/Profile';
+import Profile from '../components/profile/Profile';
 
-const Menu = props => {
+const ProfileScreen = props => {
   return (
-    <View style={styles.menuContainer}>
+    <View style={styles.profileScreenContainer}>
       <Profile />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  menuContainer: {
+  profileScreenContainer: {
     flex: 1,
     alignItems: 'center',
     marginTop: 50,
   },
 });
 
-export default Menu;
+export default ProfileScreen;

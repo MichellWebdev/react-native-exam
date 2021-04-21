@@ -5,7 +5,7 @@ import { StyleSheet, View, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 // Custom components
-import Input from '../../components/common/Input';
+import Input from '../common/Input';
 
 interface EditProfileLabels {
   label: string;
@@ -26,7 +26,7 @@ const EditProfile = ({
 
   const handleSave = () => {
     console.log('Name changed');
-    navigation.navigate('Menu');
+    navigation.navigate('ProfileScreen');
   };
 
   return (

@@ -38,8 +38,8 @@ const Input = ({ label, value, placeholder, password, inputValid, errorMessage, 
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: 30,
-    marginRight: 30,
+    marginLeft: 20,
+    marginRight: 20,
     borderWidth: 1,
     borderColor: 'lightgray',
     marginBottom: 10,

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 // Stack navigation
 import { useNavigation } from '@react-navigation/native';
 
 // Custom components
 import Input from '../common/Input';
+import Button from '../common/Button';
 
 interface EditProfileLabels {
   label: string;
@@ -39,9 +40,8 @@ const EditProfile = ({
         onValid={(valid: any) => setNameValid(valid)}
         setContent={(content: any) => setChangeName(content)}
       />
-      <View>
-        <Button title={buttonText} onPress={handleSave} />
-      </View>
+
+      <Button buttonText={buttonText} onPress={handleSave} />
     </View>
   );
 };

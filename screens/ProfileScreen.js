@@ -6,18 +6,12 @@ import Profile from '../components/profile/Profile';
 
 const ProfileScreen = props => {
   return (
-    <View style={styles.profileScreenContainer}>
+    <View>
       <Profile />
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  profileScreenContainer: {
-    flex: 1,
-    alignItems: 'center',
-    marginTop: 50,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default ProfileScreen;

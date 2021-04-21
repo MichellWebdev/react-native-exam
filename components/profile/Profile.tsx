@@ -1,26 +1,40 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+
+import Button from '../common/Button';
 
 // Stack navigation
 import { useNavigation } from '@react-navigation/native';
 
-const Profile = () => {
+interface ProfileLabels {
+  buttonText: string;
+}
+
+const Profile = ({ buttonText = 'Edit profile' }: ProfileLabels) => {
   const navigation = useNavigation();
+
+  const handleRedirect = () => {
+    navigation.navigate('EditProfile');
+  };
+
   return (
     <View>
-      <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Profile</Text>
-      <Text>User email</Text>
-      <Text>User name</Text>
-      <Button
-        title={'Edit profile'}
-        onPress={() => {
-          navigation.navigate('EditProfile');
-        }}
-      />
+      <View style={styles.profileContainer}>
+        <Text style={styles.profileInfo}>Profile</Text>
+      </View>
+      <Button buttonText={buttonText} onPress={handleRedirect} />
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  profileContainer: {
+    margin: 20,
+  },
+  profileInfo: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
 
 export default Profile;

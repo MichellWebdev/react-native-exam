@@ -68,8 +68,8 @@ export default function App() {
               iconName = 'search-outline';
             } else if (route.name === 'Chat') {
               iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
-            } else if (route.name === 'Menu') {
-              iconName = 'menu-outline';
+            } else if (route.name === 'Profile') {
+              iconName = focused ? 'person' : 'person-outline';
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -82,7 +82,7 @@ export default function App() {
         <Tab.Screen name='Home' component={Home} />
         <Tab.Screen name='Discover' component={Discover} />
         <Tab.Screen name='Chat' component={Chat} />
-        <Tab.Screen name='Menu' component={StackNavigationMenu} />
+        <Tab.Screen name='Profile' component={StackNavigationMenu} />
       </Tab.Navigator>
     </NavigationContainer>
   );

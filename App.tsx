@@ -87,9 +87,9 @@ function StackNavigatorSignup() {
       <Stack.Screen
         name='Login'
         component={Login}
-        // options={{
-        //   headerShown: false,
-        // }}
+        options={{
+          headerShown: false,
+        }}
       />
     </Stack.Navigator>
   );

@@ -26,14 +26,14 @@ interface SignupLabels {
 }
 
 const SignupScreen = ({
-  signupLabel = 'Signup to get access',
+  signupLabel = 'Sign up to get access',
   emailLabel = 'Email',
   emailPlaceholder = 'email@student.cbs.dk',
   errorMessageEmail = 'Please fill out Email',
   passwordLabel = 'Password',
   passwordPlaceholder = '******',
   passwordErrorMessage = 'Please fill out password',
-  buttonText = 'Signup',
+  buttonText = 'Sign up',
   loginRedirectLabel = 'Already have a user? Log in',
 }: SignupLabels) => {
   const navigation = useNavigation();
@@ -73,7 +73,9 @@ const SignupScreen = ({
         onValid={valid => setPasswordValid(valid)}
         setContent={content => setPassword(content)}
       />
-      <Button buttonText={buttonText} onPress={handleSignup} />
+      <View style={styles.buttonContainer}>
+        <Button buttonText={buttonText} onPress={handleSignup} />
+      </View>
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('Login');
@@ -86,7 +88,8 @@ const SignupScreen = ({
 
 const styles = StyleSheet.create({
   signupContainer: {
-    backgroundColor: 'white', // not working properly
+    backgroundColor: 'white',
+    height: '100%',
   },
   signupImage: {
     alignSelf: 'center',
@@ -100,6 +103,9 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     fontWeight: 'bold',
     color: '#5050A5',
+  },
+  buttonContainer: {
+    marginTop: 20,
   },
   loginRedirect: {
     textAlign: 'center',

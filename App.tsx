@@ -9,14 +9,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Icons
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-// Redux
-import { combineReducers, createStore, applyMiddleware } from 'redux';
-import { useSelector } from 'react-redux';
-import { Provider } from 'react-redux';
-import ReduxThunk from 'redux-thunk';
+// // Redux
+// import { combineReducers, createStore, applyMiddleware } from 'redux';
+// import { useSelector } from 'react-redux';
+// import { Provider } from 'react-redux';
+// import ReduxThunk from 'redux-thunk';
 
-// Reducers
-import UserReducer from './redux-store/reducers/UserReducer';
+// // Reducers
+// import UserReducer from './redux-store/reducers/UserReducer';
 
 // Screens components
 import Home from './screens/HomeScreen';
@@ -25,14 +25,14 @@ import Chat from './screens/ChatScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import EditProfile from './components/profile/EditProfile';
 
-const rootReducer = combineReducers({
-  user: UserReducer,
-});
+// const rootReducer = combineReducers({
+//   user: UserReducer,
+// });
 
-export type RootState = ReturnType<typeof rootReducer>;
+// export type RootState = ReturnType<typeof rootReducer>;
 
-// redux thunk
-const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+// // redux thunk
+// const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 function StackNavigationMenu() {
   const Stack = createStackNavigator();

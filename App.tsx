@@ -14,6 +14,44 @@ import Home from './screens/Home';
 import Discover from './screens/Discover';
 import Chat from './screens/Chat';
 import Menu from './screens/Menu';
+import EditProfile from './screens/profile/EditProfile';
+
+function StackNavigationMenu() {
+  const Stack = createStackNavigator();
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name='Menu'
+        component={Menu}
+        options={{
+          headerTitle: 'Menu',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#5050A5',
+            textTransform: 'uppercase',
+            fontSize: 24,
+            fontWeight: 'bold',
+          },
+        }}
+      />
+      <Stack.Screen
+        name='EditProfile'
+        component={EditProfile}
+        options={{
+          headerTitle: 'Edit profile',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#5050A5',
+            textTransform: 'uppercase',
+            fontSize: 24,
+            fontWeight: 'bold',
+          },
+          headerBackTitle: 'Profile',
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 
 export default function App() {
   const Tab = createBottomTabNavigator();
@@ -44,7 +82,7 @@ export default function App() {
         <Tab.Screen name='Home' component={Home} />
         <Tab.Screen name='Discover' component={Discover} />
         <Tab.Screen name='Chat' component={Chat} />
-        <Tab.Screen name='Menu' component={Menu} />
+        <Tab.Screen name='Menu' component={StackNavigationMenu} />
       </Tab.Navigator>
     </NavigationContainer>
   );

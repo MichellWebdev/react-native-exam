@@ -1,3 +1,6 @@
+// Need to improve:
+// (1) stackHeaderOptions() causing error (but still works)
+
 import 'react-native-gesture-handler';
 import React from 'react';
 import { StyleSheet } from 'react-native';
@@ -20,10 +23,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Screens components
 import Home from './screens/HomeScreen';
-import Discover from './screens/DiscoverScreen';
 import Chat from './screens/ChatScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import EditProfile from './components/profile/EditProfile';
+
+import Discover from './screens/discover/DiscoverScreen';
+import Events from './screens/discover/EventsScreen';
+import StudentOrg from './screens/discover/EventsScreen';
+import Posts from './screens/discover/PostsScreen';
 
 // const rootReducer = combineReducers({
 //   user: UserReducer,
@@ -34,8 +41,22 @@ import EditProfile from './components/profile/EditProfile';
 // // redux thunk
 // const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
+const Stack = createStackNavigator();
+
+const stackHeaderOptions = (title: string) => {
+  return ({
+    headerTitle: title,
+    headerTitleAlign: 'center',
+    headerTitleStyle: {
+      color: '#5050A5',
+      textTransform: 'uppercase',
+      fontSize: 20,
+      fontWeight: 'bold',
+    },
+  })
+}
+
 function StackNavigationMenu() {
-  const Stack = createStackNavigator();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -50,6 +71,7 @@ function StackNavigationMenu() {
             fontSize: 24,
             fontWeight: 'bold',
           },
+          headerBackTitle: 'Profile',
         }}
       />
       <Stack.Screen
@@ -69,6 +91,59 @@ function StackNavigationMenu() {
       />
     </Stack.Navigator>
   );
+}
+
+function DiscoverStackNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Discover"
+        component={Discover}
+        options={stackHeaderOptions('DISCOVER')} />
+      <Stack.Screen
+        name="Events"
+        component={Events}
+        options={{
+          headerTitle: 'EVENTS',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#5050A5',
+            textTransform: 'uppercase',
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
+          headerBackTitle: ' ',
+        }} />
+      <Stack.Screen
+        name="StudentOrg"
+        component={StudentOrg}
+        options={{
+          headerTitle: 'STUDENT ORGANIZATIONS',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#5050A5',
+            textTransform: 'uppercase',
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
+          headerBackTitle: ' ',
+        }} />
+      <Stack.Screen
+        name="Posts"
+        component={Posts}
+        options={{
+          headerTitle: 'POSTS',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#5050A5',
+            textTransform: 'uppercase',
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
+          headerBackTitle: ' ',
+        }} />
+    </Stack.Navigator>
+  )
 }
 
 export default function App() {
@@ -98,7 +173,7 @@ export default function App() {
           inactiveTintColor: '#B7B7B7',
         }}>
         <Tab.Screen name='Home' component={Home} />
-        <Tab.Screen name='Discover' component={Discover} />
+        <Tab.Screen name='Discover' component={DiscoverStackNavigator} />
         <Tab.Screen name='Chat' component={Chat} />
         <Tab.Screen name='Profile' component={StackNavigationMenu} />
       </Tab.Navigator>

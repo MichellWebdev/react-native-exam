@@ -6,7 +6,7 @@ import DiscoverBox from '../../components/discover/DiscoverBox';
 
 import { discoverbox1, discoverbox2, discoverbox3 } from '../../assets/Assets'
 
-// Note - Needed modification
+// Need to improve:
 // (1) input field blurr out (grey out) when onBlurr
 // (2) input field no error even when empty when onBlurr
 // (3) top 'DISCOVER' font color & bold

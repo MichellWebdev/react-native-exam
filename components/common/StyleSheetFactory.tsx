@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 // Reference: https://stackoverflow.com/questions/42707327/passing-props-into-external-stylesheet-in-react-native
 // Reference: https://stackoverflow.com/questions/49144649/flexbox-height-in-react-native
 
-// Need to improve
+// Need to improve:
 // (1) text align center - located center manually atm
 // (2) border radius - not perfect
 

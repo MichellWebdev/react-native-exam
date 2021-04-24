@@ -1,7 +1,7 @@
 import Schedule from "./Schedule";
 import User from "./User";
 
-class Event {
+class DiscoverEvent {
     constructor(
         public id: string,
         public eventName: string,
@@ -9,7 +9,7 @@ class Event {
         public image: string,
         public startDate: Date,
         public endDate: Date,
-        public locaion: string,
+        public location: string,
         public description: string,
         public schedule: Schedule[],
         public interested: User[],
@@ -17,4 +17,4 @@ class Event {
     ) { }
 }
 
-export default Event;
+export default DiscoverEvent;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Events from '../../screens/discover/EventsScreen';
 
 // Reference: https://stackoverflow.com/questions/42707327/passing-props-into-external-stylesheet-in-react-native
 // Reference: https://stackoverflow.com/questions/49144649/flexbox-height-in-react-native
@@ -8,6 +9,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 // Need to improve:
 // (1) text align center - located center manually atm
 // (2) border radius - not perfect
+// (3) Event texts - bottom left (need to move down)
 
 export default class StyleSheetFactory {
     static getSheet(backgroundColor?: string, backgroundImage?: string) {
@@ -17,7 +19,11 @@ export default class StyleSheetFactory {
         const discoverBoxBorderRadius = 5;
         const discoverBoxBorderWidth = 0.5;
 
+        const eventBoxWidth = 350;
+        const eventBoxHeight = 180;
+
         return StyleSheet.create({
+            // Discover Main Page
             discoverBoxContainer: {
                 flexDirection: 'column',
                 margin: 15,
@@ -48,7 +54,52 @@ export default class StyleSheetFactory {
                 color: 'white',
                 textAlign: 'center',
                 paddingTop: 60,
-            }
+            },
+            // Discover -> Event Page
+            eventBoxContainer: {
+                flexDirection: 'column',
+                marginTop: 15,
+                marginBottom: 15,
+                borderRadius: discoverBoxBorderRadius,
+                borderWidth: discoverBoxBorderWidth,
+                borderColor: backgroundColor,
+            },
+            eventBoxImage: {
+                resizeMode: 'cover',
+                justifyContent: 'center',
+                borderRadius: discoverBoxBorderRadius,
+                borderWidth: discoverBoxBorderWidth,
+                borderColor: backgroundColor,
+            },
+            eventBoxContentsContainer: {
+                width: eventBoxWidth,
+                height: eventBoxHeight,
+                backgroundColor: backgroundColor,
+                borderRadius: discoverBoxBorderRadius,
+                borderWidth: discoverBoxBorderWidth,
+                borderColor: backgroundColor,
+            },
+            eventBoxLabelContainer: {
+                flexDirection: 'row',
+            },
+            eventBigBold: {
+                fontSize: 20,
+                fontWeight: '700',
+                color: 'white',
+                textAlign: 'left',
+            },
+            eventSmallNonbold: {
+                fontSize: 15,
+                fontWeight: '400',
+                color: 'white',
+                textAlign: 'left',
+            },
+            eventSmallBold: {
+                fontSize: 15,
+                fontWeight: '700',
+                color: 'white',
+                textAlign: 'left',
+            },
         })
     }
 }

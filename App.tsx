@@ -20,10 +20,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Screens components
 import Home from './screens/HomeScreen';
-import Discover from './screens/DiscoverScreen';
 import Chat from './screens/ChatScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import EditProfile from './components/profile/EditProfile';
+
+import Discover from './screens/Discover/DiscoverScreen';
+import Events from './screens/Discover/EventsScreen';
+import StudentOrg from './screens/Discover/EventsScreen';
+import Posts from './screens/Discover/PostsScreen';
 
 // const rootReducer = combineReducers({
 //   user: UserReducer,
@@ -34,8 +38,9 @@ import EditProfile from './components/profile/EditProfile';
 // // redux thunk
 // const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
+const Stack = createStackNavigator();
+
 function StackNavigationMenu() {
-  const Stack = createStackNavigator();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -71,6 +76,17 @@ function StackNavigationMenu() {
   );
 }
 
+function DiscoverStackNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Discover" component={Discover} options={{ title: 'DISCOVER' }} />
+      <Stack.Screen name="Events" component={Events} />
+      <Stack.Screen name="Student Organizations" component={StudentOrg} />
+      <Stack.Screen name="Posts" component={Posts} />
+    </Stack.Navigator>
+  )
+}
+
 export default function App() {
   const Tab = createBottomTabNavigator();
   return (
@@ -98,7 +114,7 @@ export default function App() {
           inactiveTintColor: '#B7B7B7',
         }}>
         <Tab.Screen name='Home' component={Home} />
-        <Tab.Screen name='Discover' component={Discover} />
+        <Tab.Screen name='Discover' component={DiscoverStackNavigator} />
         <Tab.Screen name='Chat' component={Chat} />
         <Tab.Screen name='Profile' component={StackNavigationMenu} />
       </Tab.Navigator>

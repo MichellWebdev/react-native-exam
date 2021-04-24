@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+
+import { EVENTS } from '../../models/dummy';
+import EventBox from '../../components/discover/EventBox';
 
 const Events = () => {
+
     return (
         <View>
-            <Text>Events</Text>
+            <FlatList
+                data={EVENTS}
+                renderItem={itemData => (
+                    <EventBox chatroom={itemData.item}></EventBox>
+                )}
+                keyExtractor={item => item.id}
+            />
         </View>
     );
 };

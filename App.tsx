@@ -28,10 +28,10 @@ import Signup from './screens/SignupScreen';
 import Login from './screens/LoginScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import EditProfile from './components/profile/EditProfile';
-import Discover from './screens/Discover/DiscoverScreen';
-import Events from './screens/Discover/EventsScreen';
-import StudentOrg from './screens/Discover/EventsScreen';
-import Posts from './screens/Discover/PostsScreen';
+import Discover from './screens/discover/DiscoverScreen';
+import Events from './screens/discover/EventsScreen';
+import StudentOrg from './screens/discover/EventsScreen';
+import Posts from './screens/discover/PostsScreen';
 
 const rootReducer = combineReducers({
   user: UserReducer,

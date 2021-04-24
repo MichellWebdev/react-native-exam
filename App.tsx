@@ -12,39 +12,40 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Icons
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-// // Redux
-// import { combineReducers, createStore, applyMiddleware } from 'redux';
-// import { useSelector } from 'react-redux';
-// import { Provider } from 'react-redux';
-// import ReduxThunk from 'redux-thunk';
+// Redux
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import { useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
+import ReduxThunk from 'redux-thunk';
 
-// // Reducers
-// import UserReducer from './redux-store/reducers/UserReducer';
+// Reducers
+import UserReducer from './redux-store/reducers/UserReducer';
 
 // Screens components
 import Home from './screens/HomeScreen';
 import Chat from './screens/ChatScreen';
+import Signup from './screens/SignupScreen';
+import Login from './screens/LoginScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import EditProfile from './components/profile/EditProfile';
+import Discover from './screens/Discover/DiscoverScreen';
+import Events from './screens/Discover/EventsScreen';
+import StudentOrg from './screens/Discover/EventsScreen';
+import Posts from './screens/Discover/PostsScreen';
 
-import Discover from './screens/discover/DiscoverScreen';
-import Events from './screens/discover/EventsScreen';
-import StudentOrg from './screens/discover/EventsScreen';
-import Posts from './screens/discover/PostsScreen';
+const rootReducer = combineReducers({
+  user: UserReducer,
+});
 
-// const rootReducer = combineReducers({
-//   user: UserReducer,
-// });
+export type RootState = ReturnType<typeof rootReducer>;
 
-// export type RootState = ReturnType<typeof rootReducer>;
-
-// // redux thunk
-// const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+// redux thunk
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 const Stack = createStackNavigator();
 
 const stackHeaderOptions = (title: string) => {
-  return ({
+  return {
     headerTitle: title,
     headerTitleAlign: 'center',
     headerTitleStyle: {
@@ -53,8 +54,8 @@ const stackHeaderOptions = (title: string) => {
       fontSize: 20,
       fontWeight: 'bold',
     },
-  })
-}
+  };
+};
 
 function StackNavigationMenu() {
   return (
@@ -93,15 +94,33 @@ function StackNavigationMenu() {
   );
 }
 
-function DiscoverStackNavigator() {
+function StackNavigatorSignup() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Discover"
-        component={Discover}
-        options={stackHeaderOptions('DISCOVER')} />
+        name='Signup'
+        component={Signup}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
-        name="Events"
+        name='Login'
+        component={Login}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function DiscoverStackNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name='Discover' component={Discover} options={stackHeaderOptions('DISCOVER')} />
+      <Stack.Screen
+        name='Events'
         component={Events}
         options={{
           headerTitle: 'EVENTS',
@@ -113,9 +132,10 @@ function DiscoverStackNavigator() {
             fontWeight: 'bold',
           },
           headerBackTitle: ' ',
-        }} />
+        }}
+      />
       <Stack.Screen
-        name="StudentOrg"
+        name='StudentOrg'
         component={StudentOrg}
         options={{
           headerTitle: 'STUDENT ORGANIZATIONS',
@@ -127,9 +147,10 @@ function DiscoverStackNavigator() {
             fontWeight: 'bold',
           },
           headerBackTitle: ' ',
-        }} />
+        }}
+      />
       <Stack.Screen
-        name="Posts"
+        name='Posts'
         component={Posts}
         options={{
           headerTitle: 'POSTS',
@@ -141,50 +162,56 @@ function DiscoverStackNavigator() {
             fontWeight: 'bold',
           },
           headerBackTitle: ' ',
-        }} />
+        }}
+      />
     </Stack.Navigator>
-  )
+  );
 }
 
 export default function App() {
   const Tab = createBottomTabNavigator();
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
+    <Provider store={store}>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
 
-            if (route.name === 'Home') {
-              iconName = focused ? 'home' : 'home-outline';
-            } else if (route.name === 'Discover') {
-              iconName = 'search-outline';
-            } else if (route.name === 'Chat') {
-              iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
-            } else if (route.name === 'Profile') {
-              iconName = focused ? 'person' : 'person-outline';
-            }
+              if (route.name === 'Home') {
+                iconName = focused ? 'home' : 'home-outline';
+              } else if (route.name === 'Discover') {
+                iconName = 'search-outline';
+              } else if (route.name === 'Chat') {
+                iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
+              } else if (route.name === 'Profile') {
+                iconName = focused ? 'person' : 'person-outline';
+              } else if (route.name === 'Signup') {
+                iconName = focused ? 'person' : 'person-outline';
+              }
 
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: '#5050A5',
-          inactiveTintColor: '#B7B7B7',
-        }}>
-        <Tab.Screen name='Home' component={Home} />
-        <Tab.Screen name='Discover' component={DiscoverStackNavigator} />
-        <Tab.Screen name='Chat' component={Chat} />
-        <Tab.Screen name='Profile' component={StackNavigationMenu} />
-      </Tab.Navigator>
-    </NavigationContainer>
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+          })}
+          tabBarOptions={{
+            activeTintColor: '#5050A5',
+            inactiveTintColor: '#B7B7B7',
+          }}>
+          <Tab.Screen name='Home' component={Home} />
+          <Tab.Screen name='Discover' component={DiscoverStackNavigator} />
+          <Tab.Screen name='Chat' component={Chat} />
+          <Tab.Screen name='Profile' component={StackNavigationMenu} />
+          <Tab.Screen name='Signup' component={StackNavigatorSignup} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },

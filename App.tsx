@@ -24,10 +24,10 @@ import Chat from './screens/ChatScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import EditProfile from './components/profile/EditProfile';
 
-import Discover from './screens/Discover/DiscoverScreen';
-import Events from './screens/Discover/EventsScreen';
-import StudentOrg from './screens/Discover/EventsScreen';
-import Posts from './screens/Discover/PostsScreen';
+import Discover from './screens/discover/DiscoverScreen';
+import Events from './screens/discover/EventsScreen';
+import StudentOrg from './screens/discover/EventsScreen';
+import Posts from './screens/discover/PostsScreen';
 
 // const rootReducer = combineReducers({
 //   user: UserReducer,
@@ -80,9 +80,9 @@ function DiscoverStackNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Discover" component={Discover} options={{ title: 'DISCOVER' }} />
-      <Stack.Screen name="Events" component={Events} />
-      <Stack.Screen name="Student Organizations" component={StudentOrg} />
-      <Stack.Screen name="Posts" component={Posts} />
+      <Stack.Screen name="Events" component={Events} options={{ title: 'EVENTS' }} />
+      <Stack.Screen name="StudentOrg" component={StudentOrg} options={{ title: 'STUDENT ORGANIZATIONS' }} />
+      <Stack.Screen name="Posts" component={Posts} options={{ title: 'POSTS' }} />
     </Stack.Navigator>
   )
 }

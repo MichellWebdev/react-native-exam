@@ -11,38 +11,43 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default class StyleSheetFactory {
     static getSheet(backgroundColor?: string, backgroundImage?: string) {
+
+        const discoverBoxWidth = 350;
+        const discoverBoxHeight = 140;
+        const discoverBoxBorderRadius = 5;
+        const discoverBoxBorderWidth = 0.5;
+
         return StyleSheet.create({
             discoverBoxContainer: {
                 flexDirection: 'column',
-                height: 120,
                 margin: 15,
-                borderRadius: 5,
-                borderWidth: 0.5,
+                borderRadius: discoverBoxBorderRadius,
+                borderWidth: discoverBoxBorderWidth,
                 borderColor: backgroundColor,
             },
             discoverBoxImage: {
                 resizeMode: 'cover',
                 justifyContent: 'center',
-                borderRadius: 5,
-                borderWidth: 0.5,
+                borderRadius: discoverBoxBorderRadius,
+                borderWidth: discoverBoxBorderWidth,
                 borderColor: backgroundColor,
             },
             discoverBoxHeaderContainer: {
-                height: 120,
-                width: 300,
+                width: discoverBoxWidth,
+                height: discoverBoxHeight,
                 backgroundColor: backgroundColor,
-                borderRadius: 5,
-                borderWidth: 0.5,
+                borderRadius: discoverBoxBorderRadius,
+                borderWidth: discoverBoxBorderWidth,
                 borderColor: backgroundColor,
             },
             discoverBoxHeader: {
-                fontSize: 17,
+                width: discoverBoxWidth,
+                height: discoverBoxHeight,
+                fontSize: 20,
                 fontWeight: '900',
                 color: 'white',
                 textAlign: 'center',
-                height: 120,
-                width: 300,
-                paddingTop: 50,
+                paddingTop: 60,
             }
         })
     }

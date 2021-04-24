@@ -16,7 +16,6 @@ const DiscoverBox = ({
 }: DiscoverBoxLabels) => {
 
     const styles = StyleSheetFactory.getSheet(boxBackgroundColor, boxBackgroundImage);
-    // const image = { uri: 'https://reactjs.org/logo-og.png' };
     const image = { uri: boxBackgroundImage };
 
     return (

@@ -9,6 +9,7 @@ import { discoverbox1, discoverbox2, discoverbox3 } from '../assets/Assets'
 // Note - Needed modification
 // (1) input field blurr out (grey out) when onBlurr
 // (2) input field no error even when empty when onBlurr
+// (3) top 'DISCOVER' font color & bold
 
 interface DiscoverLabels {
   saerchPlaceholder: string
@@ -37,17 +38,17 @@ const Discover = ({
       <View style={styles.discoverScreenContainer}>
         <DiscoverBox
           boxHeader='ALL EVENTS'
-          boxBackgroundColor='rgba(64, 0, 128, 0.6)'
+          boxBackgroundColor='rgba(64, 0, 128, 0.7)'
           boxBackgroundImage={discoverbox1}
         />
         <DiscoverBox
           boxHeader='ALL STUDENT ORGANIZATIONS'
-          boxBackgroundColor='rgba(2, 7, 93, 0.6)'
+          boxBackgroundColor='rgba(2, 7, 93, 0.7)'
           boxBackgroundImage={discoverbox2}
         />
         <DiscoverBox
           boxHeader='ALL POSTS'
-          boxBackgroundColor='rgba(0, 128, 64, 0.6)'
+          boxBackgroundColor='rgba(0, 128, 64, 0.7)'
           boxBackgroundImage={discoverbox3}
         />
       </View>

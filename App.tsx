@@ -171,38 +171,40 @@ function DiscoverStackNavigator() {
 export default function App() {
   const Tab = createBottomTabNavigator();
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
+    <Provider store={store}>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
 
-            if (route.name === 'Home') {
-              iconName = focused ? 'home' : 'home-outline';
-            } else if (route.name === 'Discover') {
-              iconName = 'search-outline';
-            } else if (route.name === 'Chat') {
-              iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
-            } else if (route.name === 'Profile') {
-              iconName = focused ? 'person' : 'person-outline';
-            } else if (route.name === 'Signup') {
-              iconName = focused ? 'person' : 'person-outline';
-            }
+              if (route.name === 'Home') {
+                iconName = focused ? 'home' : 'home-outline';
+              } else if (route.name === 'Discover') {
+                iconName = 'search-outline';
+              } else if (route.name === 'Chat') {
+                iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
+              } else if (route.name === 'Profile') {
+                iconName = focused ? 'person' : 'person-outline';
+              } else if (route.name === 'Signup') {
+                iconName = focused ? 'person' : 'person-outline';
+              }
 
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: '#5050A5',
-          inactiveTintColor: '#B7B7B7',
-        }}>
-        <Tab.Screen name='Home' component={Home} />
-        <Tab.Screen name='Discover' component={DiscoverStackNavigator} />
-        <Tab.Screen name='Chat' component={Chat} />
-        <Tab.Screen name='Profile' component={StackNavigationMenu} />
-        <Tab.Screen name='Signup' component={StackNavigatorSignup} />
-      </Tab.Navigator>
-    </NavigationContainer>
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+          })}
+          tabBarOptions={{
+            activeTintColor: '#5050A5',
+            inactiveTintColor: '#B7B7B7',
+          }}>
+          <Tab.Screen name='Home' component={Home} />
+          <Tab.Screen name='Discover' component={DiscoverStackNavigator} />
+          <Tab.Screen name='Chat' component={Chat} />
+          <Tab.Screen name='Profile' component={StackNavigationMenu} />
+          <Tab.Screen name='Signup' component={StackNavigatorSignup} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

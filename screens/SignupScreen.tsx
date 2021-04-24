@@ -3,8 +3,8 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 // Redux
-// import { useDispatch, useSelector } from 'react-redux';
-// import { signup } from './../store/actions/UserActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { signup } from '../redux-store/actions/UserActions';
 
 // Stack navigation
 import { useNavigation } from '@react-navigation/native';
@@ -37,6 +37,7 @@ const SignupScreen = ({
   loginRedirectLabel = 'Already have a user? Log in',
 }: SignupLabels) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   // email
   const [email, setEmail] = useState('');
@@ -47,6 +48,7 @@ const SignupScreen = ({
   const [passwordValid, setPasswordValid] = useState(false);
 
   const handleSignup = () => {
+    dispatch(signup(email, password));
     passwordValid && emailValid ? navigation.navigate('Login') : null;
   };
 

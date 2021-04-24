@@ -16,7 +16,8 @@ const DiscoverBox = ({
 }: DiscoverBoxLabels) => {
 
     const styles = StyleSheetFactory.getSheet(boxBackgroundColor, boxBackgroundImage);
-    const image = { uri: 'https://reactjs.org/logo-og.png' };
+    // const image = { uri: 'https://reactjs.org/logo-og.png' };
+    const image = { uri: boxBackgroundImage };
 
     return (
         <View style={styles.discoverBoxContainer}>
@@ -26,8 +27,10 @@ const DiscoverBox = ({
                     resizeMode='cover'
                     source={image}
                 >
-                    <View style={styles.discoverBoxOverlay} >
-                        <Text> {boxHeader} </Text>
+                    <View style={styles.discoverBoxHeaderContainer} >
+                        <Text
+                            style={styles.discoverBoxHeader}
+                        > {boxHeader} </Text>
                     </View>
                 </ImageBackground>
             </TouchableOpacity>

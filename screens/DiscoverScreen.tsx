@@ -4,6 +4,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import Input from '../components/common/Input';
 import DiscoverBox from '../components/discover/DiscoverBox';
 
+import { discoverbox1, discoverbox2, discoverbox3 } from '../assets/Assets'
+
 // Note - Needed modification
 // (1) input field blurr out (grey out) when onBlurr
 // (2) input field no error even when empty when onBlurr
@@ -32,21 +34,23 @@ const Discover = ({
         onValid={valid => setSearchValid(valid)}
         setContent={content => setSearch(content)}
       />
-      <DiscoverBox
-        boxHeader='ALL EVENTS'
-        boxBackgroundColor='purple'
-        boxBackgroundImage='discoverbox1.jpg'
-      />
-      <DiscoverBox
-        boxHeader='ALL EVENTS'
-        boxBackgroundColor='purple'
-        boxBackgroundImage='discoverbox1.jpg'
-      />
-      <DiscoverBox
-        boxHeader='ALL EVENTS'
-        boxBackgroundColor='purple'
-        boxBackgroundImage='discoverbox1.jpg'
-      />
+      <View style={styles.discoverScreenContainer}>
+        <DiscoverBox
+          boxHeader='ALL EVENTS'
+          boxBackgroundColor='rgba(64, 0, 128, 0.6)'
+          boxBackgroundImage={discoverbox1}
+        />
+        <DiscoverBox
+          boxHeader='ALL STUDENT ORGANIZATIONS'
+          boxBackgroundColor='rgba(2, 7, 93, 0.6)'
+          boxBackgroundImage={discoverbox2}
+        />
+        <DiscoverBox
+          boxHeader='ALL POSTS'
+          boxBackgroundColor='rgba(0, 128, 64, 0.6)'
+          boxBackgroundImage={discoverbox3}
+        />
+      </View>
     </View>
   );
 };
@@ -57,7 +61,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     marginTop: 50,
-    width: '100%',
   },
 });
 

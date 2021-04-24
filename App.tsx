@@ -1,3 +1,6 @@
+// Need to improve:
+// (1) stackHeaderOptions() causing error (but still works)
+
 import 'react-native-gesture-handler';
 import React from 'react';
 import { StyleSheet } from 'react-native';
@@ -40,6 +43,19 @@ import Posts from './screens/discover/PostsScreen';
 
 const Stack = createStackNavigator();
 
+const stackHeaderOptions = (title: string) => {
+  return ({
+    headerTitle: title,
+    headerTitleAlign: 'center',
+    headerTitleStyle: {
+      color: '#5050A5',
+      textTransform: 'uppercase',
+      fontSize: 20,
+      fontWeight: 'bold',
+    },
+  })
+}
+
 function StackNavigationMenu() {
   return (
     <Stack.Navigator>
@@ -55,6 +71,7 @@ function StackNavigationMenu() {
             fontSize: 24,
             fontWeight: 'bold',
           },
+          headerBackTitle: 'Profile',
         }}
       />
       <Stack.Screen
@@ -79,10 +96,52 @@ function StackNavigationMenu() {
 function DiscoverStackNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Discover" component={Discover} options={{ title: 'DISCOVER' }} />
-      <Stack.Screen name="Events" component={Events} options={{ title: 'EVENTS' }} />
-      <Stack.Screen name="StudentOrg" component={StudentOrg} options={{ title: 'STUDENT ORGANIZATIONS' }} />
-      <Stack.Screen name="Posts" component={Posts} options={{ title: 'POSTS' }} />
+      <Stack.Screen
+        name="Discover"
+        component={Discover}
+        options={stackHeaderOptions('DISCOVER')} />
+      <Stack.Screen
+        name="Events"
+        component={Events}
+        options={{
+          headerTitle: 'EVENTS',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#5050A5',
+            textTransform: 'uppercase',
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
+          headerBackTitle: ' ',
+        }} />
+      <Stack.Screen
+        name="StudentOrg"
+        component={StudentOrg}
+        options={{
+          headerTitle: 'STUDENT ORGANIZATIONS',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#5050A5',
+            textTransform: 'uppercase',
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
+          headerBackTitle: ' ',
+        }} />
+      <Stack.Screen
+        name="Posts"
+        component={Posts}
+        options={{
+          headerTitle: 'POSTS',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#5050A5',
+            textTransform: 'uppercase',
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
+          headerBackTitle: ' ',
+        }} />
     </Stack.Navigator>
   )
 }

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import Input from '../components/common/Input';
+import DiscoverBox from '../components/discover/DiscoverBox';
 
 // Note - Needed modification
 // (1) input field blurr out (grey out) when onBlurr
@@ -21,7 +22,7 @@ const Discover = ({
   const [searchValid, setSearchValid] = useState(false);
 
   return (
-    <View style={styles.discoverContainer}>
+    <View style={styles.discoverScreenContainer}>
       <Text>Discover</Text>
       <Input
         label=''
@@ -31,15 +32,32 @@ const Discover = ({
         onValid={valid => setSearchValid(valid)}
         setContent={content => setSearch(content)}
       />
+      <DiscoverBox
+        boxHeader='ALL EVENTS'
+        boxBackgroundColor='purple'
+        boxBackgroundImage='discoverbox1.jpg'
+      />
+      <DiscoverBox
+        boxHeader='ALL EVENTS'
+        boxBackgroundColor='purple'
+        boxBackgroundImage='discoverbox1.jpg'
+      />
+      <DiscoverBox
+        boxHeader='ALL EVENTS'
+        boxBackgroundColor='purple'
+        boxBackgroundImage='discoverbox1.jpg'
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  discoverContainer: {
+  discoverScreenContainer: {
     flex: 1,
+    flexDirection: 'column',
     alignItems: 'center',
     marginTop: 50,
+    width: '100%',
   },
 });
 

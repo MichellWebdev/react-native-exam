@@ -1,20 +1,38 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import CSS from 'csstype';
+import StyleSheetFactory from '../common/StyleSheetFactory';
 
 interface DiscoverBoxLabels {
+    boxHeader: string;
+    boxBackgroundColor: string;
+    boxBackgroundImage: string;
 }
 
 const DiscoverBox = ({
+    boxHeader,
+    boxBackgroundColor,
+    boxBackgroundImage,
 }: DiscoverBoxLabels) => {
 
+    const styles = StyleSheetFactory.getSheet(boxBackgroundColor, boxBackgroundImage);
+    const image = { uri: 'https://reactjs.org/logo-og.png' };
+
     return (
-        <View>
+        <View style={styles.discoverBoxContainer}>
+            <TouchableOpacity>
+                <ImageBackground
+                    style={styles.discoverBoxImage}
+                    resizeMode='cover'
+                    source={image}
+                >
+                    <View style={styles.discoverBoxOverlay} >
+                        <Text> {boxHeader} </Text>
+                    </View>
+                </ImageBackground>
+            </TouchableOpacity>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-
-});
 
 export default DiscoverBox;

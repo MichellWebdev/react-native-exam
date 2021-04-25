@@ -30,7 +30,8 @@ import ProfileScreen from './screens/ProfileScreen';
 import EditProfile from './components/profile/EditProfile';
 import Discover from './screens/discover/DiscoverScreen';
 import Events from './screens/discover/EventsScreen';
-import StudentOrg from './screens/discover/EventsScreen';
+import EventsDetail from './screens/discover/EventsDetailScreen';
+import StudentOrg from './screens/discover/StudentOrgScreen';
 import Posts from './screens/discover/PostsScreen';
 
 const rootReducer = combineReducers({
@@ -120,6 +121,53 @@ function DiscoverStackNavigator() {
     <Stack.Navigator>
       <Stack.Screen name='Discover' component={Discover} options={stackHeaderOptions('DISCOVER')} />
       <Stack.Screen
+        name='DiscoverEvents'
+        component={DiscoverEventsStackNavigator}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name='DiscoverStudentOrg'
+        component={StudentOrg}
+        options={{
+          headerTitle: 'STUDENT ORGANIZATIONS',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#5050A5',
+            textTransform: 'uppercase',
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
+          headerBackTitle: ' ',
+        }}
+      />
+      <Stack.Screen
+        name='DiscoverPosts'
+        component={Posts}
+        options={{
+          headerTitle: 'POSTS',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#5050A5',
+            textTransform: 'uppercase',
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
+          headerBackTitle: ' ',
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function DiscoverEventsStackNavigator() {
+
+  // const { title } = props.route.params;
+
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
         name='Events'
         component={Events}
         options={{
@@ -135,10 +183,11 @@ function DiscoverStackNavigator() {
         }}
       />
       <Stack.Screen
-        name='StudentOrg'
-        component={StudentOrg}
-        options={{
-          headerTitle: 'STUDENT ORGANIZATIONS',
+        name='EventsDetail'
+        component={EventsDetail}
+        // https://reactnavigation.org/docs/headers/
+        options={({ route }) => ({
+          headerTitle: route.params.title,
           headerTitleAlign: 'center',
           headerTitleStyle: {
             color: '#5050A5',
@@ -147,22 +196,7 @@ function DiscoverStackNavigator() {
             fontWeight: 'bold',
           },
           headerBackTitle: ' ',
-        }}
-      />
-      <Stack.Screen
-        name='Posts'
-        component={Posts}
-        options={{
-          headerTitle: 'POSTS',
-          headerTitleAlign: 'center',
-          headerTitleStyle: {
-            color: '#5050A5',
-            textTransform: 'uppercase',
-            fontSize: 20,
-            fontWeight: 'bold',
-          },
-          headerBackTitle: ' ',
-        }}
+        })}
       />
     </Stack.Navigator>
   );

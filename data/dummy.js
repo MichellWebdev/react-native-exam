@@ -27,6 +27,6 @@ export const EVENTS = [
 ];
 
 export const STUDORGS = [
-    new DiscoverStudOrg('1', 'DANSIC - Danish Social Innovation Club', studOrg1, 'Here at DANSIC, we know that sometimes all it takes to change the world is a little support. Since our founding in 2011, we have been determined to make an impact.', 'abc@abc.com', [USERS[0]]),
-    new DiscoverStudOrg('2', 'CBS Jam', studOrg2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'test@test.com', [USERS[0], USERS[3]])
+    new DiscoverStudOrg('1', 'DANSIC - Danish Social Innovation Club', event1, studOrg1, 'Here at DANSIC, we know that sometimes all it takes to change the world is a little support. Since our founding in 2011, we have been determined to make an impact.', 'abc@abc.com', [USERS[0]]),
+    new DiscoverStudOrg('2', 'CBS Jam', event2, studOrg2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'test@test.com', [USERS[0], USERS[3]])
 ]

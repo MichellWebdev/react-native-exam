@@ -1,5 +1,6 @@
 // Need to improve:
 // (1) stackHeaderOptions() causing error (but still works)
+// (2) minor red lines (Stack options, route.params.title)
 
 import 'react-native-gesture-handler';
 import React from 'react';
@@ -32,6 +33,7 @@ import Discover from './screens/discover/DiscoverScreen';
 import Events from './screens/discover/EventsScreen';
 import EventsDetail from './screens/discover/EventsDetailScreen';
 import StudentOrg from './screens/discover/StudentOrgScreen';
+import StudentOrgDetail from './screens/discover/StudentOrgDetailScreen';
 import Posts from './screens/discover/PostsScreen';
 
 const rootReducer = combineReducers({
@@ -129,17 +131,9 @@ function DiscoverStackNavigator() {
       />
       <Stack.Screen
         name='DiscoverStudentOrg'
-        component={StudentOrg}
+        component={DiscoverStudentOrgStackNavigator}
         options={{
-          headerTitle: 'STUDENT ORGANIZATIONS',
-          headerTitleAlign: 'center',
-          headerTitleStyle: {
-            color: '#5050A5',
-            textTransform: 'uppercase',
-            fontSize: 20,
-            fontWeight: 'bold',
-          },
-          headerBackTitle: ' ',
+          headerShown: false,
         }}
       />
       <Stack.Screen
@@ -185,6 +179,45 @@ function DiscoverEventsStackNavigator() {
       <Stack.Screen
         name='EventsDetail'
         component={EventsDetail}
+        // https://reactnavigation.org/docs/headers/
+        options={({ route }) => ({
+          headerTitle: route.params.title,
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#5050A5',
+            textTransform: 'uppercase',
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
+          headerBackTitle: ' ',
+        })}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function DiscoverStudentOrgStackNavigator() {
+
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name='StudentOrg'
+        component={StudentOrg}
+        options={{
+          headerTitle: 'STUDENT ORGANIZATIONS',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#5050A5',
+            textTransform: 'uppercase',
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
+          headerBackTitle: ' ',
+        }}
+      />
+      <Stack.Screen
+        name='StudentOrgsDetail'
+        component={StudentOrgDetail}
         // https://reactnavigation.org/docs/headers/
         options={({ route }) => ({
           headerTitle: route.params.title,

@@ -4,3 +4,6 @@ export const discoverbox3 = 'https://im-media.voltron.voanews.com/Drupal/01live-
 
 export const event1 = 'https://www.verywellfit.com/thmb/7DvKjHJjhpF84LtcS0-c61IpCtE=/3865x2174/smart/filters:no_upscale()/yoga-class-stretching-640630209-57f3b8263df78c690f28580c.jpg'
 export const event2 = 'https://media.kare11.com/assets/KARE/images/9373dfd2-feac-4f7d-b602-b37c2c45927e/9373dfd2-feac-4f7d-b602-b37c2c45927e_1920x1080.jpg'
+
+export const studOrg1 = 'https://is4-ssl.mzstatic.com/image/thumb/Purple124/v4/c1/ae/3d/c1ae3d6d-8629-acd0-6ec6-8fd4e4a1b9b8/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/1200x630wa.png'
+export const studOrg2 = 'https://cdn.logo.com/hotlink-ok/logo-social.png'

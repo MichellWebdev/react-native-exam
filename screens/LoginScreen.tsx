@@ -3,8 +3,8 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 // Redux
-// import { useDispatch, useSelector } from 'react-redux';
-// import { signup } from './../store/actions/UserActions';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux-store/actions/UserActions';
 
 // Stack navigation
 import { useNavigation } from '@react-navigation/native';
@@ -39,6 +39,7 @@ const LoginScreen = ({
   signupRedirectLabel = "Don't have an account? Sign up",
 }: LoginLabels) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   // email
   const [email, setEmail] = useState('');
@@ -48,21 +49,24 @@ const LoginScreen = ({
   const [password, setPassword] = useState('');
   const [passwordValid, setPasswordValid] = useState(false);
 
-  const handleSignup = () => {
-    passwordValid && emailValid ? navigation.navigate('Login') : null;
+  const handleLogin = () => {
+    console.log('logging ing...');
+    dispatch(login(email, password));
+    // passwordValid && emailValid ? navigation.navigate('Home') : null;
   };
 
   return (
-    <View style={styles.signupContainer}>
+    <View style={styles.loginContainer}>
       <View>
-        <Image style={styles.signupImage} source={require('../assets/images/cbsStudentsLogo.png')} />
+        <Image style={styles.loginImage} source={require('../assets/images/cbsStudentsLogo.png')} />
       </View>
-      <Text style={styles.signupHeader}>{loginLabel}</Text>
+      <Text style={styles.loginHeader}>{loginLabel}</Text>
       <Input
         label={emailLabel}
         inputValid={emailValid}
         placeholder={emailPlaceholder}
         errorMessage={errorMessageEmail}
+        autoCapitalize={'none'}
         onValid={valid => setEmailValid(valid)}
         setContent={content => setEmail(content)}
       />
@@ -76,7 +80,7 @@ const LoginScreen = ({
         setContent={content => setPassword(content)}
       />
       <Text style={styles.forgotPassword}>{forgotPassword}</Text>
-      <Button buttonText={buttonText} onPress={handleSignup} />
+      <Button buttonText={buttonText} onPress={handleLogin} />
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('Signup');
@@ -88,16 +92,16 @@ const LoginScreen = ({
 };
 
 const styles = StyleSheet.create({
-  signupContainer: {
+  loginContainer: {
     backgroundColor: 'white',
     height: '100%',
   },
-  signupImage: {
+  loginImage: {
     alignSelf: 'center',
     marginTop: 70,
     marginBottom: 30,
   },
-  signupHeader: {
+  loginHeader: {
     marginBottom: 20,
     marginTop: 30,
     fontSize: 24,

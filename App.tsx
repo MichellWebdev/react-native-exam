@@ -36,16 +36,19 @@ import StudentOrg from './screens/discover/StudentOrgScreen';
 import StudentOrgDetail from './screens/discover/StudentOrgDetailScreen';
 import Posts from './screens/discover/PostsScreen';
 
+// Redux store
 const rootReducer = combineReducers({
   user: UserReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-// redux thunk
+// Redux thunk
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
+// Navigation
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const stackHeaderOptions = (title: string) => {
   return {
@@ -97,27 +100,6 @@ function StackNavigationMenu() {
   );
 }
 
-function StackNavigatorSignup() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name='Signup'
-        component={Signup}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name='Login'
-        component={Login}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-
 function DiscoverStackNavigator() {
   return (
     <Stack.Navigator>
@@ -156,7 +138,6 @@ function DiscoverStackNavigator() {
 }
 
 function DiscoverEventsStackNavigator() {
-
   // const { title } = props.route.params;
 
   return (
@@ -197,7 +178,6 @@ function DiscoverEventsStackNavigator() {
 }
 
 function DiscoverStudentOrgStackNavigator() {
-
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -235,11 +215,13 @@ function DiscoverStudentOrgStackNavigator() {
   );
 }
 
-export default function App() {
-  const Tab = createBottomTabNavigator();
+const MainNavigationAccess = () => {
+  // loggedInUser is giving an error but it still works
+  const isSignedIn = useSelector((state: RootState) => state.user.loggedInUser);
+
   return (
-    <Provider store={store}>
-      <NavigationContainer>
+    <NavigationContainer>
+      {isSignedIn ? (
         <Tab.Navigator
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
@@ -252,8 +234,6 @@ export default function App() {
               } else if (route.name === 'Chat') {
                 iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
               } else if (route.name === 'Profile') {
-                iconName = focused ? 'person' : 'person-outline';
-              } else if (route.name === 'Signup') {
                 iconName = focused ? 'person' : 'person-outline';
               }
 
@@ -268,9 +248,33 @@ export default function App() {
           <Tab.Screen name='Discover' component={DiscoverStackNavigator} />
           <Tab.Screen name='Chat' component={Chat} />
           <Tab.Screen name='Profile' component={StackNavigationMenu} />
-          <Tab.Screen name='Signup' component={StackNavigatorSignup} />
         </Tab.Navigator>
-      </NavigationContainer>
+      ) : (
+        <Stack.Navigator>
+          <Stack.Screen
+            name='Signup'
+            component={Signup}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name='Login'
+            component={Login}
+            options={{
+              headerShown: false,
+            }}
+          />
+        </Stack.Navigator>
+      )}
+    </NavigationContainer>
+  );
+};
+
+export default function App() {
+  return (
+    <Provider store={store}>
+      <MainNavigationAccess />
     </Provider>
   );
 }

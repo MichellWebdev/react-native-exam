@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 const StudentOrg = () => {
     return (
         <View>
-            <Text>Student Organizations</Text>
+            <Text>Hi</Text>
         </View>
     );
 };

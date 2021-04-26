@@ -56,8 +56,8 @@ export default class StyleSheetFactory {
             // Discover -> Event Page
             eventBoxContainer: {
                 flexDirection: 'column',
-                marginTop: 15,
-                marginBottom: 15,
+                // marginTop: 15,
+                marginBottom: 30,
                 borderRadius: discoverBoxBorderRadius,
                 borderWidth: discoverBoxBorderWidth,
                 borderColor: backgroundColor,

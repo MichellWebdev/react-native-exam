@@ -27,7 +27,7 @@ const EventBox = ({
     return (
         <View style={styles.eventBoxContainer}>
             <TouchableOpacity
-                onPress={() => navigation.navigate("EventsDetail", { title: event.eventName })}
+                onPress={() => navigation.navigate("EventsDetail", { title: event.eventName, event: event })}
             >
                 <ImageBackground
                     style={styles.eventBoxImage}

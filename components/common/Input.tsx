@@ -1,18 +1,36 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 
+// enum AutoCapitalizeType {
+//   none = 'none',
+//   sentences = 'sentences',
+//   words = 'words',
+//   characters = 'characters',
+// }
+
 interface InputProps {
   label: string;
   value?: string;
   placeholder?: string;
   password?: boolean;
+  autoCapitalize?: any;
   inputValid: boolean;
   errorMessage: string;
   setContent: (arg: string) => void;
   onValid: (arg: boolean) => void;
 }
 
-const Input = ({ label, value, placeholder, password, inputValid, errorMessage, setContent, onValid }: InputProps) => {
+const Input = ({
+  label,
+  value,
+  placeholder,
+  password,
+  autoCapitalize,
+  inputValid,
+  errorMessage,
+  setContent,
+  onValid,
+}: InputProps) => {
   const [touched, setTouched] = useState(false);
 
   const handleInput = (newInputText: string) => {
@@ -25,6 +43,7 @@ const Input = ({ label, value, placeholder, password, inputValid, errorMessage, 
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <TextInput
+        autoCapitalize={autoCapitalize}
         value={value}
         placeholder={placeholder}
         secureTextEntry={password}

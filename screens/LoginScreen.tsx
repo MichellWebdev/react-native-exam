@@ -66,6 +66,7 @@ const LoginScreen = ({
         inputValid={emailValid}
         placeholder={emailPlaceholder}
         errorMessage={errorMessageEmail}
+        autoCapitalize={'none'}
         onValid={valid => setEmailValid(valid)}
         setContent={content => setEmail(content)}
       />

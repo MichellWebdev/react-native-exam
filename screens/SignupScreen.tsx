@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { signup } from '../redux-store/actions/UserActions';
 
 // Stack navigation
@@ -63,6 +63,7 @@ const SignupScreen = ({
         inputValid={emailValid}
         placeholder={emailPlaceholder}
         errorMessage={errorMessageEmail}
+        autoCapitalize={'none'}
         onValid={valid => setEmailValid(valid)}
         setContent={content => setEmail(content)}
       />

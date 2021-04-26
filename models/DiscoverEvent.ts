@@ -11,7 +11,7 @@ class DiscoverEvent {
         public endDate: Date,
         public location: string,
         public description: string,
-        public schedule: Schedule[],
+        public schedules: Schedule[],
         public interested: User[],
         public going: User[]
     ) { }

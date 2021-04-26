@@ -1,5 +1,6 @@
 import DiscoverEvent from '../models/DiscoverEvent'
 import User from '../models/User'
+import Schedule from '../models/Schedule'
 import { event1, event2 } from '../assets/Assets'
 
 export const USERS = [
@@ -9,7 +10,17 @@ export const USERS = [
     new User('4', 'User 4', 'abc@email.com', '', 'BA in Architecture', true),
 ]
 
+export const SCHEDULES = [
+    new Schedule('1', '2021.04.12 13:00', 'Welcome and snacks'),
+    new Schedule('2', '2021.04.12 14:00', 'Presentation'),
+    new Schedule('3', '2021.04.12 15:00', 'Party and drinks'),
+    new Schedule('4', '2021.04.12 17:00', 'Goodbye'),
+    new Schedule('5', '2021.04.13 13:00', 'Welcome'),
+    new Schedule('6', '2021.04.13 14:00', 'Speach'),
+    new Schedule('7', '2021.04.13 16:00', 'Goodbye')
+]
+
 export const EVENTS = [
-    new DiscoverEvent('1', 'Event 1', 'Group 1', event1, '2021.04.12 13:00', '2021.04.14 11:30', 'Copenhagen', 'This is a sample event 1 from group 1.', [], [USERS[0], USERS[1]], [USERS[0]]),
-    new DiscoverEvent('2', 'Event 2', 'Group 2', event2, '2021.04.12 13:00', '2021.04.14 11:30', 'Korea', 'Event 2 from group 2.', [], [USERS[0], USERS[1], USERS[2]], [USERS[1], USERS[2]])
+    new DiscoverEvent('1', 'Event 1', 'Group 1', event1, '2021.04.12 13:00', '2021.04.12 17:00', 'Copenhagen', 'This is a sample event 1 from group 1.', [SCHEDULES[0], SCHEDULES[1], SCHEDULES[2], SCHEDULES[3]], [USERS[0], USERS[1]], [USERS[0]]),
+    new DiscoverEvent('2', 'Event 2', 'Group 2', event2, '2021.04.13 13:00', '2021.04.14 11:30', 'Korea', 'Event 2 from group 2.', [SCHEDULES[4], SCHEDULES[5], SCHEDULES[6]], [USERS[0], USERS[1], USERS[2]], [USERS[1], USERS[2]])
 ];

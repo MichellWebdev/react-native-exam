@@ -1,10 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import Button from '../common/Button';
+// Redux
+import { useSelector, useDispatch } from 'react-redux';
 
 // Stack navigation
 import { useNavigation } from '@react-navigation/native';
+
+// Custom components
+import Button from '../common/Button';
 
 interface ProfileLabels {
   buttonText: string;
@@ -12,6 +16,7 @@ interface ProfileLabels {
 
 const Profile = ({ buttonText = 'Edit profile' }: ProfileLabels) => {
   const navigation = useNavigation();
+  const loggedInUser = useSelector((state: any) => state.user.loggedInUser || {});
 
   const handleRedirect = () => {
     navigation.navigate('EditProfile');
@@ -21,6 +26,8 @@ const Profile = ({ buttonText = 'Edit profile' }: ProfileLabels) => {
     <View>
       <View style={styles.profileContainer}>
         <Text style={styles.profileInfo}>Profile</Text>
+        <Text>{loggedInUser.name}</Text>
+        <Text>{loggedInUser.studyProgramme}</Text>
       </View>
       <Button buttonText={buttonText} onPress={handleRedirect} />
     </View>

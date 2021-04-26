@@ -49,7 +49,7 @@ const SignupScreen = ({
 
   const handleSignup = () => {
     dispatch(signup(email, password));
-    passwordValid && emailValid ? navigation.navigate('Login') : null;
+    passwordValid && emailValid ? navigation.navigate('CompleteSignup') : null;
   };
 
   return (

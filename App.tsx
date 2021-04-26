@@ -27,6 +27,7 @@ import Home from './screens/HomeScreen';
 import Chat from './screens/ChatScreen';
 import Signup from './screens/SignupScreen';
 import Login from './screens/LoginScreen';
+import CompleteSignup from './screens/CompleteSignup';
 import ProfileScreen from './screens/ProfileScreen';
 import EditProfile from './components/profile/EditProfile';
 import Discover from './screens/discover/DiscoverScreen';
@@ -254,6 +255,13 @@ const MainNavigationAccess = () => {
           <Stack.Screen
             name='Signup'
             component={Signup}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name='CompleteSignup'
+            component={CompleteSignup}
             options={{
               headerShown: false,
             }}

@@ -9,7 +9,7 @@ import { login } from '../redux-store/actions/UserActions';
 // Stack navigation
 import { useNavigation } from '@react-navigation/native';
 
-// common components
+// Common components
 import Input from './../components/common/Input';
 import Button from '../components/common/Button';
 
@@ -50,7 +50,6 @@ const LoginScreen = ({
   const [passwordValid, setPasswordValid] = useState(false);
 
   const handleLogin = () => {
-    console.log('logging ing...');
     dispatch(login(email, password));
     // passwordValid && emailValid ? navigation.navigate('Home') : null;
   };

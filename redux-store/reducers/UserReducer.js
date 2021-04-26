@@ -15,7 +15,7 @@ const UserReducer = (state = initialState, action) => {
     case SAVE_USER: {
       return {
         ...state,
-        // loggedInUser: action.payload,
+        loggedInUser: action.payload,
       };
     }
 

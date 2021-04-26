@@ -27,10 +27,10 @@ interface SignupLabels {
 
 const SignupScreen = ({
   signupLabel = 'Sign up to get access',
-  emailLabel = 'Email',
+  emailLabel = 'Email*',
   emailPlaceholder = 'email@student.cbs.dk',
   errorMessageEmail = 'Please fill out Email',
-  passwordLabel = 'Password',
+  passwordLabel = 'Password*',
   passwordPlaceholder = '******',
   passwordErrorMessage = 'Please fill out password',
   buttonText = 'Sign up',

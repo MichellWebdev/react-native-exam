@@ -39,19 +39,19 @@ const Discover = ({
           boxHeader='ALL EVENTS'
           boxBackgroundColor='rgba(64, 0, 128, 0.7)'
           boxBackgroundImage={discoverbox1}
-          tabNavigationName='Events'
+          tabNavigationName='DiscoverEvents'
         />
         <DiscoverBox
           boxHeader='ALL STUDENT ORGANIZATIONS'
           boxBackgroundColor='rgba(2, 7, 93, 0.7)'
           boxBackgroundImage={discoverbox2}
-          tabNavigationName='StudentOrg'
+          tabNavigationName='DiscoverStudentOrg'
         />
         <DiscoverBox
           boxHeader='ALL POSTS'
           boxBackgroundColor='rgba(0, 128, 64, 0.7)'
           boxBackgroundImage={discoverbox3}
-          tabNavigationName='Posts'
+          tabNavigationName='DiscoverPosts'
         />
       </View>
     </View>

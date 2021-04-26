@@ -1,10 +1,11 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { ImageBackground, Text, StyleSheet, TouchableOpacity, View } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import StyleSheetFactory from '../common/StyleSheetFactory';
 import DiscoverEvent from '../../models/DiscoverEvent'
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 interface EventBoxLabels {
     boxBackgroundColor: string;
@@ -18,12 +19,15 @@ const EventBox = ({
     event,
 }: EventBoxLabels) => {
 
+    const navigation = useNavigation();
+
     const styles = StyleSheetFactory.getSheet(boxBackgroundColor, boxBackgroundImage);
     const image = { uri: boxBackgroundImage };
 
     return (
         <View style={styles.eventBoxContainer}>
             <TouchableOpacity
+                onPress={() => navigation.navigate("EventsDetail", { title: event.eventName, event: event })}
             >
                 <ImageBackground
                     style={styles.eventBoxImage}

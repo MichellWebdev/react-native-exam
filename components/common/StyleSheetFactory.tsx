@@ -1,7 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import Events from '../../screens/discover/EventsScreen';
+import { StyleSheet } from 'react-native';
 
 // Reference: https://stackoverflow.com/questions/42707327/passing-props-into-external-stylesheet-in-react-native
 // Reference: https://stackoverflow.com/questions/49144649/flexbox-height-in-react-native
@@ -58,8 +56,8 @@ export default class StyleSheetFactory {
             // Discover -> Event Page
             eventBoxContainer: {
                 flexDirection: 'column',
-                marginTop: 15,
-                marginBottom: 15,
+                // marginTop: 15,
+                marginBottom: 30,
                 borderRadius: discoverBoxBorderRadius,
                 borderWidth: discoverBoxBorderWidth,
                 borderColor: backgroundColor,

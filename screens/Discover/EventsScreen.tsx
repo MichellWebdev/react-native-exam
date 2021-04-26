@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 
 import { EVENTS } from '../../data/dummy';
 import EventBox from '../../components/discover/EventBox';
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
+        marginTop: -15,
     }
 });
 

@@ -52,8 +52,4 @@ const EventBox = ({
     );
 };
 
-const styles = StyleSheet.create({
-
-});
-
 export default EventBox;

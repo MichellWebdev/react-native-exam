@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { FlatList, ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+// Need to improve:
+// FlatList gives warning - using SafeAreaView on EventsScreen.tsx worked
+// but here it is not working because there are more than one box
 
 const EventsDetail = (props: any) => {
 

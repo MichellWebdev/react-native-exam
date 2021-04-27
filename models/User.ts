@@ -4,7 +4,7 @@ class User {
     public name: string,
     public email: string,
     public image: string,
-    public title: string,
+    public studyProgramme: string,
     public chatNotification: boolean
   ) {}
 }

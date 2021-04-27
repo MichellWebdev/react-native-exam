@@ -14,14 +14,16 @@ import Input from '../common/Input';
 import Button from '../common/Button';
 
 interface EditProfileLabels {
-  label: string;
+  userNameLabel: string;
+  studyProgrammeLabel: string;
   errorMessage: string;
   buttonText: string;
 }
 
 const EditProfile = ({
-  label = 'User name',
-  errorMessage = 'Please write your name',
+  userNameLabel = 'User name',
+  studyProgrammeLabel = 'Study programme',
+  errorMessage = 'Please fill out field',
   buttonText = 'Save',
 }: EditProfileLabels) => {
   const navigation = useNavigation();
@@ -53,7 +55,7 @@ const EditProfile = ({
   return (
     <View style={styles.editProfileContainer}>
       <Input
-        label={label}
+        label={userNameLabel}
         value={changeName}
         inputValid={nameValid}
         errorMessage={errorMessage}
@@ -61,7 +63,7 @@ const EditProfile = ({
         setContent={(content: any) => setChangeName(content)}
       />
       <Input
-        label={label}
+        label={studyProgrammeLabel}
         value={studyProgramme}
         inputValid={studyProgrammeValid}
         errorMessage={errorMessage}

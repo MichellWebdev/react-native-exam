@@ -5,9 +5,16 @@ import React from 'react';
 import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { CHATMESSAGES } from '../../data/dummy'
 
 const ChatRoom = props => {
     const navigation = useNavigation();
+
+    // CHATMESSAGES.forEach(message => {
+    //     if (message.chatroomId == props.chatRoom.id) {
+
+    //     }
+    // })
 
     // const lastPos = props.chatroom.chatMessages.length - 1;
     // let lastMessageText = '';
@@ -30,7 +37,7 @@ const ChatRoom = props => {
                         source={require('../../assets/images/chatroom.png')} />
                 </View>
                 <View style={styles.textView}>
-                    <Text style={styles.text}>{props.chatroom.name}</Text>
+                    <Text style={styles.text}>{props.chatRoom.name}</Text>
                     {/* <Text ellipsizeMode='tail' numberOfLines={1} >{lastMessageText}</Text> */}
                 </View>
                 <View style={styles.dotView}>

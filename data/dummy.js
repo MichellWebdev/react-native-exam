@@ -35,11 +35,13 @@ export const STUDORGS = [
 
 export const CHATROOMS = [
     new ChatRoom('1', 'CBS Surf', [USERS[0], USERS[1]], chatroom1, '2021.04.12'),
-    new ChatRoom('2', 'Book Readers', [USERS[0], USERS[2]], chatroom2, '2021.04.13')
+    new ChatRoom('2', 'Book Readers', [USERS[1], USERS[2]], chatroom2, '2021.04.13'),
+    new ChatRoom('3', 'Study Group', [USERS[0], USERS[2]], chatroom2, '2021.04.20')
 ]
 
 export const CHATMESSAGES = [
     new ChatMessage('1', '1', USERS[0], 'Hi!', '2021.04.20 13:04'),
     new ChatMessage('2', '1', USERS[1], 'Hello! How are you?', '2021.04.20 13:11'),
-    new ChatMessage('3', '2', USERS[2], 'Hello, this is User 3', '2021.04.13 15:01')
+    new ChatMessage('3', '2', USERS[2], 'Hello, this is User 3', '2021.04.13 15:01'),
+    new ChatMessage('4', '3', USERS[2], 'Are you studying?', '2021.05.01 10:02')
 ]

@@ -5,13 +5,24 @@ import { CHATROOMS } from '../data/dummy';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Chat = props => {
+
+  const myChatrooms = []
+
+  CHATROOMS.forEach(chatroom => {
+    chatroom.participants.forEach(user => {
+      if (user.id == '1') {
+        myChatrooms.push(chatroom)
+      }
+    })
+  })
+
   return (
     <View style={styles.container}>
 
       <FlatList
-        data={CHATROOMS}
+        data={myChatrooms}
         renderItem={itemData => (
-          <ChatRoom chatroom={itemData.item}></ChatRoom>
+          <ChatRoom chatRoom={itemData.item}></ChatRoom>
         )}
         keyExtractor={item => item.id}
       />

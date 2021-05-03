@@ -3,6 +3,7 @@ import DiscoverStudOrg from '../models/DiscoverStudOrg'
 import User from '../models/User'
 import Schedule from '../models/Schedule'
 import ChatRoom from '../models/ChatRoom'
+import ChatMessage from '../models/ChatMessage'
 import { event1, event2, studOrg1, studOrg2, chatroom1, chatroom2 } from '../assets/Assets'
 
 export const USERS = [
@@ -32,7 +33,13 @@ export const STUDORGS = [
     new DiscoverStudOrg('2', 'CBS Jam', event2, studOrg2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'test@test.com', [USERS[0], USERS[3]])
 ]
 
-export const CHATS = [
+export const CHATROOMS = [
     new ChatRoom('1', 'CBS Surf', [USERS[0], USERS[1]], chatroom1, '2021.04.12'),
     new ChatRoom('2', 'Book Readers', [USERS[0], USERS[2]], chatroom2, '2021.04.13')
+]
+
+export const CHATMESSAGES = [
+    new ChatMessage('1', '1', USERS[0], 'Hi!', '2021.04.20 13:04'),
+    new ChatMessage('2', '1', USERS[1], 'Hello! How are you?', '2021.04.20 13:11'),
+    new ChatMessage('3', '2', USERS[2], 'Hello, this is User 3', '2021.04.13 15:01')
 ]

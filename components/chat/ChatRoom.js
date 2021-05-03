@@ -1,3 +1,6 @@
+// Need to improve:
+// (1) require using variable, not string
+
 import React from 'react';
 import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -6,16 +9,16 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 const ChatRoom = props => {
     const navigation = useNavigation();
 
-    const lastPos = props.chatroom.chatMessages.length - 1;
-    let lastMessageText = '';
-    let displayTime = '';
-    if (lastPos > -1) {
-        lastMessageText = props.chatroom.chatMessages[props.chatroom.chatMessages.length - 1].message;
-        const lastTime = props.chatroom.chatMessages[props.chatroom.chatMessages.length - 1].createdDate;
+    // const lastPos = props.chatroom.chatMessages.length - 1;
+    // let lastMessageText = '';
+    // let displayTime = '';
+    // if (lastPos > -1) {
+    //     lastMessageText = props.chatroom.chatMessages[props.chatroom.chatMessages.length - 1].message;
+    //     const lastTime = props.chatroom.chatMessages[props.chatroom.chatMessages.length - 1].createdDate;
 
-        // Should only do this if on the same date as today...
-        displayTime = lastTime.getHours() + ":" + lastTime.getMinutes();
-    }
+    //     // Should only do this if on the same date as today...
+    //     displayTime = lastTime.getHours() + ":" + lastTime.getMinutes();
+    // }
 
     return (
         <TouchableOpacity onPress={() => navigation.navigate("ChatMessages", { id: props.chatroom.id })}>
@@ -28,11 +31,11 @@ const ChatRoom = props => {
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.text}>{props.chatroom.name}</Text>
-                    <Text ellipsizeMode='tail' numberOfLines={1} >{lastMessageText}</Text>
+                    {/* <Text ellipsizeMode='tail' numberOfLines={1} >{lastMessageText}</Text> */}
                 </View>
                 <View style={styles.dotView}>
                     <View style={styles.dot}></View>
-                    <Text>{displayTime}</Text>
+                    {/* <Text>{displayTime}</Text> */}
                 </View>
 
                 {/* <Button title="Navigate somewhere" 

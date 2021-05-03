@@ -14,12 +14,12 @@ const ChatMessage = props => {
     const minutes = props.chatmessage.createdDate.getMinutes();
 
 
-    const userIdOfMessage = props.chatmessage.user.id;
+    const userIdOfMessage = props.chatmessage.writtenBy.id;
     const isMe = hardcodedUserId === userIdOfMessage;
 
     let name;
     if (!isMe) {
-        name = 'From ' + props.chatmessage.user.name;
+        name = 'From ' + props.chatmessage.writtenBy.name;
     }
     console.log("----------------: " + props.img);
     // only display the image if this message is not written by me.
@@ -36,7 +36,7 @@ const ChatMessage = props => {
                 {image}
                 <View style={[styles.messageView, isMe ? styles.messageViewFromMe : '']}>
                     <Text style={[styles.message, isMe ? styles.messageFromMe : '']}>
-                        {props.chatmessage.message}</Text>
+                        {props.chatmessage.text}</Text>
                 </View>
             </View>
             <View style={[styles.timeContainer, isMe ? styles.reverseContainer : '']}>
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     },
     messageView: {
         //  flex: 0.8,
-        backgroundColor: '#EEEEEE',
+        backgroundColor: 'white',
         borderTopLeftRadius: 15,
         borderTopRightRadius: 15,
         borderBottomLeftRadius: 5,

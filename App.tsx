@@ -2,6 +2,7 @@
 // (1) stackHeaderOptions() causing error (but still works)
 // (2) minor red lines (Stack options, route.params.title)
 // (3) naming convention - ProfileScreen (the only one with 'Screen' in name)
+// (4) chatroom name (shown on top bar i.e. CBS Surf) - as participant user name instead?
 
 import 'react-native-gesture-handler';
 import React from 'react';
@@ -118,23 +119,23 @@ function ChatStackNavigator() {
             fontSize: 24,
             fontWeight: 'bold',
           },
-          headerBackTitle: 'Profile',
+          headerBackTitle: ' ',
         }}
       />
       <Stack.Screen
         name='ChatMessages'
         component={ChatMessages}
-        options={{
-          headerTitle: 'CHAT MESSAGES',
+        options={({ route }) => ({
+          headerTitle: route.params.chatroomName,
           headerTitleAlign: 'center',
           headerTitleStyle: {
             color: '#5050A5',
             textTransform: 'uppercase',
-            fontSize: 24,
+            fontSize: 20,
             fontWeight: 'bold',
           },
-          headerBackTitle: 'Profile',
-        }}
+          headerBackTitle: ' ',
+        })}
       />
     </Stack.Navigator>
   );

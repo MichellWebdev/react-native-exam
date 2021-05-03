@@ -20,7 +20,7 @@ const ChatMessages = props => {
 
     const messages = [];
     const { id } = props.route.params;
-    console.log(id);
+    // console.log(id);
 
     CHATMESSAGES.forEach(message => {
         if (message.chatroomId == id) {

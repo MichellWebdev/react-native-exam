@@ -21,7 +21,7 @@ const ChatRoom = props => {
     // }
 
     return (
-        <TouchableOpacity onPress={() => navigation.navigate("ChatMessages", { id: props.chatRoom.id })}>
+        <TouchableOpacity onPress={() => navigation.navigate("ChatMessages", { id: props.chatRoom.id, chatroomName: props.chatRoom.name })}>
             <View style={styles.chatRoom}>
 
                 <View style={styles.imageView}>

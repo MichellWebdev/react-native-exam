@@ -1,6 +1,7 @@
 // Need to improve:
 // (1) stackHeaderOptions() causing error (but still works)
 // (2) minor red lines (Stack options, route.params.title)
+// (3) naming convention - ProfileScreen (the only one with 'Screen' in name)
 
 import 'react-native-gesture-handler';
 import React from 'react';
@@ -25,6 +26,7 @@ import UserReducer from './redux-store/reducers/UserReducer';
 // Screens components
 import Home from './screens/HomeScreen';
 import Chat from './screens/ChatScreen';
+import ChatMessages from './screens/ChatMessages'
 import Signup from './screens/SignupScreen';
 import Login from './screens/LoginScreen';
 import CompleteSignup from './screens/CompleteSignup';
@@ -68,10 +70,10 @@ function ProfileStackNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name='ProfileScreen'
+        name='Profile'
         component={ProfileScreen}
         options={{
-          headerTitle: 'Profile',
+          headerTitle: 'PROFILE',
           headerTitleAlign: 'center',
           headerTitleStyle: {
             color: '#5050A5',
@@ -87,6 +89,43 @@ function ProfileStackNavigator() {
         component={EditProfile}
         options={{
           headerTitle: 'Edit profile',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#5050A5',
+            textTransform: 'uppercase',
+            fontSize: 24,
+            fontWeight: 'bold',
+          },
+          headerBackTitle: 'Profile',
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function ChatStackNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name='Chat'
+        component={Chat}
+        options={{
+          headerTitle: 'CHAT',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#5050A5',
+            textTransform: 'uppercase',
+            fontSize: 24,
+            fontWeight: 'bold',
+          },
+          headerBackTitle: 'Profile',
+        }}
+      />
+      <Stack.Screen
+        name='ChatMessages'
+        component={ChatMessages}
+        options={{
+          headerTitle: 'CHAT MESSAGES',
           headerTitleAlign: 'center',
           headerTitleStyle: {
             color: '#5050A5',
@@ -247,7 +286,7 @@ const MainNavigationAccess = () => {
           }}>
           <Tab.Screen name='Home' component={Home} />
           <Tab.Screen name='Discover' component={DiscoverStackNavigator} />
-          <Tab.Screen name='Chat' component={Chat} />
+          <Tab.Screen name='Chat' component={ChatStackNavigator} />
           <Tab.Screen name='Profile' component={ProfileStackNavigator} />
         </Tab.Navigator>
       ) : (

@@ -2,7 +2,8 @@ import User from '../../models/User';
 import { SAVE_USER, SIGNUP, LOGIN } from '../actions/UserActions';
 
 const initialState = {
-  loggedInUser: null,
+  // loggedInUser: null,
+  loggedInUser: new User('123123', '', 'a@a.com', '', '', false),
   idToken: null,
 };
 

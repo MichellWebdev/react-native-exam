@@ -64,7 +64,7 @@ const stackHeaderOptions = (title: string) => {
   };
 };
 
-function StackNavigationMenu() {
+function ProfileStackNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -248,7 +248,7 @@ const MainNavigationAccess = () => {
           <Tab.Screen name='Home' component={Home} />
           <Tab.Screen name='Discover' component={DiscoverStackNavigator} />
           <Tab.Screen name='Chat' component={Chat} />
-          <Tab.Screen name='Profile' component={StackNavigationMenu} />
+          <Tab.Screen name='Profile' component={ProfileStackNavigator} />
         </Tab.Navigator>
       ) : (
         <Stack.Navigator>

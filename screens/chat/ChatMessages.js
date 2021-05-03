@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, FlatList, TextInput, Image } from 'react-native';
-import ChatRoom from '../components/chat/ChatRoom';
-import ChatMessage from '../components/chat/ChatMessage';
+import ChatRoom from '../../components/chat/ChatRoom';
+import ChatMessage from '../../components/chat/ChatMessage';
 import { CHATMESSAGES } from '../data/dummy'
 
 const ChatMessages = props => {

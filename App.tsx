@@ -26,8 +26,9 @@ import UserReducer from './redux-store/reducers/UserReducer';
 
 // Screens components
 import Home from './screens/HomeScreen';
-import Chat from './screens/ChatScreen';
-import ChatMessages from './screens/ChatMessages'
+import Chat from './screens/chat/ChatScreen';
+import ChatMessages from './screens/chat/ChatMessages';
+import CreateChatRoom from './screens/chat/'
 import Signup from './screens/SignupScreen';
 import Login from './screens/LoginScreen';
 import CompleteSignup from './screens/CompleteSignup';
@@ -110,7 +111,7 @@ function ChatStackNavigator() {
       <Stack.Screen
         name='Chat'
         component={Chat}
-        options={{
+        options={({ navigation }) => ({
           headerTitle: 'CHAT',
           headerTitleAlign: 'center',
           headerTitleStyle: {
@@ -120,13 +121,35 @@ function ChatStackNavigator() {
             fontWeight: 'bold',
           },
           headerBackTitle: ' ',
-        }}
+          headerRight: () => {
+            <Ionicons
+              style={styles.icon}
+              name='create-outline'
+              size='25'
+              onPress={() => navigation.navigate('CreateChatRoom')} />
+          }
+        })}
       />
       <Stack.Screen
         name='ChatMessages'
         component={ChatMessages}
         options={({ route }) => ({
           headerTitle: route.params.chatroomName,
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#5050A5',
+            textTransform: 'uppercase',
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
+          headerBackTitle: ' ',
+        })}
+      />
+      <Stack.Screen
+        name='CreateChatRoom'
+        component={CreateChatRoom}
+        options={({ route }) => ({
+          headerTitle: 'CREATE CHATROOM',
           headerTitleAlign: 'center',
           headerTitleStyle: {
             color: '#5050A5',
@@ -334,4 +357,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  icon: {
+    paddingRight: 30,
+  }
 });

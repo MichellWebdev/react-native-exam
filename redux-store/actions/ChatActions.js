@@ -1,32 +1,46 @@
 import { State } from 'react-native-gesture-handler';
+import { useSelector } from 'react-redux';
 
-export const SAVE_CHATROOM = 'SAVE_CHATROOM';
+export const CREATE_CHATROOM = 'SAVE_CHATROOM';
 
-export const saveChatRoom = (email, password) => {
-    return async dispatch => {
+export const createChatroom = (chatroomName, chatroomImage, chatroomUser) => {
+
+
+    return async (dispatch, getState) => {
+
+        // let chatroom = new ChatRoom('', new Date(), chatroomName, []);
+        const token = getState().user.idToken;
+        console.log('token: ', token)
+
+        const createdDate = new Date();
+        const loggedinUser = '1'
+
         const response = await fetch(
-            'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBZOK5_QuYUqtARpQyA3wS3qPPb7JXBZrM',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: email,
-                    password: password,
+            // get url from your! firebase realtime database.
 
-                    returnSecureToken: true,
-                }),
-            }
-        );
+            // to save a chat message in a chat room:
+            //https://cbsstudents-38267-default-rtdb.firebaseio.com/chatrooms/<chatroom_id>/chatMessages.json?auth=' + token, {
+            'https://cbsstudentapp-default-rtdb.firebaseio.com/chatrooms.json?auth=' + token, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ //javascript to json
+                name: chatroomName,
+                createdDate: createdDate,
+                participants: [loggedinUser, chatroomUser],
+                chatroomImage: chatroomImage
+            })
+        });
 
-        const data = await response.json();
+        const data = await response.json(); // json to javascript
         console.log(data);
 
         if (!response.ok) {
-            console.log('There was a problem');
+            //There was a problem..
         } else {
-            dispatch({ type: SIGNUP, payload: data });
+            // chatroom.id = data.name;
+            dispatch({ type: CREATE_CHATROOM, payload: { chatroomName, chatroomImage, chatroomUser, createdDate } });
         }
     };
 };

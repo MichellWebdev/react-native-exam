@@ -24,6 +24,7 @@ import ReduxThunk from 'redux-thunk';
 
 // Reducers
 import UserReducer from './redux-store/reducers/UserReducer';
+import ChatReducer from './redux-store/reducers/ChatReducer';
 
 // Screens components
 import Home from './screens/HomeScreen';
@@ -45,6 +46,7 @@ import Posts from './screens/discover/PostsScreen';
 // Redux store
 const rootReducer = combineReducers({
   user: UserReducer,
+  chat: ChatReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

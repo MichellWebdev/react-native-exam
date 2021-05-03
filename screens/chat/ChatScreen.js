@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, FlatList } from 'react-native';
 import ChatRoom from '../../components/chat/ChatRoom';
-import { CHATROOMS } from '../data/dummy';
+import { CHATROOMS } from '../../data/dummy';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Chat = props => {

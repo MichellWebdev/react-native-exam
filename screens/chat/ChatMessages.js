@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, FlatList, TextInput, Image } from 'react-native';
 import ChatRoom from '../../components/chat/ChatRoom';
 import ChatMessage from '../../components/chat/ChatMessage';
-import { CHATMESSAGES } from '../data/dummy'
+import { CHATMESSAGES } from '../../data/dummy'
 
 const ChatMessages = props => {
     // const dispatch = useDispatch();
@@ -37,7 +37,7 @@ const ChatMessages = props => {
                     renderItem={itemData => (
                         <ChatMessage
                             chatmessage={itemData.item}
-                            img={require('../assets/images/user.png')}></ChatMessage>
+                            img={require('../../assets/images/user.png')}></ChatMessage>
                     )}>
                 </FlatList>
             </View>

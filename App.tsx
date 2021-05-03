@@ -3,6 +3,7 @@
 // (2) minor red lines (Stack options, route.params.title)
 // (3) naming convention - ProfileScreen (the only one with 'Screen' in name)
 // (4) chatroom name (shown on top bar i.e. CBS Surf) - as participant user name instead?
+// (5) create chatroom icon size warning
 
 import 'react-native-gesture-handler';
 import React from 'react';
@@ -28,7 +29,7 @@ import UserReducer from './redux-store/reducers/UserReducer';
 import Home from './screens/HomeScreen';
 import Chat from './screens/chat/ChatScreen';
 import ChatMessages from './screens/chat/ChatMessages';
-import CreateChatRoom from './screens/chat/'
+import CreateChatRoom from './screens/chat/CraeteChatRoom'
 import Signup from './screens/SignupScreen';
 import Login from './screens/LoginScreen';
 import CompleteSignup from './screens/CompleteSignup';
@@ -121,13 +122,12 @@ function ChatStackNavigator() {
             fontWeight: 'bold',
           },
           headerBackTitle: ' ',
-          headerRight: () => {
+          headerRight: () =>
             <Ionicons
               style={styles.icon}
               name='create-outline'
               size='25'
               onPress={() => navigation.navigate('CreateChatRoom')} />
-          }
         })}
       />
       <Stack.Screen

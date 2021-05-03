@@ -5,16 +5,9 @@ import React from 'react';
 import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { CHATMESSAGES } from '../../data/dummy'
 
 const ChatRoom = props => {
     const navigation = useNavigation();
-
-    // CHATMESSAGES.forEach(message => {
-    //     if (message.chatroomId == props.chatRoom.id) {
-
-    //     }
-    // })
 
     // const lastPos = props.chatroom.chatMessages.length - 1;
     // let lastMessageText = '';
@@ -28,7 +21,7 @@ const ChatRoom = props => {
     // }
 
     return (
-        <TouchableOpacity onPress={() => navigation.navigate("ChatMessages", { id: props.chatroom.id })}>
+        <TouchableOpacity onPress={() => navigation.navigate("ChatMessages", { id: props.chatRoom.id })}>
             <View style={styles.chatRoom}>
 
                 <View style={styles.imageView}>

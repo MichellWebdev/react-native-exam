@@ -9,7 +9,7 @@ class ChatRoom {
         public name: string,
         public participants: User[],
         public chatroomImage: string,
-        public created: string
+        public createdDate: Date
     ) { }
 }
 

@@ -2,39 +2,47 @@ import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, FlatList, TextInput, Image } from 'react-native';
 import ChatRoom from '../components/chat/ChatRoom';
 import ChatMessage from '../components/chat/ChatMessage';
+import { CHATMESSAGES } from '../data/dummy'
 
 const ChatMessages = props => {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
+    // const [value, onChangeText] = useState('Write message');
+    // const chatMessages = useSelector(state => state.chat.chatrooms).find(room => room.id === id).chatMessages;
+
+    // const test = useSelector(state => state.chat.test);
+    // console.log("test");
+    // console.log(test);
+
+    // const handleSend = () => {
+    //     console.log("value " + value);
+    //     dispatch(addToChats(value, id));
+    // };
+
+    const messages = [];
     const { id } = props.route.params;
     console.log(id);
-    const [value, onChangeText] = useState('Write message');
 
-    const chatMessages = useSelector(state => state.chat.chatrooms).find(room => room.id === id).chatMessages;
-
-    const test = useSelector(state => state.chat.test);
-    console.log("test");
-    console.log(test);
-
-    const handleSend = () => {
-        console.log("value " + value);
-        dispatch(addToChats(value, id));
-    };
+    CHATMESSAGES.forEach(message => {
+        if (message.chatroomId == id) {
+            messages.push(message)
+        }
+    })
 
     return (
         <View style={styles.container}>
 
             <View style={styles.messages}>
-                {/* <FlatList
-                    data={chatMessages}
+                <FlatList
+                    data={messages}
                     renderItem={itemData => (
                         <ChatMessage
                             chatmessage={itemData.item}
-                            img={require('../../assets/images/.....png')}></ChatMessage>
+                            img={require('../assets/images/user.png')}></ChatMessage>
                     )}>
-                </FlatList> */}
+                </FlatList>
             </View>
 
-            <View style={styles.inputView}>
+            {/* <View style={styles.inputView}>
                 <Image
                     style={styles.tinyLogo}
                     source={require('../assets/images/user.png')} />
@@ -45,7 +53,7 @@ const ChatMessages = props => {
                     value={value} />
 
                 <Button title="Send" onPress={handleSend}></Button>
-            </View>
+            </View> */}
 
         </View>
 

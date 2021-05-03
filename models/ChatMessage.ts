@@ -9,7 +9,7 @@ class ChatMessage {
         public chatroomId: string,
         public writtenBy: User,
         public text: string,
-        public created: string
+        public createdDate: Date
     ) { }
 }
 

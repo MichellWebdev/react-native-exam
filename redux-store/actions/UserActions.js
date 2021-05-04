@@ -42,6 +42,7 @@ export const signup = (email, password) => {
       console.log('User signed up')
 
       const token = data.idToken;
+      const localId = data.localId;
 
       const response2 = await fetch(
         'https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + token, {
@@ -50,7 +51,7 @@ export const signup = (email, password) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ //javascript to json
-          idToken: token,
+          userId: localId,
           email: email
         })
       });
@@ -86,7 +87,7 @@ export const login = (email, password) => {
     );
 
     const data = await response.json();
-    // console.log(data);
+    console.log(data);
 
     if (!response.ok) {
       console.log('problem');

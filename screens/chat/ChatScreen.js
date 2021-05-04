@@ -3,8 +3,12 @@ import { View, Text, Button, StyleSheet, FlatList } from 'react-native';
 import ChatRoom from '../../components/chat/ChatRoom';
 import { CHATROOMS } from '../../data/dummy';
 import { useSelector, useDispatch } from 'react-redux';
+import { getChatrooms } from '../../redux-store/actions/ChatActions'
 
 const Chat = props => {
+
+  const dispatch = useDispatch();
+  dispatch(getChatrooms());
 
   const myChatrooms = []
 

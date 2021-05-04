@@ -1,3 +1,6 @@
+// Need to improve
+// (1) CompleteSignup page shows even when signup failed (when signing up using already registered email)
+
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 

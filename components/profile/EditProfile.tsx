@@ -25,8 +25,8 @@ interface EditProfileLabels {
 const EditProfile = ({
   profilePictureLabel = 'Profile picture',
   uploadButtonText = 'Upload',
-  userNameLabel = 'WHAT IS YOUR NAME?',
-  studyProgrammeLabel = 'STUDY PROGRAMME',
+  userNameLabel = 'What is your name?',
+  studyProgrammeLabel = 'Study programme',
   errorMessage = 'Please fill out field',
   buttonText = 'Save changes',
 }: EditProfileLabels) => {
@@ -78,26 +78,22 @@ const EditProfile = ({
           </View>
         </View>
       </View>
-      <View style={styles.inputContainer}>
-        <Input
-          label={userNameLabel}
-          value={changeName}
-          inputValid={nameValid}
-          errorMessage={errorMessage}
-          onValid={(valid: any) => setNameValid(valid)}
-          setContent={(content: any) => setChangeName(content)}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Input
-          label={studyProgrammeLabel}
-          value={studyProgramme}
-          inputValid={studyProgrammeValid}
-          errorMessage={errorMessage}
-          onValid={(valid: any) => setStudyProgrammeValid(valid)}
-          setContent={(content: any) => setStudyProgramme(content)}
-        />
-      </View>
+      <Input
+        label={userNameLabel}
+        value={changeName}
+        inputValid={nameValid}
+        errorMessage={errorMessage}
+        onValid={(valid: any) => setNameValid(valid)}
+        setContent={(content: any) => setChangeName(content)}
+      />
+      <Input
+        label={studyProgrammeLabel}
+        value={studyProgramme}
+        inputValid={studyProgrammeValid}
+        errorMessage={errorMessage}
+        onValid={(valid: any) => setStudyProgrammeValid(valid)}
+        setContent={(content: any) => setStudyProgramme(content)}
+      />
       <Button buttonText={buttonText} onPress={handleSave} />
     </View>
   );
@@ -134,9 +130,6 @@ const styles = StyleSheet.create({
     borderRadius: 150,
     width: 90,
     height: 90,
-  },
-  inputContainer: {
-    marginBottom: 10,
   },
 });
 

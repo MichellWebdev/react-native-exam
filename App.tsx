@@ -128,7 +128,7 @@ function ChatStackNavigator() {
             <Ionicons
               style={styles.icon}
               name='create-outline'
-              size='25'
+              size={25}
               onPress={() => navigation.navigate('CreateChatRoom')} />
         })}
       />

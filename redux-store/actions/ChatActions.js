@@ -10,10 +10,11 @@ export const createChatroom = (chatroomName, chatroomImage, chatroomUser) => {
 
         // let chatroom = new ChatRoom('', new Date(), chatroomName, []);
         const token = getState().user.idToken;
-        console.log('token: ', token)
+        // console.log('token: ', token)
 
         const createdDate = new Date();
-        const loggedinUser = '1'
+        const loggedinUser = getState().user.loggedInUser.id;
+        // console.log('loggedinUser: ', loggedinUser)
 
         const response = await fetch(
             // get url from your! firebase realtime database.

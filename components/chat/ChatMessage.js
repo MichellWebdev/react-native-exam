@@ -13,7 +13,6 @@ const ChatMessage = props => {
     const hours = props.chatmessage.createdDate.getHours();
     const minutes = props.chatmessage.createdDate.getMinutes();
 
-
     const userIdOfMessage = props.chatmessage.writtenBy.id;
     const isMe = hardcodedUserId === userIdOfMessage;
 

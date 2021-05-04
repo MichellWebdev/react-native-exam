@@ -6,7 +6,6 @@ import { CHATMESSAGES } from '../../data/dummy'
 
 const ChatMessages = props => {
     // const dispatch = useDispatch();
-    // const [value, onChangeText] = useState('Write message');
     // const chatMessages = useSelector(state => state.chat.chatrooms).find(room => room.id === id).chatMessages;
 
     // const test = useSelector(state => state.chat.test);
@@ -18,6 +17,9 @@ const ChatMessages = props => {
     //     dispatch(addToChats(value, id));
     // };
 
+    // let buttonDisabled = false;
+    const [value, onChangeText] = useState('Write message');
+    const [buttonDisabled, setButtonDisabled] = useState(false);
     const messages = [];
     const { id } = props.route.params;
     // console.log(id);
@@ -27,6 +29,17 @@ const ChatMessages = props => {
             messages.push(message)
         }
     })
+
+    const handleTextInput = (text) => {
+        onChangeText(text)
+        text.length == 0 ? setButtonDisabled(true) : setButtonDisabled(false)
+    }
+
+    const handleSend = () => {
+        console.log("value " + value);
+        // dispatch(addToChats(value, id));
+    };
+
 
     return (
         <View style={styles.container}>
@@ -42,18 +55,18 @@ const ChatMessages = props => {
                 </FlatList>
             </View>
 
-            {/* <View style={styles.inputView}>
+            <View style={styles.inputView}>
                 <Image
                     style={styles.tinyLogo}
-                    source={require('../assets/images/user.png')} />
+                    source={require('../../assets/images/user.png')} />
 
                 <TextInput
                     style={styles.textInput}
-                    onChangeText={text => onChangeText(text)}
+                    onChangeText={text => handleTextInput(text)}
                     value={value} />
 
-                <Button title="Send" onPress={handleSend}></Button>
-            </View> */}
+                <Button disabled={buttonDisabled} title="Send" onPress={handleSend}></Button>
+            </View>
 
         </View>
 

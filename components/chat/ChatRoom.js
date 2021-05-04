@@ -1,5 +1,6 @@
 // Need to improve:
 // (1) require using variable, not string
+// (2) time display, latest message display
 
 import React from 'react';
 import { View, Text, Button, StyleSheet, Image } from 'react-native';

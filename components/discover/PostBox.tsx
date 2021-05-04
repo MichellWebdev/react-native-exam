@@ -1,20 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-interface PostBoxLabels {
-}
+interface PostBoxLabels {}
 
-const PostBox = ({
-}: PostBoxLabels) => {
-
-    return (
-        <View>
-        </View>
-    );
+const PostBox = ({}: PostBoxLabels) => {
+  return <View></View>;
 };
 
-const styles = StyleSheet.create({
-
-});
+const styles = StyleSheet.create({});
 
 export default PostBox;

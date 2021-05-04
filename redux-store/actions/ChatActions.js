@@ -4,17 +4,14 @@ import { useSelector } from 'react-redux';
 export const CREATE_CHATROOM = 'SAVE_CHATROOM';
 
 export const createChatroom = (chatroomName, chatroomImage, chatroomUser) => {
-
-
     return async (dispatch, getState) => {
 
-        // let chatroom = new ChatRoom('', new Date(), chatroomName, []);
         const token = getState().user.idToken;
         // console.log('token: ', token)
-
-        const createdDate = new Date();
         const loggedinUser = getState().user.loggedInUser.id;
         // console.log('loggedinUser: ', loggedinUser)
+
+        const createdDate = new Date();
 
         const response = await fetch(
             // get url from your! firebase realtime database.
@@ -35,12 +32,13 @@ export const createChatroom = (chatroomName, chatroomImage, chatroomUser) => {
         });
 
         const data = await response.json(); // json to javascript
-        console.log(data);
+        // console.log(data);
 
         if (!response.ok) {
             //There was a problem..
         } else {
             // chatroom.id = data.name;
+            console.log('Chat Room Created');
             dispatch({ type: CREATE_CHATROOM, payload: { chatroomName, chatroomImage, chatroomUser, createdDate } });
         }
     };

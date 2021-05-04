@@ -10,8 +10,7 @@ const UserReducer = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_CHATROOM: {
             // const chatroom = new ChatRoom(action.payload.localId, action.payload.chatroomName)
-
-            console.log(action.payload.chatroomName)
+            // console.log(action.payload.chatroomName)
 
             return {
                 ...state

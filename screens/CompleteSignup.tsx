@@ -65,7 +65,6 @@ const CompleteSignup = ({
 
       dispatch(saveUser(user));
       console.log(userName);
-      navigation.navigate('Login');
     }
   };
 
@@ -77,7 +76,7 @@ const CompleteSignup = ({
       <Text style={styles.completeSignupHeader}>{headerLabel}</Text>
 
       <View style={styles.profilePicture}>
-        <View style={{}}>
+        <View>
           <View style={styles.profilePictureContainer}>
             <Text style={styles.profilePictureText}>{profilePicture}</Text>
           </View>

@@ -7,11 +7,14 @@ import { useSelector, useDispatch } from 'react-redux';
 // Stack navigation
 import { useNavigation } from '@react-navigation/native';
 
+// Icons
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 // Custom components
 import Button from '../common/Button';
 
 interface ProfileLabels {
-  buttonText: string;
+  buttonText?: string;
 }
 
 const Profile = ({ buttonText = 'Edit profile' }: ProfileLabels) => {
@@ -25,9 +28,15 @@ const Profile = ({ buttonText = 'Edit profile' }: ProfileLabels) => {
   return (
     <View>
       <View style={styles.profileContainer}>
-        <Text style={styles.profileInfo}>Profile</Text>
-        <Text>{loggedInUser.name}</Text>
-        <Text>{loggedInUser.studyProgramme}</Text>
+        <View>
+          <Ionicons name={'person-circle-outline'} size={100} color={'grey'} />
+        </View>
+        <View style={styles.profileInfoContainer}>
+          <Text style={styles.profileName}>{loggedInUser.name}</Text>
+          {/* Should be email */}
+          <Text style={styles.profileInfo}>{loggedInUser.email}</Text>
+          <Text style={styles.profileInfo}>{loggedInUser.studyProgramme}</Text>
+        </View>
       </View>
       <Button buttonText={buttonText} onPress={handleRedirect} />
     </View>
@@ -37,10 +46,20 @@ const Profile = ({ buttonText = 'Edit profile' }: ProfileLabels) => {
 const styles = StyleSheet.create({
   profileContainer: {
     margin: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  profileInfoContainer: {
+    marginLeft: 15,
+  },
+  profileName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#32305D',
   },
   profileInfo: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    marginTop: 5,
   },
 });
 

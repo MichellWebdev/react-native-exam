@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import Input from '../../components/common/Input';
 import { createChatroom } from '../../redux-store/actions/ChatActions'
+import { getChatrooms } from '../../redux-store/actions/ChatActions'
 
 const CreateChatRoom = props => {
     const dispatch = useDispatch();
@@ -43,6 +44,7 @@ const CreateChatRoom = props => {
                 console.log('Chatroom already exists with this user')
             } else {
                 dispatch(createChatroom(chatroomName, chatroomImage, chatroomUser))
+                dispatch(getChatrooms());
                 navigation.goBack()
             }
         }

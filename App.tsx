@@ -30,7 +30,7 @@ import ChatReducer from './redux-store/reducers/ChatReducer';
 import Home from './screens/HomeScreen';
 import Chat from './screens/chat/ChatScreen';
 import ChatMessages from './screens/chat/ChatMessages';
-import CreateChatRoom from './screens/chat/CraeteChatRoom'
+import CreateChatRoom from './screens/chat/CraeteChatRoom';
 import Signup from './screens/SignupScreen';
 import Login from './screens/LoginScreen';
 import CompleteSignup from './screens/CompleteSignup';
@@ -46,7 +46,7 @@ import Posts from './screens/discover/PostsScreen';
 // Redux store
 const rootReducer = combineReducers({
   user: UserReducer,
-  chat: ChatReducer
+  chat: ChatReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -86,7 +86,6 @@ function ProfileStackNavigator() {
             fontSize: 24,
             fontWeight: 'bold',
           },
-          headerBackTitle: 'Profile',
         }}
       />
       <Stack.Screen
@@ -101,7 +100,7 @@ function ProfileStackNavigator() {
             fontSize: 24,
             fontWeight: 'bold',
           },
-          headerBackTitle: 'Profile',
+          headerBackTitle: ' ',
         }}
       />
     </Stack.Navigator>
@@ -124,12 +123,14 @@ function ChatStackNavigator() {
             fontWeight: 'bold',
           },
           headerBackTitle: ' ',
-          headerRight: () =>
+          headerRight: () => (
             <Ionicons
               style={styles.icon}
               name='create-outline'
               size={25}
-              onPress={() => navigation.navigate('CreateChatRoom')} />
+              onPress={() => navigation.navigate('CreateChatRoom')}
+            />
+          ),
         })}
       />
       <Stack.Screen
@@ -361,5 +362,5 @@ const styles = StyleSheet.create({
   },
   icon: {
     paddingRight: 30,
-  }
+  },
 });

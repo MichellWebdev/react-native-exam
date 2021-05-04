@@ -6,43 +6,31 @@ import DiscoverStudOrg from '../../models/DiscoverStudOrg';
 import StyleSheetFactory from '../common/StyleSheetFactory';
 
 interface StudentOrgBoxLabels {
-    boxBackgroundColor: string;
-    boxBackgroundImage: string;
-    studentOrg: DiscoverStudOrg;
+  boxBackgroundColor: string;
+  boxBackgroundImage: string;
+  studentOrg: DiscoverStudOrg;
 }
 
-const StudentOrgBox = ({
-    boxBackgroundColor,
-    boxBackgroundImage,
-    studentOrg
-}: StudentOrgBoxLabels) => {
+const StudentOrgBox = ({ boxBackgroundColor, boxBackgroundImage, studentOrg }: StudentOrgBoxLabels) => {
+  const navigation = useNavigation();
 
-    const navigation = useNavigation();
+  const styles = StyleSheetFactory.getSheet(boxBackgroundColor, boxBackgroundImage);
+  const image = { uri: boxBackgroundImage };
 
-    const styles = StyleSheetFactory.getSheet(boxBackgroundColor, boxBackgroundImage);
-    const image = { uri: boxBackgroundImage };
-
-    return (
-        <View style={styles.eventBoxContainer}>
-            <TouchableOpacity
-                onPress={() => navigation.navigate("StudentOrgsDetail", { title: studentOrg.orgName, studentOrg: studentOrg })}
-            >
-                <ImageBackground
-                    style={styles.eventBoxImage}
-                    resizeMode='cover'
-                    source={image}
-                >
-                    <View style={styles.eventBoxContentsContainer} >
-                        <Text>{studentOrg.orgName}</Text>
-                    </View>
-                </ImageBackground>
-            </TouchableOpacity>
-        </View>
-    );
+  return (
+    <View style={styles.eventBoxContainer}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('StudentOrgsDetail', { title: studentOrg.orgName, studentOrg: studentOrg })}>
+        <ImageBackground style={styles.eventBoxImage} resizeMode='cover' source={image}>
+          <View style={styles.eventBoxContentsContainer}>
+            <Text>{studentOrg.orgName}</Text>
+          </View>
+        </ImageBackground>
+      </TouchableOpacity>
+    </View>
+  );
 };
 
-const styles = StyleSheet.create({
-
-});
+const styles = StyleSheet.create({});
 
 export default StudentOrgBox;

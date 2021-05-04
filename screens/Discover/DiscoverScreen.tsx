@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Input from '../../components/common/Input';
 import DiscoverBox from '../../components/discover/DiscoverBox';
 
-import { discoverbox1, discoverbox2, discoverbox3 } from '../../assets/Assets'
+import { discoverbox1, discoverbox2, discoverbox3 } from '../../assets/Assets';
 
 // Need to improve:
 // (1) input field blurr out (grey out) when onBlurr
@@ -12,7 +12,7 @@ import { discoverbox1, discoverbox2, discoverbox3 } from '../../assets/Assets'
 // (3) top 'DISCOVER' font color & bold
 
 interface DiscoverLabels {
-  saerchPlaceholder: string
+  saerchPlaceholder: string;
   errorMessageEmail: string;
 }
 
@@ -20,7 +20,6 @@ const Discover = ({
   saerchPlaceholder = 'Search for events, posts, and more',
   errorMessageEmail = 'Please fill out seach field',
 }: DiscoverLabels) => {
-
   const [search, setSearch] = useState('');
   const [searchValid, setSearchValid] = useState(false);
 

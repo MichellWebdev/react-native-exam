@@ -24,6 +24,23 @@ const EventBox = ({
     const styles = StyleSheetFactory.getSheet(boxBackgroundColor, boxBackgroundImage);
     const image = { uri: boxBackgroundImage };
 
+    const date = formatDate(event.startDate);
+
+    // https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd
+    function formatDate(date: Date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('.');
+    }
+
     return (
         <View style={styles.eventBoxContainer}>
             <TouchableOpacity
@@ -39,7 +56,7 @@ const EventBox = ({
                         <Text style={styles.eventSmallNonbold}>{event.groupName}</Text>
                         <View style={styles.eventBoxLabelContainer}>
                             <Ionicons name='time' color='white' />
-                            <Text style={styles.eventSmallBold}>{event.startDate}</Text>
+                            <Text style={styles.eventSmallBold}>{date}</Text>
                         </View>
                         <View style={styles.eventBoxLabelContainer}>
                             <Ionicons name='location' color='white' />

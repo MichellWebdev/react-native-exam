@@ -1,12 +1,15 @@
+// Need to improve
+// (1) signup - instead of second fetch (response2), using Admin SDK instead? 
+//              https://firebase.google.com/docs/auth/admin/manage-users
+
 import { State } from 'react-native-gesture-handler';
 
 export const SAVE_USER = 'SAVE_USER';
-
 export const SIGNUP = 'SIGNUP';
-
 export const LOGIN = 'LOGIN';
 
 export const saveUser = user => {
+  // https://firebase.google.com/docs/reference/rest/auth#section-update-profile
   return {
     type: SAVE_USER,
     payload: user,
@@ -25,7 +28,6 @@ export const signup = (email, password) => {
         body: JSON.stringify({
           email: email,
           password: password,
-
           returnSecureToken: true,
         }),
       }
@@ -35,9 +37,33 @@ export const signup = (email, password) => {
     console.log(data);
 
     if (!response.ok) {
-      console.log('There was a problem');
+      console.log('There was a problem: signup');
     } else {
-      dispatch({ type: SIGNUP, payload: data });
+      console.log('User signed up')
+
+      const token = data.idToken;
+      const localId = data.localId;
+
+      const response2 = await fetch(
+        'https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + token, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ //javascript to json
+          userId: localId,
+          email: email
+        })
+      });
+
+      const data2 = await response2.json();
+      // console.log(data2);
+
+      if (!response2.ok) {
+        console.log('There was a problem');
+      } else {
+        dispatch({ type: SIGNUP, payload: data });
+      }
     }
   };
 };
@@ -66,6 +92,7 @@ export const login = (email, password) => {
     if (!response.ok) {
       console.log('problem');
     } else {
+      console.log('User logged in')
       dispatch({ type: LOGIN, payload: data });
     }
   };

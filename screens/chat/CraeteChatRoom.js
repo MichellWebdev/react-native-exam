@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, FlatList } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import Input from '../../components/common/Input';
 import { createChatroom } from '../../redux-store/actions/ChatActions'
 
 const CreateChatRoom = props => {
     const dispatch = useDispatch();
+    const navigation = useNavigation();
 
     const [chatroomName, setChatroomName] = useState('');
     const [chatroomNameValid, setChatroomNameValid] = useState(false);
@@ -15,6 +17,36 @@ const CreateChatRoom = props => {
 
     const [chatroomImage, setChatroomImage] = useState('');
     const [chatroomImageValid, setChatroomImageValid] = useState(true);
+
+    const loggedInUser = useSelector(state => state.user.loggedInUser)
+    const myChatrooms = useSelector(state => state.chat.myChatrooms)
+    // console.log(myChatrooms)
+
+    const handleCreateChatroom = () => {
+        let oneself = false;
+        let alreadyExists = false;
+
+        // Cannot invite oneself 
+        if (chatroomUser == loggedInUser.email) {
+            oneself = true;
+            console.log('Cannot create chatroom with yourself')
+        } else {
+            myChatrooms.forEach(chatroom => {
+                chatroom.participants.forEach(user => {
+                    if (user == chatroomUser) {
+                        alreadyExists = true;
+                    }
+                })
+            });
+
+            if (alreadyExists) {
+                console.log('Chatroom already exists with this user')
+            } else {
+                dispatch(createChatroom(chatroomName, chatroomImage, chatroomUser))
+                navigation.goBack()
+            }
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -43,7 +75,7 @@ const CreateChatRoom = props => {
                 setContent={content => setChatroomUser(content)}
                 autoCapitalize={'none'} />
 
-            <Button title="Create Chatroom" onPress={() => { dispatch(createChatroom(chatroomName, chatroomImage, chatroomUser)) }} />
+            <Button title="Create Chatroom" onPress={handleCreateChatroom} />
         </View>
     );
 }

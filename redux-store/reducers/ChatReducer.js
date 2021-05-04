@@ -6,17 +6,21 @@ const initialState = {
     myChatrooms: []
 };
 
-const UserReducer = (state = initialState, action) => {
+const ChatReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_CHATROOMS:
 
             let chatrooms = [];
 
             // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
-            for (const [key, value] of Object.entries(action.payload)) {
+            for (const [key, value] of Object.entries(action.payload.data)) {
                 // console.log(key);
                 // console.log(Object.keys(value))
-                chatrooms.push(new ChatRoom(key, value.name, value.participants, value.chatroomImage, value.createdDate))
+                value.participants.forEach(user => {
+                    if (user == action.payload.loggedInUserEmail) {
+                        chatrooms.push(new ChatRoom(key, value.name, value.participants, value.chatroomImage, value.createdDate))
+                    }
+                });
             }
 
             return {
@@ -39,4 +43,4 @@ const UserReducer = (state = initialState, action) => {
     }
 };
 
-export default UserReducer;
+export default ChatReducer;

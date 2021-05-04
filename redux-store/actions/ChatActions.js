@@ -9,7 +9,7 @@ export const getChatrooms = () => {
 
     return async (dispatch, getState) => {
         const token = getState().user.idToken;
-        const loggedinUser = getState().user.loggedInUser.id;
+        const loggedInUserEmail = getState().user.loggedInUser.email;
 
         const response = await fetch(
             'https://cbsstudentapp-default-rtdb.firebaseio.com/chatrooms.json?auth=' + token, {
@@ -26,7 +26,7 @@ export const getChatrooms = () => {
             console.log('Chatroom retrieval failed')
         } else {
             console.log('Chatrooms retrieved')
-            dispatch({ type: GET_CHATROOMS, payload: data });
+            dispatch({ type: GET_CHATROOMS, payload: { data: data, loggedInUserEmail: loggedInUserEmail } });
         }
     }
 }
@@ -34,72 +34,68 @@ export const getChatrooms = () => {
 export const createChatroom = (chatroomName, chatroomImage, chatroomUser) => {
     return async (dispatch, getState) => {
 
-        let oneself = false;
-        let alreadyExists = false;
+        // let oneself = false;
+        // let alreadyExists = false;
 
-        const loggedinUser = getState().user.loggedInUser
+        // // Cannot invite oneself 
+        // if (chatroomUser == loggedinUser.email) {
+        //     oneself = true;
+        //     console.log('Cannot create chatroom with yourself')
+        // }
+
+        // if (!oneself) {
+        //     myChatrooms.forEach(chatroom => {
+        //         chatroom.participants.forEach(user => {
+        //             if (user == chatroomUser) {
+        //                 alreadyExists = true;
+        //             }
+        //         })
+        //     });
+
+        //     // Cannot create chatroom with same user again
+        //     if (alreadyExists) {
+        //         console.log('Chatroom already exists with this user')
+        //     }
+
+        //     if (!oneself && !alreadyExists) {
+
+        //     }
+        // }
+
+        const loggedInUser = getState().user.loggedInUser
         const myChatrooms = getState().chat.myChatrooms
 
-        console.log(chatroomUser)
+        const token = getState().user.idToken;
+        // console.log('token: ', token)
+        const loggedInUserEmail = loggedInUser.email;
+        // console.log('loggedinUser: ', loggedinUser)
 
-        // Cannot invite oneself 
-        if (chatroomUser == loggedinUser.email) {
-            oneself = true;
-            console.log('Cannot create chatroom with yourself')
-        }
+        const createdDate = new Date();
 
-        if (!oneself) {
-            myChatrooms.forEach(chatroom => {
-                chatroom.participants.forEach(user => {
+        const response = await fetch(
+            //https://cbsstudents-38267-default-rtdb.firebaseio.com/chatrooms/<chatroom_id>/chatMessages.json?auth=' + token, {
+            'https://cbsstudentapp-default-rtdb.firebaseio.com/chatrooms.json?auth=' + token, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ //javascript to json
+                name: chatroomName,
+                createdDate: createdDate,
+                participants: [loggedInUserEmail, chatroomUser],
+                chatroomImage: chatroomImage
+            })
+        });
 
-                    console.log(user.email)
-                    if (user.email == chatroomUser) {
-                        alreadyExists = true;
-                    }
-                })
-            });
+        const data = await response.json(); // json to javascript
+        // console.log(data);
 
-            if (alreadyExists) {
-                console.log('Chatroom already exists with this user')
-            }
-
-            if (!oneself && !alreadyExists) {
-                const token = getState().user.idToken;
-                // console.log('token: ', token)
-                const loggedinUserEmail = loggedinUser.email;
-                // console.log('loggedinUser: ', loggedinUser)
-
-                const createdDate = new Date();
-
-                const response = await fetch(
-                    // get url from your! firebase realtime database.
-
-                    // to save a chat message in a chat room:
-                    //https://cbsstudents-38267-default-rtdb.firebaseio.com/chatrooms/<chatroom_id>/chatMessages.json?auth=' + token, {
-                    'https://cbsstudentapp-default-rtdb.firebaseio.com/chatrooms.json?auth=' + token, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ //javascript to json
-                        name: chatroomName,
-                        createdDate: createdDate,
-                        participants: [loggedinUserEmail, chatroomUser],
-                        chatroomImage: chatroomImage
-                    })
-                });
-
-                const data = await response.json(); // json to javascript
-                // console.log(data);
-
-                if (!response.ok) {
-                    //There was a problem..
-                } else {
-                    // chatroom.id = data.name;
-                    console.log('Chat Room Created');
-                    dispatch({ type: CREATE_CHATROOM, payload: { id: data['name'].name, name: chatroomName, image: chatroomImage, participants: [loggedinUser, chatroomUser], createdDate: createdDate } });
-                }
-            }
+        if (!response.ok) {
+            //There was a problem..
+        } else {
+            // chatroom.id = data.name;
+            console.log('Chat Room Created');
+            dispatch({ type: CREATE_CHATROOM, payload: { id: data['name'].name, name: chatroomName, image: chatroomImage, participants: [loggedInUserEmail, chatroomUser], createdDate: createdDate } });
         }
     };
 };

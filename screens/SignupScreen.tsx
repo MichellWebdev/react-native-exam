@@ -76,9 +76,7 @@ const SignupScreen = ({
         onValid={valid => setPasswordValid(valid)}
         setContent={content => setPassword(content)}
       />
-      <View style={styles.buttonContainer}>
-        <Button buttonText={buttonText} onPress={handleSignup} />
-      </View>
+      <Button buttonText={buttonText} onPress={handleSignup} />
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('Login');
@@ -106,9 +104,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     fontWeight: 'bold',
     color: '#5050A5',
-  },
-  buttonContainer: {
-    marginTop: 20,
   },
   loginRedirect: {
     textAlign: 'center',

@@ -110,7 +110,6 @@ const styles = StyleSheet.create({
   },
   forgotPassword: {
     textAlign: 'center',
-    marginTop: 10,
     marginBottom: 20,
     color: '#5050A5',
     fontWeight: 'bold',

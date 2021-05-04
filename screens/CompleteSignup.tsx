@@ -33,10 +33,10 @@ const CompleteSignup = ({
   headerLabel = 'Before we start...',
   profilePicture = 'Profile picture',
   profilePictureBtn = 'Upload',
-  userNameLabel = 'WHAT IS YOUR NAME?',
+  userNameLabel = 'What is your name?',
   userNamePlaceholder = 'First name and last name',
   userNameErrorMsg = 'Please fill out your name',
-  studyProgrammeLabel = 'STUDY PROGRAMME',
+  studyProgrammeLabel = 'Study programme',
   studyProgrammePlaceholder = 'Select study programme',
   studyProgrammeErrorMsg = 'Please select you study programme',
   buttonText = 'Next',
@@ -92,27 +92,23 @@ const CompleteSignup = ({
           </View>
         </View>
       </View>
-      <View style={styles.inputContainer}>
-        <Input
-          value={userName}
-          label={userNameLabel}
-          inputValid={userNameValid}
-          placeholder={userNamePlaceholder}
-          errorMessage={userNameErrorMsg}
-          onValid={valid => setUserNameValid(valid)}
-          setContent={content => setUserName(content)}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Input
-          label={studyProgrammeLabel}
-          inputValid={studyProgrammeValid}
-          placeholder={studyProgrammePlaceholder}
-          errorMessage={studyProgrammeErrorMsg}
-          onValid={valid => setStudyProgrammeValid(valid)}
-          setContent={content => setStudyProgramme(content)}
-        />
-      </View>
+      <Input
+        value={userName}
+        label={userNameLabel}
+        inputValid={userNameValid}
+        placeholder={userNamePlaceholder}
+        errorMessage={userNameErrorMsg}
+        onValid={valid => setUserNameValid(valid)}
+        setContent={content => setUserName(content)}
+      />
+      <Input
+        label={studyProgrammeLabel}
+        inputValid={studyProgrammeValid}
+        placeholder={studyProgrammePlaceholder}
+        errorMessage={studyProgrammeErrorMsg}
+        onValid={valid => setStudyProgrammeValid(valid)}
+        setContent={content => setStudyProgramme(content)}
+      />
       <Button buttonText={buttonText} onPress={handleCompleteSignup} />
     </View>
   );
@@ -168,9 +164,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     fontWeight: 'bold',
     color: '#32305D',
-  },
-  inputContainer: {
-    marginBottom: 10,
   },
 });
 

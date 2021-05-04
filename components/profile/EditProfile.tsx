@@ -46,7 +46,7 @@ const EditProfile = ({
       user.studyProgramme = studyProgramme;
       dispatch(saveUser(user));
 
-      navigation.navigate('ProfileScreen');
+      navigation.navigate('Profile');
     } else {
       console.log(false);
     }

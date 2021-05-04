@@ -12,9 +12,6 @@ import { RootState } from '../App';
 // Stack navigation
 import { useNavigation } from '@react-navigation/native';
 
-// Icons
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
 // Common components
 import Input from './../components/common/Input';
 import Button from '../components/common/Button';
@@ -36,10 +33,10 @@ const CompleteSignup = ({
   headerLabel = 'Before we start...',
   profilePicture = 'Profile picture',
   profilePictureBtn = 'Upload',
-  userNameLabel = 'What is your name?',
+  userNameLabel = 'WHAT IS YOUR NAME?',
   userNamePlaceholder = 'First name and last name',
   userNameErrorMsg = 'Please fill out your name',
-  studyProgrammeLabel = 'Study programme',
+  studyProgrammeLabel = 'STUDY PROGRAMME',
   studyProgrammePlaceholder = 'Select study programme',
   studyProgrammeErrorMsg = 'Please select you study programme',
   buttonText = 'Next',
@@ -89,27 +86,33 @@ const CompleteSignup = ({
             />
           </View>
         </View>
-        <View style={styles.profilePictureImg}>
-          <Ionicons name={'person-circle-outline'} size={100} color={'grey'} />
+        <View style={styles.profilePictureImgContainer}>
+          <View style={styles.profilePictureBorder}>
+            <Image style={styles.profilePictureImg} source={require('../assets/images/profile-image-placeholder.png')} />
+          </View>
         </View>
       </View>
-      <Input
-        value={userName}
-        label={userNameLabel}
-        inputValid={userNameValid}
-        placeholder={userNamePlaceholder}
-        errorMessage={userNameErrorMsg}
-        onValid={valid => setUserNameValid(valid)}
-        setContent={content => setUserName(content)}
-      />
-      <Input
-        label={studyProgrammeLabel}
-        inputValid={studyProgrammeValid}
-        placeholder={studyProgrammePlaceholder}
-        errorMessage={studyProgrammeErrorMsg}
-        onValid={valid => setStudyProgrammeValid(valid)}
-        setContent={content => setStudyProgramme(content)}
-      />
+      <View style={styles.inputContainer}>
+        <Input
+          value={userName}
+          label={userNameLabel}
+          inputValid={userNameValid}
+          placeholder={userNamePlaceholder}
+          errorMessage={userNameErrorMsg}
+          onValid={valid => setUserNameValid(valid)}
+          setContent={content => setUserName(content)}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Input
+          label={studyProgrammeLabel}
+          inputValid={studyProgrammeValid}
+          placeholder={studyProgrammePlaceholder}
+          errorMessage={studyProgrammeErrorMsg}
+          onValid={valid => setStudyProgrammeValid(valid)}
+          setContent={content => setStudyProgramme(content)}
+        />
+      </View>
       <Button buttonText={buttonText} onPress={handleCompleteSignup} />
     </View>
   );
@@ -120,20 +123,31 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: 40,
     margin: 20,
     marginTop: 0,
   },
-  profilePictureImg: {
-    width: '65%',
+  profilePictureImgContainer: {
+    flex: 2,
     alignItems: 'flex-end',
+  },
+  profilePictureImg: {
+    width: 90,
+    height: 90,
+    borderRadius: 150,
+  },
+  profilePictureBorder: {
+    borderWidth: 1,
+    borderColor: '#EEEEEE',
+    borderRadius: 150,
+    padding: 10,
   },
   profilePictureContainer: {
     marginBottom: 10,
   },
   profilePictureText: {
     textTransform: 'uppercase',
-    color: '#5050A5',
+    color: '#32305D',
     fontWeight: 'bold',
   },
   completeSignupContainer: {
@@ -144,6 +158,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 70,
     marginBottom: 30,
+    width: 150,
+    height: 150,
   },
   completeSignupHeader: {
     marginBottom: 20,
@@ -151,7 +167,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginLeft: 20,
     fontWeight: 'bold',
-    color: '#5050A5',
+    color: '#32305D',
+  },
+  inputContainer: {
+    marginBottom: 10,
   },
 });
 

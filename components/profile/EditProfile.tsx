@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,6 +14,8 @@ import Input from '../common/Input';
 import Button from '../common/Button';
 
 interface EditProfileLabels {
+  profilePictureLabel: string;
+  uploadButtonText: string;
   userNameLabel: string;
   studyProgrammeLabel: string;
   errorMessage: string;
@@ -21,10 +23,12 @@ interface EditProfileLabels {
 }
 
 const EditProfile = ({
-  userNameLabel = 'User name',
-  studyProgrammeLabel = 'Study programme',
+  profilePictureLabel = 'Profile picture',
+  uploadButtonText = 'Upload',
+  userNameLabel = 'WHAT IS YOUR NAME?',
+  studyProgrammeLabel = 'STUDY PROGRAMME',
   errorMessage = 'Please fill out field',
-  buttonText = 'Save',
+  buttonText = 'Save changes',
 }: EditProfileLabels) => {
   const navigation = useNavigation();
 
@@ -54,23 +58,46 @@ const EditProfile = ({
 
   return (
     <View style={styles.editProfileContainer}>
-      <Input
-        label={userNameLabel}
-        value={changeName}
-        inputValid={nameValid}
-        errorMessage={errorMessage}
-        onValid={(valid: any) => setNameValid(valid)}
-        setContent={(content: any) => setChangeName(content)}
-      />
-      <Input
-        label={studyProgrammeLabel}
-        value={studyProgramme}
-        inputValid={studyProgrammeValid}
-        errorMessage={errorMessage}
-        onValid={(valid: any) => setStudyProgrammeValid(valid)}
-        setContent={(content: any) => setStudyProgramme(content)}
-      />
-
+      <View style={styles.profilePicture}>
+        <View>
+          <View>
+            <Text style={styles.profilePictureText}>{profilePictureLabel}</Text>
+          </View>
+          <View>
+            <Button
+              buttonText={uploadButtonText}
+              onPress={() => {
+                console.log('setting profile image...');
+              }}
+            />
+          </View>
+        </View>
+        <View style={styles.profilePictureImgContainer}>
+          <View style={styles.profilePictureImgBorder}>
+            <Image style={styles.profilePictureImg} source={require('../../assets/images/profile-image-placeholder.png')} />
+          </View>
+        </View>
+      </View>
+      <View style={styles.inputContainer}>
+        <Input
+          label={userNameLabel}
+          value={changeName}
+          inputValid={nameValid}
+          errorMessage={errorMessage}
+          onValid={(valid: any) => setNameValid(valid)}
+          setContent={(content: any) => setChangeName(content)}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Input
+          label={studyProgrammeLabel}
+          value={studyProgramme}
+          inputValid={studyProgrammeValid}
+          errorMessage={errorMessage}
+          onValid={(valid: any) => setStudyProgrammeValid(valid)}
+          setContent={(content: any) => setStudyProgramme(content)}
+        />
+      </View>
       <Button buttonText={buttonText} onPress={handleSave} />
     </View>
   );
@@ -79,6 +106,37 @@ const EditProfile = ({
 const styles = StyleSheet.create({
   editProfileContainer: {
     marginTop: 50,
+  },
+  profilePicture: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 50,
+    margin: 20,
+  },
+  profilePictureText: {
+    textTransform: 'uppercase',
+    color: '#32305D',
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  profilePictureImgContainer: {
+    flex: 2,
+    alignItems: 'flex-end',
+  },
+  profilePictureImgBorder: {
+    borderWidth: 1,
+    borderColor: '#999999',
+    borderRadius: 150,
+    padding: 10,
+  },
+  profilePictureImg: {
+    borderRadius: 150,
+    width: 90,
+    height: 90,
+  },
+  inputContainer: {
+    marginBottom: 10,
   },
 });
 

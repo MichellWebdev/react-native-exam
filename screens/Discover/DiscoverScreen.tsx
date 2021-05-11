@@ -14,11 +14,13 @@ import { discoverbox1, discoverbox2, discoverbox3 } from '../../assets/Assets';
 interface DiscoverLabels {
   saerchPlaceholder: string;
   errorMessageEmail: string;
+  iconName: string;
 }
 
 const Discover = ({
   saerchPlaceholder = 'Search for events, posts, and more',
   errorMessageEmail = 'Please fill out seach field',
+  iconName = 'search-outline',
 }: DiscoverLabels) => {
   const [search, setSearch] = useState('');
   const [searchValid, setSearchValid] = useState(false);
@@ -26,7 +28,7 @@ const Discover = ({
   return (
     <View style={styles.discoverScreenContainer}>
       <Input
-        label=''
+        iconName={iconName}
         inputValid={searchValid}
         placeholder={saerchPlaceholder}
         errorMessage={errorMessageEmail}
@@ -60,8 +62,6 @@ const Discover = ({
 const styles = StyleSheet.create({
   discoverScreenContainer: {
     flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
     marginTop: 30,
   },
   discoverBoxContainer: {

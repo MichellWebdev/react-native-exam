@@ -16,7 +16,6 @@ export default class StyleSheetFactory {
     const discoverBoxBorderRadius = 5;
     const discoverBoxBorderWidth = 0.5;
 
-    const eventBoxWidth = 350;
     const eventBoxHeight = 180;
 
     return StyleSheet.create({
@@ -69,33 +68,46 @@ export default class StyleSheetFactory {
         borderColor: backgroundColor,
       },
       eventBoxContentsContainer: {
-        width: eventBoxWidth,
         height: eventBoxHeight,
         backgroundColor: backgroundColor,
         borderRadius: discoverBoxBorderRadius,
         borderWidth: discoverBoxBorderWidth,
         borderColor: backgroundColor,
+        justifyContent: 'flex-end',
+        padding: 10,
       },
       eventBoxLabelContainer: {
         flexDirection: 'row',
+        alignItems: 'center',
       },
-      eventBigBold: {
+      eventName: {
         fontSize: 20,
         fontWeight: '700',
         color: 'white',
         textAlign: 'left',
+        marginBottom: 2,
       },
-      eventSmallNonbold: {
+      eventGroup: {
         fontSize: 15,
         fontWeight: '400',
         color: 'white',
         textAlign: 'left',
+        marginBottom: 3,
       },
-      eventSmallBold: {
+      eventDate: {
         fontSize: 15,
         fontWeight: '700',
         color: 'white',
         textAlign: 'left',
+        marginLeft: 6,
+        marginBottom: 3,
+      },
+      eventLocation: {
+        fontSize: 15,
+        fontWeight: '400',
+        color: 'white',
+        textAlign: 'left',
+        marginLeft: 3,
       },
     });
   }

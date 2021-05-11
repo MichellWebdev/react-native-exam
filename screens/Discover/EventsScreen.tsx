@@ -11,6 +11,7 @@ const Events = () => {
       <View>
         <FlatList
           data={EVENTS}
+          showsVerticalScrollIndicator={false}
           renderItem={itemData => (
             <EventBox
               boxBackgroundColor='rgba(46, 49, 49, 0.5)'
@@ -28,8 +29,7 @@ const Events = () => {
 const styles = StyleSheet.create({
   eventScreenContainer: {
     flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
+    margin: 20,
     marginTop: -15,
   },
 });

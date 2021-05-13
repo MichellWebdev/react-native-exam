@@ -22,7 +22,7 @@ const EventBox = ({ boxBackgroundColor, boxBackgroundImage, event }: EventBoxLab
 
   // https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd
   function formatDate(date: Date) {
-    var d = new Date(date),
+    let d = new Date(date),
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),
       year = d.getFullYear();
@@ -38,15 +38,15 @@ const EventBox = ({ boxBackgroundColor, boxBackgroundImage, event }: EventBoxLab
       <TouchableOpacity onPress={() => navigation.navigate('EventsDetail', { title: event.eventName, event: event })}>
         <ImageBackground style={styles.eventBoxImage} resizeMode='cover' source={image}>
           <View style={styles.eventBoxContentsContainer}>
-            <Text style={styles.eventBigBold}>{event.eventName}</Text>
-            <Text style={styles.eventSmallNonbold}>{event.groupName}</Text>
+            <Text style={styles.eventName}>{event.eventName}</Text>
+            <Text style={styles.eventGroup}>{event.groupName}</Text>
             <View style={styles.eventBoxLabelContainer}>
               <Ionicons name='time' color='white' />
-              <Text style={styles.eventSmallBold}>{date}</Text>
+              <Text style={styles.eventDate}>{date}</Text>
             </View>
             <View style={styles.eventBoxLabelContainer}>
               <Ionicons name='location' color='white' />
-              <Text style={styles.eventSmallNonbold}> {event.location}</Text>
+              <Text style={styles.eventLocation}>{event.location}</Text>
             </View>
           </View>
         </ImageBackground>

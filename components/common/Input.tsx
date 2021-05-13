@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 
+// Icons
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 // enum AutoCapitalizeType {
 //   none = 'none',
 //   sentences = 'sentences',
@@ -9,8 +12,10 @@ import { StyleSheet, Text, View, TextInput } from 'react-native';
 // }
 
 interface InputProps {
-  label: string;
+  label?: string;
   value?: string;
+  iconName?: string;
+  iconColor?: string;
   placeholder?: string;
   password?: boolean;
   autoCapitalize?: any;
@@ -23,6 +28,8 @@ interface InputProps {
 const Input = ({
   label,
   value,
+  iconName,
+  iconColor = '#32305D',
   placeholder,
   password,
   autoCapitalize,
@@ -41,15 +48,18 @@ const Input = ({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
-      <TextInput
-        autoCapitalize={autoCapitalize}
-        value={value}
-        placeholder={placeholder}
-        secureTextEntry={password}
-        onChangeText={handleInput}
-        onBlur={() => setTouched(true)}
-      />
+      {label && <Text style={styles.label}>{label}</Text>}
+      <View style={[iconName ? styles.withIcon : styles.noIcon]}>
+        {iconName && <Ionicons name={iconName} size={25} color={iconColor} />}
+        <TextInput
+          autoCapitalize={autoCapitalize}
+          value={value}
+          placeholder={placeholder}
+          secureTextEntry={password}
+          onChangeText={handleInput}
+          onBlur={() => setTouched(true)}
+        />
+      </View>
       {!inputValid && touched && <Text style={styles.errorMessage}>{errorMessage}</Text>}
     </View>
   );
@@ -84,6 +94,12 @@ const styles = StyleSheet.create({
   errorMessage: {
     color: 'red',
     marginTop: 5,
+  },
+  withIcon: {
+    flexDirection: 'row',
+  },
+  noIcon: {
+    flexDirection: 'column',
   },
 });
 

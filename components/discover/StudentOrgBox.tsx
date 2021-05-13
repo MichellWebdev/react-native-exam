@@ -48,7 +48,6 @@ const StudentOrgBox = ({ boxBackgroundColor, boxBackgroundImage, studentOrg }: S
               />
             </View>
           </View>
-
           <Text style={styles.studentOrgHeader}>{studentOrg.orgName}</Text>
           <Text>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto sunt magni pariatur excepturi minus adipisci

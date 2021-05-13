@@ -72,7 +72,6 @@ const EventsDetail = (props: any) => {
 const styles = StyleSheet.create({
   eventsDetailLower: {
     backgroundColor: 'white',
-    marginTop: 25,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -81,6 +80,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 2.0,
     elevation: 2,
+    marginBottom: 30,
   },
   eventDescriptionText: {
     margin: 20,

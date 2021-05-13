@@ -32,7 +32,7 @@ export const EVENTS = [
     new Date(2021, 3, 12, 13, 0, 0),
     new Date(2021, 3, 13, 17, 0, 0),
     'Dalgas Have, 2000 Frederiksberg',
-    'This is a sample event 1 from group 1.',
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia cum eius ipsam, rerum commodi reiciendis illo explicabo ratione error tenetur ex laborum iusto a excepturi!',
     [SCHEDULES[0], SCHEDULES[1], SCHEDULES[2], SCHEDULES[3]],
     [USERS[0], USERS[1]],
     [USERS[0]]
@@ -45,7 +45,7 @@ export const EVENTS = [
     new Date(2021, 3, 13, 13, 0, 0),
     new Date(2021, 3, 13, 16, 0, 0),
     'Korea',
-    'Event 2 from group 2.',
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia cum eius ipsam, rerum commodi reiciendis illo explicabo ratione error tenetur ex laborum iusto a excepturi! Reiciendis illo explicabo ratione error tenetur ex laborum iusto a excepturi.',
     [SCHEDULES[4], SCHEDULES[5], SCHEDULES[6]],
     [USERS[0], USERS[1], USERS[2]],
     [USERS[1], USERS[2]]
@@ -58,7 +58,7 @@ export const EVENTS = [
     new Date(2021, 4, 28, 12, 0, 0),
     new Date(2021, 4, 28, 16, 0, 0),
     'Gl Strandvej 13, 3050 Humlebæk',
-    'Event 2 from group 2.',
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia cum eius ipsam, rerum commodi reiciendis illo explicabo ratione error tenetur ex laborum iusto a excepturi! Error tenetur ex laborum.',
     [SCHEDULES[0], SCHEDULES[1], SCHEDULES[2], SCHEDULES[3]],
     [USERS[0], USERS[1]],
     [USERS[0]]
@@ -71,7 +71,7 @@ export const EVENTS = [
     new Date(2021, 5, 5, 12, 0, 0),
     new Date(2021, 5, 5, 16, 0, 0),
     'Korea',
-    'Event 2 from group 2.',
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia cum eius ipsam, rerum commodi reiciendis illo explicabo ratione error tenetur ex laborum iusto a excepturi!',
     [SCHEDULES[4], SCHEDULES[5], SCHEDULES[6]],
     [USERS[0], USERS[1], USERS[2]],
     [USERS[1], USERS[2]]

@@ -8,6 +8,7 @@ import EventInfo from '../../components/discover/EventInfo';
 // FlatList gives warning - using SafeAreaView on EventsScreen.tsx worked
 // but here it is not working because there are more than one box
 // formatDate should also formatTime for FlatList (and not show year)
+// TODO: Move schedule into it's own component??
 
 // Can be deleted when we move schedule to own component
 // https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd
@@ -28,11 +29,13 @@ const EventsDetail = (props: any) => {
   const { title } = props.route.params;
   const { event } = props.route.params;
 
+  console.log(event.interested.length);
+
   const image = { uri: event.image };
 
   return (
     <ScrollView>
-      <View style={styles.eventsDetailContainer}>
+      <View>
         <EventInfo
           image={image}
           eventName={event.eventName}
@@ -40,20 +43,26 @@ const EventsDetail = (props: any) => {
           eventEndDate={event.endDate}
           eventLocation={event.location}
           eventGroupName={event.groupName}
+          interestedInEvent={event.interested.length}
+          goingToEvent={event.going.length}
         />
         <View style={styles.eventsDetailLower}>
-          <Text>{event.description}</Text>
+          <Text style={styles.eventDescriptionText}>{event.description}</Text>
         </View>
         <View style={styles.eventsDetailLower}>
-          <FlatList
-            data={event.schedules}
-            renderItem={itemData => (
-              <Text>
-                {formatDate(itemData.item.time)} {itemData.item.content}
-              </Text>
-            )}
-            keyExtractor={item => item.id}
-          />
+          <View style={styles.eventDetailsSchedule}>
+            <Text style={styles.eventScheduleHeader}>Schedule</Text>
+            <FlatList
+              data={event.schedules}
+              renderItem={itemData => (
+                <View style={styles.eventScheduleText}>
+                  <Text style={styles.eventScheduleTime}>{formatDate(itemData.item.time)}</Text>
+                  <Text>{itemData.item.content}</Text>
+                </View>
+              )}
+              keyExtractor={item => item.id}
+            />
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -61,41 +70,40 @@ const EventsDetail = (props: any) => {
 };
 
 const styles = StyleSheet.create({
-  eventsDetailContainer: {
-    marginTop: 30,
-  },
-  eventsDetailUpper: {
-    backgroundColor: 'white',
-  },
   eventsDetailLower: {
-    margin: 20,
     backgroundColor: 'white',
+    marginTop: 25,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 2.0,
+    elevation: 2,
   },
-  evensDetailImage: {
-    resizeMode: 'cover',
-    height: 250,
-  },
-  eventDetailText: {
+  eventDescriptionText: {
     margin: 20,
   },
-  eventHeader: {
+  eventDetailsSchedule: {
+    margin: 20,
+  },
+  eventScheduleHeader: {
     fontSize: 25,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 20,
+    color: '#32305D',
   },
-  eventTimeLocation: {
+  eventScheduleText: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
+    paddingLeft: 30,
+    paddingBottom: 20,
+    marginBottom: 20,
+    borderBottomWidth: 1,
+    borderColor: '#F1F1F1',
   },
-  eventTimeText: {
-    marginLeft: 10,
-    fontWeight: 'bold',
-    fontSize: 17,
-  },
-  eventLocationText: {
-    marginLeft: 10,
-    fontSize: 17,
+  eventScheduleTime: {
+    marginRight: 20,
   },
 });
 

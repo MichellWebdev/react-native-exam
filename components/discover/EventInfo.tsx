@@ -27,9 +27,20 @@ interface EventInfoProps {
   eventEndDate: Date;
   eventLocation: string;
   eventGroupName: string;
+  interestedInEvent: any;
+  goingToEvent: any;
 }
 
-const EventInfo = ({ image, eventName, eventStartDate, eventEndDate, eventLocation, eventGroupName }: EventInfoProps) => {
+const EventInfo = ({
+  image,
+  eventName,
+  eventStartDate,
+  eventEndDate,
+  eventLocation,
+  eventGroupName,
+  interestedInEvent,
+  goingToEvent,
+}: EventInfoProps) => {
   return (
     <View style={styles.eventInfo}>
       <ImageBackground style={styles.eventInfoImage} source={image} />
@@ -72,6 +83,16 @@ const EventInfo = ({ image, eventName, eventStartDate, eventEndDate, eventLocati
             }}
           />
         </View>
+        <View style={styles.eventParticipants}>
+          <View style={styles.participants}>
+            <Ionicons name='star' size={20} />
+            <Text style={styles.goingText}>{interestedInEvent} Interested</Text>
+          </View>
+          <View style={styles.participants}>
+            <Ionicons name='checkbox-outline' size={20} />
+            <Text style={styles.goingText}>{goingToEvent} Going</Text>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -80,6 +101,15 @@ const EventInfo = ({ image, eventName, eventStartDate, eventEndDate, eventLocati
 const styles = StyleSheet.create({
   eventInfo: {
     backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 2.0,
+
+    elevation: 2,
   },
   eventInfoImage: {
     resizeMode: 'cover',
@@ -111,7 +141,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 20,
+    marginTop: 15,
     borderWidth: 1,
     borderColor: '#F1F1F1',
     borderRadius: 5,
@@ -135,7 +165,23 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginTop: 20,
+    marginTop: 30,
+    marginBottom: 10,
+  },
+  eventParticipants: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
+  },
+  participants: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  goingText: {
+    marginLeft: 10,
+    marginRight: 25,
   },
 });
 

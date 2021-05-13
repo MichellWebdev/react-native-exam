@@ -100,7 +100,7 @@ const EventInfo = ({
 
 const styles = StyleSheet.create({
   eventInfo: {
-    marginBottom: 30,
+    marginBottom: 25,
     backgroundColor: 'white',
     shadowColor: '#000',
     shadowOffset: {

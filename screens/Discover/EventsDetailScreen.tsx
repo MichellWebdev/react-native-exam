@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 2.0,
     elevation: 2,
-    marginBottom: 30,
+    marginBottom: 25,
   },
   eventDescriptionText: {
     margin: 20,

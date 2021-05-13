@@ -107,7 +107,7 @@ export default class StyleSheetFactory {
         fontWeight: '400',
         color: 'white',
         textAlign: 'left',
-        marginLeft: 3,
+        marginLeft: 6,
       },
     });
   }

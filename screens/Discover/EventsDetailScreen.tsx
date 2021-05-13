@@ -1,12 +1,27 @@
-import React, { useState } from 'react';
-import { FlatList, ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-// Icons
-import Ionicons from 'react-native-vector-icons/Ionicons';
+// Custom components
+import EventInfo from '../../components/discover/EventInfo';
 
 // Need to improve:
 // FlatList gives warning - using SafeAreaView on EventsScreen.tsx worked
 // but here it is not working because there are more than one box
+// formatDate should also formatTime for FlatList (and not show year)
+
+// Can be deleted when we move schedule to own component
+// https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd
+function formatDate(date: Date) {
+  let d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+
+  return [day, month, year].join('.');
+}
 
 const EventsDetail = (props: any) => {
   // For later, when connected to database
@@ -18,22 +33,14 @@ const EventsDetail = (props: any) => {
   return (
     <ScrollView>
       <View style={styles.eventsDetailContainer}>
-        <View style={styles.eventsDetailUpper}>
-          <ImageBackground style={styles.evensDetailImage} source={image} />
-          <View>
-            <Text>{event.eventName}</Text>
-            <View>
-              <Ionicons name='time' color='black' />
-              <Text>
-                {event.startDate} - {event.endDate}
-              </Text>
-            </View>
-            <View>
-              <Ionicons name='location' color='black' />
-              <Text> {event.location}</Text>
-            </View>
-          </View>
-        </View>
+        <EventInfo
+          image={image}
+          eventName={event.eventName}
+          eventStartDate={event.startDate}
+          eventEndDate={event.endDate}
+          eventLocation={event.location}
+          eventGroupName={event.groupName}
+        />
         <View style={styles.eventsDetailLower}>
           <Text>{event.description}</Text>
         </View>
@@ -42,7 +49,7 @@ const EventsDetail = (props: any) => {
             data={event.schedules}
             renderItem={itemData => (
               <Text>
-                {itemData.item.time} {itemData.item.content}
+                {formatDate(itemData.item.time)} {itemData.item.content}
               </Text>
             )}
             keyExtractor={item => item.id}
@@ -55,28 +62,40 @@ const EventsDetail = (props: any) => {
 
 const styles = StyleSheet.create({
   eventsDetailContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
     marginTop: 30,
   },
   eventsDetailUpper: {
-    width: '100%',
-    height: 600,
     backgroundColor: 'white',
-    marginBottom: 30,
   },
   eventsDetailLower: {
-    width: '100%',
-    height: 100,
-    minHeight: 80,
+    margin: 20,
     backgroundColor: 'white',
-    marginBottom: 30,
   },
   evensDetailImage: {
     resizeMode: 'cover',
-    justifyContent: 'center',
     height: 250,
+  },
+  eventDetailText: {
+    margin: 20,
+  },
+  eventHeader: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  eventTimeLocation: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  eventTimeText: {
+    marginLeft: 10,
+    fontWeight: 'bold',
+    fontSize: 17,
+  },
+  eventLocationText: {
+    marginLeft: 10,
+    fontSize: 17,
   },
 });
 

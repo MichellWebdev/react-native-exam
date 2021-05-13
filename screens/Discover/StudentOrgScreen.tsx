@@ -10,6 +10,7 @@ const StudentOrg = () => {
     <SafeAreaView style={styles.studentOrgScreenContainer}>
       <View>
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={STUDORGS}
           renderItem={itemData => (
             <StudentOrgBox
@@ -27,9 +28,7 @@ const StudentOrg = () => {
 
 const styles = StyleSheet.create({
   studentOrgScreenContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
+    margin: 20,
     marginTop: -15,
   },
 });

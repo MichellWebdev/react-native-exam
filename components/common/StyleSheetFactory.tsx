@@ -51,14 +51,15 @@ export default class StyleSheetFactory {
         textAlign: 'center',
         paddingTop: 60,
       },
+
       // Discover -> Event Page
       eventBoxContainer: {
         flexDirection: 'column',
-        // marginTop: 15,
         marginBottom: 30,
         borderRadius: discoverBoxBorderRadius,
         borderWidth: discoverBoxBorderWidth,
         borderColor: backgroundColor,
+        backgroundColor: 'white',
       },
       eventBoxImage: {
         resizeMode: 'cover',
@@ -108,6 +109,46 @@ export default class StyleSheetFactory {
         color: 'white',
         textAlign: 'left',
         marginLeft: 6,
+      },
+
+      // Discover --> Student organisations
+      studentOrgInfoContainer: {
+        padding: 10,
+      },
+      studentOrgHeader: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10,
+      },
+      followBtn: {
+        alignItems: 'flex-end',
+        width: '70%',
+      },
+      studentOrgImageContainer: {
+        borderRadius: discoverBoxBorderRadius,
+        width: '30%',
+        padding: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        marginTop: -50,
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.15,
+        shadowRadius: 2.0,
+
+        elevation: 2,
+      },
+      studentOrgImage: {
+        width: 80,
+        height: 80,
+      },
+      logoContainer: {
+        flexDirection: 'row',
+        marginBottom: 20,
       },
     });
   }

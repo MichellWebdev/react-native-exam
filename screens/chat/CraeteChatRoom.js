@@ -21,6 +21,16 @@ const CreateChatRoom = props => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+  const [createChatRoomMounted, setCreateChatRoomMounted] = useState(false)
+  if (!createChatRoomMounted) { dispatch(getChatrooms('')); }
+  useEffect(() => { setCreateChatRoomMounted(true) }, [])
+
+  const iconName = 'search-outline'
+  const saerchPlaceholder = 'Search user email'
+  // const errorMessageEmail = 'Please fill out search field'
+
+  let matchFound;
+
   const loggedInUser = useSelector(state => state.user.loggedInUser);
   const searchMatchingUsers = useSelector(state => state.user.searchUsers)
   const myChatrooms = useSelector(state => state.chat.myChatrooms);
@@ -28,53 +38,40 @@ const CreateChatRoom = props => {
 
   const [chatroomUserEmail, setChatroomUserEmail] = useState('');
   const [chatroomUserEmailValid, setChatroomUserEmailValid] = useState(false);
-
-  const handleCreateChatroom = () => {
-    let oneself = false;
-    let alreadyExists = false;
-
-    // Cannot invite oneself
-    if (chatroomUser == loggedInUser.email) {
-      oneself = true;
-      console.log('Cannot create chatroom with yourself');
-    } else {
-      myChatrooms.forEach(chatroom => {
-        chatroom.participants.forEach(user => {
-          if (user == chatroomUser) {
-            alreadyExists = true;
-          }
-        });
-      });
-
-      if (alreadyExists) {
-        console.log('Chatroom already exists with this user');
-      } else {
-        dispatch(createChatroom(chatroomName, chatroomImage, chatroomUser));
-        dispatch(getChatrooms());
-        navigation.goBack();
-      }
-    }
-  };
+  const [errorMessageEmail, setErrorMessageEmail] = useState('Please fill out search field');
+  const [ownEmail, setOwnEmail] = useState(false);
 
   const handleEmailInput = emailInput => {
     setChatroomUserEmail(emailInput)
-    dispatch(searchUsers(emailInput))
+
+    if (searchMatchingUsers != null && searchMatchingUsers.length == 1) {
+      if (searchMatchingUsers[0].email.startsWith(emailInput) && loggedInUser.email.startsWith(emailInput)) {
+        setErrorMessageEmail(`Cannot create a chat with your own email`);
+        setOwnEmail(true)
+        setChatroomUserEmailValid(false)
+        // console.log('here')
+      } else {
+        setErrorMessageEmail(`Please fill out search field`);
+        setOwnEmail(false)
+        dispatch(searchUsers(emailInput))
+      }
+    } else {
+      if (emailInput == loggedInUser.email) {
+        setErrorMessageEmail(`Cannot create a chat with your own email`);
+        setOwnEmail(true)
+        setChatroomUserEmailValid(false)
+      } else {
+        setErrorMessageEmail(`Please fill out search field`);
+        setOwnEmail(false)
+        dispatch(searchUsers(emailInput))
+      }
+    }
   }
 
   const handleCancel = () => {
     dispatch(resetUserResearch())
     navigation.goBack()
   }
-
-  // const [unmounted, setUnmounted] = useState(false)
-  // useEffect(() => { return () => { setUnmounted(true) } }, [])
-  // if (unmounted) { dispatch(resetUserResearch()); }
-
-  const iconName = 'search-outline'
-  const saerchPlaceholder = 'Search user email'
-  const errorMessageEmail = 'Please fill out search field'
-
-  let matchFound;
 
   if (searchMatchingUsers != null && searchMatchingUsers.length == 0) {
     matchFound = false
@@ -148,7 +145,7 @@ const CreateChatRoom = props => {
           :
           <FlatList
             data={searchMatchingUsers}
-            renderItem={itemData => <ChatUser chatUser={itemData.item}></ChatUser>}
+            renderItem={itemData => <ChatUser chatUser={itemData.item} ownEmail={ownEmail}></ChatUser>}
             keyExtractor={item => item.id}
           />}
       </View>

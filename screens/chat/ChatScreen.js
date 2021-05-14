@@ -13,9 +13,9 @@ const Chat = props => {
 
   // https://stackoverflow.com/questions/62091146/componentwillmount-for-react-functional-component
   // dispatch(getChatrooms());
-  const [mounted, setMounted] = useState(false)
-  if (!mounted) { dispatch(getChatrooms()); }
-  useEffect(() => { setMounted(true) }, [])
+  const [chatScreenMounted, setChatScreenMounted] = useState(false)
+  if (!chatScreenMounted) { dispatch(getChatrooms()); }
+  useEffect(() => { setChatScreenMounted(true) }, [])
 
   // Old (using dummy data)
   // const myChatrooms = []

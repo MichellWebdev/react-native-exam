@@ -1,10 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-const Home = props => {
+// Custom components
+import Events from './discover/EventsScreen';
+import StudentOrg from './discover/StudentOrgScreen';
+
+const Home = () => {
   return (
     <View style={styles.homeContainer}>
-      <Text>Home</Text>
+      <Events />
     </View>
   );
 };
@@ -12,8 +16,6 @@ const Home = props => {
 const styles = StyleSheet.create({
   homeContainer: {
     flex: 1,
-    alignItems: 'center',
-    marginTop: 50,
   },
 });
 

@@ -7,6 +7,7 @@ import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector, useDispatch } from 'react-redux';
+import { createChatroom, getChatrooms } from '../../redux-store/actions/ChatActions';
 
 const ChatUser = props => {
 
@@ -14,12 +15,44 @@ const ChatUser = props => {
     const dispatch = useDispatch();
 
     const loggedInUser = useSelector(state => state.user.loggedInUser);
+    const myChatrooms = useSelector(state => state.chat.myChatrooms);
 
-    const handleCreateChatroom = invitedUserId => {
+    const ownEmail = (props.chatUser.email == loggedInUser.email)
+
+    const handleCreateChatroom = invitedUser => {
+
+        let alreadyExists = false;
+
+        myChatrooms.forEach(chatroom => {
+            chatroom.participants.forEach(user => {
+                if (user == invitedUser.email) {
+                    alreadyExists = true;
+                    navigation.navigate("ChatMessages", { id: chatroom.id, chatroomName: user });
+                }
+            });
+        });
+
+        if (!alreadyExists) {
+            dispatch(createChatroom(invitedUser));
+            dispatch(getChatrooms());
+
+            myChatrooms.forEach(chatroom => {
+                chatroom.participants.forEach(user => {
+                    if (user == invitedUser.email) {
+                        alreadyExists = true;
+                        navigation.navigate("ChatMessages", { id: chatroom.id, chatroomName: user });
+                    }
+                });
+            });
+        }
+
+        // dispatch(createChatroom(chatroomName, chatroomImage, chatroomUser));
+        // navigation.goBack();
+
         // console.log(invitedUserId)
 
-        let oneself = false;
-        let alreadyExists = false;
+        // let oneself = false;
+        // let alreadyExists = false;
 
         // Cannot invite oneself
         // if (chatroomUser == loggedInUser.email) {
@@ -46,8 +79,8 @@ const ChatUser = props => {
 
     return (
         <TouchableOpacity
-            onPress={() => handleCreateChatroom(props.chatUser.id)}
-            disabled={props.ownEmail}
+            onPress={() => handleCreateChatroom(props.chatUser)}
+            disabled={props.ownEmail || ownEmail}
         >
             <View style={styles.chatUser}>
                 <View style={styles.imageView}>
@@ -56,11 +89,11 @@ const ChatUser = props => {
                         source={require('../../assets/images/chatroom.png')} />
                 </View>
                 <View style={styles.textView}>
-                    {!props.ownEmail
+                    {!props.ownEmail && !ownEmail
                         ?
                         <Text style={styles.text}>{props.chatUser.email}</Text>
                         :
-                        <Text style={styles.textOwnEmail}>{props.chatUser.email}</Text>
+                        <Text style={styles.textOwnEmail}>{props.chatUser.email} (You)</Text>
                     }
                 </View>
             </View>

@@ -1,6 +1,6 @@
 // Need to improve:
 // (1) search: x button
-// (2) search: cancel button
+// (2) search: on the bar instead of within the screen?
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, FlatList } from 'react-native';
@@ -21,9 +21,9 @@ const CreateChatRoom = props => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const [createChatRoomMounted, setCreateChatRoomMounted] = useState(false)
-  if (!createChatRoomMounted) { dispatch(getChatrooms('')); }
-  useEffect(() => { setCreateChatRoomMounted(true) }, [])
+  // const [createChatRoomMounted, setCreateChatRoomMounted] = useState(false)
+  // if (!createChatRoomMounted) { dispatch(getChatrooms('')); }
+  // useEffect(() => { setCreateChatRoomMounted(true) }, [])
 
   const iconName = 'search-outline'
   const saerchPlaceholder = 'Search user email'
@@ -31,10 +31,10 @@ const CreateChatRoom = props => {
 
   let matchFound;
 
-  const loggedInUser = useSelector(state => state.user.loggedInUser);
-  const searchMatchingUsers = useSelector(state => state.user.searchUsers)
-  const myChatrooms = useSelector(state => state.chat.myChatrooms);
+  // const loggedInUser = useSelector(state => state.user.loggedInUser);
+  // const myChatrooms = useSelector(state => state.chat.myChatrooms);
   // console.log(myChatrooms)
+  const searchMatchingUsers = useSelector(state => state.user.searchUsers)
 
   const [chatroomUserEmail, setChatroomUserEmail] = useState('');
   const [chatroomUserEmailValid, setChatroomUserEmailValid] = useState(false);
@@ -43,29 +43,29 @@ const CreateChatRoom = props => {
 
   const handleEmailInput = emailInput => {
     setChatroomUserEmail(emailInput)
-
-    if (searchMatchingUsers != null && searchMatchingUsers.length == 1) {
-      if (searchMatchingUsers[0].email.startsWith(emailInput) && loggedInUser.email.startsWith(emailInput)) {
-        setErrorMessageEmail(`Cannot create a chat with your own email`);
-        setOwnEmail(true)
-        setChatroomUserEmailValid(false)
-        // console.log('here')
-      } else {
-        setErrorMessageEmail(`Please fill out search field`);
-        setOwnEmail(false)
-        dispatch(searchUsers(emailInput))
-      }
-    } else {
-      if (emailInput == loggedInUser.email) {
-        setErrorMessageEmail(`Cannot create a chat with your own email`);
-        setOwnEmail(true)
-        setChatroomUserEmailValid(false)
-      } else {
-        setErrorMessageEmail(`Please fill out search field`);
-        setOwnEmail(false)
-        dispatch(searchUsers(emailInput))
-      }
-    }
+    dispatch(searchUsers(emailInput))
+    // if (searchMatchingUsers != null && searchMatchingUsers.length == 1) {
+    //   if (searchMatchingUsers[0].email.startsWith(emailInput) && loggedInUser.email.startsWith(emailInput)) {
+    //     setErrorMessageEmail(`Cannot create a chat with your own email`);
+    //     setOwnEmail(true)
+    //     setChatroomUserEmailValid(false)
+    //     // console.log('here')
+    //   } else {
+    //     setErrorMessageEmail(`Please fill out search field`);
+    //     setOwnEmail(false)
+    //     dispatch(searchUsers(emailInput))
+    //   }
+    // } else {
+    //   if (emailInput == loggedInUser.email) {
+    //     setErrorMessageEmail(`Cannot create a chat with your own email`);
+    //     setOwnEmail(true)
+    //     setChatroomUserEmailValid(false)
+    //   } else {
+    //     setErrorMessageEmail(`Please fill out search field`);
+    //     setOwnEmail(false)
+    //     dispatch(searchUsers(emailInput))
+    //   }
+    // }
   }
 
   const handleCancel = () => {

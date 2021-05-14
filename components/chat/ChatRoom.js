@@ -1,15 +1,18 @@
 // Need to improve:
 // (1) require using variable, not string
 // (2) time display, latest message display
+// (3) chatroom name - user name instead of email
 
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ChatRoom = props => {
     const navigation = useNavigation();
 
+    const loggedInUser = useSelector(state => state.user.loggedInUser);
     // const lastPos = props.chatroom.chatMessages.length - 1;
     // let lastMessageText = '';
     // let displayTime = '';
@@ -22,28 +25,87 @@ const ChatRoom = props => {
     // }
 
     return (
-        <TouchableOpacity onPress={() => navigation.navigate("ChatMessages", { id: props.chatRoom.id, chatroomName: props.chatRoom.name })}>
-            <View style={styles.chatRoom}>
+        <View>
+            {
+                props.chatRoom.participants[0] == loggedInUser.email
+                    ?
+                    <TouchableOpacity onPress={() => navigation.navigate("ChatMessages", { id: props.chatRoom.id, chatroomName: props.chatRoom.participants[1] })}>
+                        <View style={styles.chatRoom}>
 
-                <View style={styles.imageView}>
-                    <Image
-                        style={styles.tinyLogo}
-                        source={require('../../assets/images/chatroom.png')} />
-                </View>
-                <View style={styles.textView}>
-                    <Text style={styles.text}>{props.chatRoom.name}</Text>
-                    {/* <Text ellipsizeMode='tail' numberOfLines={1} >{lastMessageText}</Text> */}
-                </View>
-                <View style={styles.dotView}>
-                    <View style={styles.dot}></View>
-                    {/* <Text>{displayTime}</Text> */}
-                </View>
+                            <View style={styles.imageView}>
+                                <Image
+                                    style={styles.tinyLogo}
+                                    source={require('../../assets/images/chatroom.png')} />
+                            </View>
+                            <View style={styles.textView}>
+                                {
+                                    props.chatRoom.participants[0] == loggedInUser.email
+                                        ?
+                                        <Text style={styles.text}>{props.chatRoom.participants[1]}</Text>
+                                        :
+                                        <Text style={styles.text}>{props.chatRoom.participants[0]}</Text>
+                                }
+                            </View>
+                            <View style={styles.dotView}>
+                                <View style={styles.dot}></View>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                    :
+                    <TouchableOpacity onPress={() => navigation.navigate("ChatMessages", { id: props.chatRoom.id, chatroomName: props.chatRoom.participants[0] })}>
+                        <View style={styles.chatRoom}>
 
-                {/* <Button title="Navigate somewhere" 
-                    onPress={() => navigation.navigate("nameOfNavigationRouteEgMenu")} /> */}
+                            <View style={styles.imageView}>
+                                <Image
+                                    style={styles.tinyLogo}
+                                    source={require('../../assets/images/chatroom.png')} />
+                            </View>
+                            <View style={styles.textView}>
+                                {
+                                    props.chatRoom.participants[0] == loggedInUser.email
+                                        ?
+                                        <Text style={styles.text}>{props.chatRoom.participants[1]}</Text>
+                                        :
+                                        <Text style={styles.text}>{props.chatRoom.participants[0]}</Text>
+                                }
+                            </View>
+                            <View style={styles.dotView}>
+                                <View style={styles.dot}></View>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+            }
+        </View>
 
-            </View>
-        </TouchableOpacity>
+        // Old
+        // <TouchableOpacity onPress={() => navigation.navigate("ChatMessages", { id: props.chatRoom.id, chatroomName: anotherEmail })}>
+        //     <View style={styles.chatRoom}>
+
+        //         <View style={styles.imageView}>
+        //             <Image
+        //                 style={styles.tinyLogo}
+        //                 source={require('../../assets/images/chatroom.png')} />
+        //         </View>
+        //         <View style={styles.textView}>
+        //             {
+        //                 props.chatRoom.participants[0] == loggedInUser.email
+        //                     ?
+        //                     <Text style={styles.text}>{props.chatRoom.participants[1]}</Text>
+        //                     :
+        //                     <Text style={styles.text}>{props.chatRoom.participants[0]}</Text>
+        //             }
+        //             {/* <Text ellipsizeMode='tail' numberOfLines={1} >{lastMessageText}</Text> */}
+        //         </View>
+        //         <View style={styles.dotView}>
+        //             <View style={styles.dot}></View>
+        //             {/* <Text>{displayTime}</Text> */}
+        //         </View>
+
+        //         {/* <Button title="Navigate somewhere" 
+        //             onPress={() => navigation.navigate("nameOfNavigationRouteEgMenu")} /> */}
+
+        //     </View>
+        // </TouchableOpacity>
     );
 }
 

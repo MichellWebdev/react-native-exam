@@ -90,6 +90,22 @@ function HomeStackNavigator() {
           headerBackTitle: ' ',
         })}
       />
+      <Stack.Screen
+        name='StudentOrgsDetail'
+        component={StudentOrgDetail}
+        // https://reactnavigation.org/docs/headers/
+        options={({ route }) => ({
+          headerTitle: route.params.title,
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#5050A5',
+            textTransform: 'uppercase',
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
+          headerBackTitle: ' ',
+        })}
+      />
     </Stack.Navigator>
   );
 }

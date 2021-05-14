@@ -1,5 +1,6 @@
 import DiscoverEvent from '../models/DiscoverEvent';
 import DiscoverStudOrg from '../models/DiscoverStudOrg';
+import HomeData from '../models/Home';
 import User from '../models/User';
 import Schedule from '../models/Schedule';
 import ChatRoom from '../models/ChatRoom';
@@ -98,6 +99,8 @@ export const STUDORGS = [
     [USERS[0], USERS[3]]
   ),
 ];
+
+export const HOME = [new HomeData('1', [EVENTS[0]]), new HomeData('2', [STUDORGS[1]])];
 
 export const CHATROOMS = [
   new ChatRoom('1', 'CBS Surf', [USERS[0], USERS[1]], chatroom1, new Date(2021, 3, 12, 10, 10, 12)),

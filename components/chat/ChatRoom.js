@@ -24,6 +24,8 @@ const ChatRoom = props => {
     //     displayTime = lastTime.getHours() + ":" + lastTime.getMinutes();
     // }
 
+    // console.log(props.chatRoom.participants)
+
     return (
         <View>
             {

@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import ChatRoom from '../../components/chat/ChatRoom';
 import { CHATROOMS } from '../../data/dummy';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,6 +11,7 @@ import { getChatrooms } from '../../redux-store/actions/ChatActions';
 
 const Chat = props => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   // https://stackoverflow.com/questions/62091146/componentwillmount-for-react-functional-component
   // dispatch(getChatrooms());
@@ -28,6 +30,26 @@ const Chat = props => {
   // })
 
   const myChatrooms = useSelector(state => state.chat.myChatrooms);
+
+  // if (props.route.params != undefined) {
+  //   const { openChatUserEmail } = props.route.params;
+
+  //   // const newChatroom = useSelector(state => state.chat.newChatroom);
+
+  //   // newChatroom.forEach(chatroom => {
+  //   //   chatroom.participants.forEach(userEmail => {
+  //   //     if (userEmail == openChatUserEmail) {
+  //   //       // alreadyExists = true;
+  //   //       // navigation.goBack();
+  //   //       // console.log(userEmail)
+  //   //       // console.log(openChatUserEmail)
+  //   //       navigation.navigate("ChatMessages", { id: chatroom.id, chatroomName: userEmail });
+  //   //       // navigation.navigate("CHAT", { openChat: user });
+  //   //     }
+  //   //   });
+  //   // });
+  // }
+
 
   return (
     <View style={styles.container}>

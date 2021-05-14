@@ -1,13 +1,18 @@
 // Need to improve:
 // (1) require using variable, not string
 // (2) time display, latest message display
+// (3) flow: search user 'a@a.com' -> already exists -> open existing chat messages -> push back 
+//      -> click 'create chatroom' again -> (?) should it still show previous results? or just reset?
+//      (line 33, 48 - dispatch(resetUserResearch());)
+// 
 
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector, useDispatch } from 'react-redux';
 import { createChatroom, getChatrooms } from '../../redux-store/actions/ChatActions';
+import { resetUserResearch } from '../../redux-store/actions/UserActions'
 
 const ChatUser = props => {
 
@@ -24,26 +29,29 @@ const ChatUser = props => {
         let alreadyExists = false;
 
         myChatrooms.forEach(chatroom => {
-            chatroom.participants.forEach(user => {
-                if (user == invitedUser.email) {
+            chatroom.participants.forEach(userEmail => {
+                if (userEmail == invitedUser.email) {
                     alreadyExists = true;
-                    navigation.navigate("ChatMessages", { id: chatroom.id, chatroomName: user });
+
+                    // dispatch(resetUserResearch());
+
+                    navigation.goBack();
+                    navigation.navigate("ChatMessages", { id: chatroom.id, chatroomName: userEmail });
+                    // navigation.navigate("CHAT", { openChat: user });
                 }
             });
         });
 
         if (!alreadyExists) {
-            dispatch(createChatroom(invitedUser));
-            dispatch(getChatrooms());
+            const uuidv4 = require("uuid/v4")
+            const chatroomId = uuidv4()
 
-            myChatrooms.forEach(chatroom => {
-                chatroom.participants.forEach(user => {
-                    if (user == invitedUser.email) {
-                        alreadyExists = true;
-                        navigation.navigate("ChatMessages", { id: chatroom.id, chatroomName: user });
-                    }
-                });
-            });
+            dispatch(createChatroom(invitedUser, chatroomId));
+            // dispatch(getChatrooms());
+
+
+            navigation.navigate("ChatMessages", { id: chatroomId, chatroomName: userEmail });
+            // dispatch(resetUserResearch());
         }
 
         // dispatch(createChatroom(chatroomName, chatroomImage, chatroomUser));

@@ -3,7 +3,8 @@ import User from '../../models/User';
 import { GET_CHATROOMS, CREATE_CHATROOM } from '../actions/ChatActions';
 
 const initialState = {
-    myChatrooms: []
+    myChatrooms: [],
+    newChatroom: null
 };
 
 const ChatReducer = (state = initialState, action) => {
@@ -18,7 +19,7 @@ const ChatReducer = (state = initialState, action) => {
                 // console.log(Object.keys(value))
                 value.participants.forEach(user => {
                     if (user == action.payload.loggedInUserEmail) {
-                        chatrooms.push(new ChatRoom(key, value.name, value.participants, value.chatroomImage, value.createdDate))
+                        chatrooms.push(new ChatRoom(key, value.participants, value.createdDate))
                     }
                 });
             }
@@ -33,9 +34,10 @@ const ChatReducer = (state = initialState, action) => {
             // console.log('keys ', Object.keys(action.payload));
 
             const newChatroom = new ChatRoom(action.payload.id, action.payload.participants, action.payload.createdDate)
-            console.log(newChatroom)
+            // console.log(newChatroom)
             return {
-                ...state
+                ...state,
+                newChatroom: newChatroom
             };
 
         default:

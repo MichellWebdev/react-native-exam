@@ -24,6 +24,7 @@ export const getChatrooms = () => {
 
         if (!response.ok) {
             console.log('Chatroom retrieval failed')
+            console.log(data)
         } else {
             console.log('Chatrooms retrieved')
             dispatch({ type: GET_CHATROOMS, payload: { data: data, loggedInUserEmail: loggedInUserEmail } });
@@ -31,7 +32,7 @@ export const getChatrooms = () => {
     }
 }
 
-export const createChatroom = invitedUser => {
+export const createChatroom = (invitedUser, chatroomId) => {
     return async (dispatch, getState) => {
 
         // Moved to CreateChatRoom.js
@@ -94,7 +95,8 @@ export const createChatroom = invitedUser => {
         } else {
             // chatroom.id = data.name;
             console.log('Chat Room Created');
-            dispatch({ type: CREATE_CHATROOM, payload: { id: data['name'].name, participants: [loggedInUserEmail, invitedUser.email], createdDate: createdDate } });
+            // dispatch({ type: CREATE_CHATROOM, payload: { id: data['name'].name, participants: [loggedInUserEmail, invitedUser.email], createdDate: createdDate } });
+            dispatch({ type: CREATE_CHATROOM, payload: { id: chatroomId, participants: [loggedInUserEmail, invitedUser.email], createdDate: createdDate } });
         }
     };
 };

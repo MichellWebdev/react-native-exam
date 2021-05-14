@@ -83,7 +83,8 @@ export const createChatroom = (invitedUser, chatroomId) => {
             },
             body: JSON.stringify({ //javascript to json
                 createdDate: createdDate,
-                participants: [loggedInUserEmail, invitedUser.email]
+                participants: [loggedInUserEmail, invitedUser.email],
+                messages: []
             })
         });
 

@@ -13,11 +13,17 @@ const Chat = props => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+
   // https://stackoverflow.com/questions/62091146/componentwillmount-for-react-functional-component
   // dispatch(getChatrooms());
   const [chatScreenMounted, setChatScreenMounted] = useState(false)
   if (!chatScreenMounted) { dispatch(getChatrooms()); }
   useEffect(() => { setChatScreenMounted(true) }, [])
+
+  const myChatrooms = useSelector(state => state.chat.myChatrooms);
+
+  let noChatroom = false;
+  if (myChatrooms.length == 0) { noChatroom = true; } else { noChatroom = false; }
 
   // Old (using dummy data)
   // const myChatrooms = []
@@ -28,8 +34,6 @@ const Chat = props => {
   //     }
   //   })
   // })
-
-  const myChatrooms = useSelector(state => state.chat.myChatrooms);
 
   // if (props.route.params != undefined) {
   //   const { openChatUserEmail } = props.route.params;
@@ -53,11 +57,21 @@ const Chat = props => {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={myChatrooms}
-        renderItem={itemData => <ChatRoom chatRoom={itemData.item}></ChatRoom>}
-        keyExtractor={item => item.id}
-      />
+      {noChatroom
+        ?
+        <View style={styles.noChatroomContainer}>
+          <Text style={styles.noChatroomText}>Looks like you don't have any chat yet.</Text>
+          {/* <Text style={styles.noChatroomText}>You don't have any chat yet.</Text> */}
+          <Text style={styles.noChatroomText}>Try creating one!</Text>
+        </View>
+        :
+        <FlatList
+          data={myChatrooms}
+          renderItem={itemData => <ChatRoom chatRoom={itemData.item}></ChatRoom>}
+          keyExtractor={item => item.id}
+        />
+      }
+
     </View>
   );
 };
@@ -68,6 +82,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 10
+  },
+  noChatroomContainer: {
+    marginBottom: 250,
+  },
+  noChatroomText: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 5,
+    fontSize: 20,
+    color: '#989898',
+    textAlign: 'center',
   },
 });
 

@@ -1,3 +1,4 @@
+import ChatMessage from "./ChatMessage";
 import User from "./User";
 
 // Need to improve:
@@ -7,7 +8,8 @@ class ChatRoom {
     constructor(
         public id: string,
         public participants: User[],
-        public createdDate: Date
+        public createdDate: Date,
+        public messages: ChatMessage[]
     ) { }
 }
 

@@ -139,7 +139,8 @@ const CreateChatRoom = props => {
         {!matchFound
           ?
           <View style={styles.noUserFound}>
-            <Text style={styles.noUserFoundText}>User not found</Text>
+            <Text style={styles.noUserFoundText}>Oops!</Text>
+            <Text style={styles.noUserFoundText}>There are no users with that email.</Text>
             {/* <Text style={styles.noUserFoundText}>Please try another email.</Text> */}
           </View>
           :
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     fontSize: 20,
-    color: 'gray',
+    color: '#989898',
     textAlign: 'center',
   },
 });

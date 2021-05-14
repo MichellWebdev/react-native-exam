@@ -48,13 +48,15 @@ const ChatRoom = props => {
 }
 
 const styles = StyleSheet.create({
-
     chatRoom: {
         flexDirection: 'row',
-        marginTop: 10,
-        marginBottom: 10,
+        // marginTop: 10,
+        // marginBottom: 10,
+        margin: 10,
         paddingLeft: 20,
-        paddingRight: 20
+        paddingRight: 20,
+        paddingTop: 20,
+        backgroundColor: 'white',
     },
     textView: {
         paddingLeft: 5,

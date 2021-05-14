@@ -8,6 +8,7 @@ export const SAVE_USER = 'SAVE_USER';
 export const SIGNUP = 'SIGNUP';
 export const LOGIN = 'LOGIN';
 export const SEARH_USERS = 'SEARH_USERS';
+export const RESET_USER_RESEARCH = 'RESET_USER_RESEARCH';
 
 export const saveUser = user => {
   // https://firebase.google.com/docs/reference/rest/auth#section-update-profile
@@ -122,4 +123,10 @@ export const searchUsers = email => {
       dispatch({ type: SEARH_USERS, payload: { data: data, email: email } });
     }
   }
-}
+};
+
+export const resetUserResearch = () => {
+  return {
+    type: RESET_USER_RESEARCH,
+  };
+};

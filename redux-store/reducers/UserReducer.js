@@ -1,15 +1,14 @@
 import User from '../../models/User';
-import { SAVE_USER, SIGNUP, LOGIN, SEARH_USERS } from '../actions/UserActions';
+import { SAVE_USER, SIGNUP, LOGIN, SEARH_USERS, RESET_USER_RESEARCH } from '../actions/UserActions';
 
 const initialState = {
   // Original Code
-  loggedInUser: null,
-  idToken: null,
+  // loggedInUser: null,
+  // idToken: null,
 
   // Debugging Code
-  // loggedInUser: new User('70u0mxeQITdpnkDiQfsRZCtpzEt1', '', 'test@test.com', '', '', false),
-  // idToken: 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjUzNmRhZWFiZjhkZDY1ZDRkZTIxZTgyNGI4OTlhMWYzZGEyZjg5NTgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2Jzc3R1ZGVudGFwcCIsImF1ZCI6ImNic3N0dWRlbnRhcHAiLCJhdXRoX3RpbWUiOjE2MjEwMTMzODUsInVzZXJfaWQiOiI3MHUwbXhlUUlUZHBua0RpUWZzUlpDdHB6RXQxIiwic3ViIjoiNzB1MG14ZVFJVGRwbmtEaVFmc1JaQ3RwekV0MSIsImlhdCI6MTYyMTAxMzM4NSwiZXhwIjoxNjIxMDE2OTg1LCJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGVzdEB0ZXN0LmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.FUqHsYANjtNc-Eq04G4_CVaF-3CcBbdBXWKZrd862Vfu2JoQ-dgncetbixw3Qoz2mlpE064z8fOUtQVgKUNzteVd_0EGZkq7IaE5lx1uRmDghGkk6vclV0RAlq2VAtabw1fVkAwr6O8ycfLwn2eAN2ydOmUW9tYaNR8cA8eFMhrGE-32OKI1I6mrZ1lsfU3HjESTuixz1gR3Wdd08tsmxNBNMBUFzwxLzlDo9DT3zRu272KhRz2rMFYeflcQovjNhDvrlwPtixxY4I0WG-s0xgfk5ac8MO5_NPwAwfNlyp5o1TcPd6pW5MlonmpviAW1yc0b0J0YkVkpy8DhLQXjCA',
-
+  loggedInUser: new User('70u0mxeQITdpnkDiQfsRZCtpzEt1', '', 'test@test.com', '', '', false),
+  idToken: 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjUzNmRhZWFiZjhkZDY1ZDRkZTIxZTgyNGI4OTlhMWYzZGEyZjg5NTgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2Jzc3R1ZGVudGFwcCIsImF1ZCI6ImNic3N0dWRlbnRhcHAiLCJhdXRoX3RpbWUiOjE2MjEwMjI3NjQsInVzZXJfaWQiOiI3MHUwbXhlUUlUZHBua0RpUWZzUlpDdHB6RXQxIiwic3ViIjoiNzB1MG14ZVFJVGRwbmtEaVFmc1JaQ3RwekV0MSIsImlhdCI6MTYyMTAyMjc2NCwiZXhwIjoxNjIxMDI2MzY0LCJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGVzdEB0ZXN0LmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.DWumlVeyxe5qgh9jZaSW-pIlPa9HLy3xZLac2tCqwZjXVyo9RivAOeu5QADyl1oYmRII58iOsJke2iJmVQcottkRXrkCakgdFMsnJEsLB4HJPI7u5Owej9UXGkceeDrrgC4ih9CJlXOryrfgLm_1fdMwrdZ6KInJnZWABPuQQqaimTAPhqjrpEQwVNmEUviQizYUZBdvpLgvOHYkjR3wXfr9KEHldhUhDLDZFIvfKaftbEKzJVXYf3fFHwamH9qByBQ9-IYJCmk1DgTPgtQ3MKYp1-h62PlyA6BhocOLqs8OWG0PPgenFwNN4yRCHtoQlNrv-qGUtSDSoykh4Eymaw',
   searchUsers: null
 };
 
@@ -55,6 +54,12 @@ const UserReducer = (state = initialState, action) => {
       return {
         ...state,
         searchUsers: users
+      };
+
+    case RESET_USER_RESEARCH:
+      return {
+        ...state,
+        searchUsers: null
       };
 
     default:

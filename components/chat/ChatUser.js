@@ -15,7 +15,7 @@ const ChatUser = props => {
         <TouchableOpacity
         // onPress={() => navigation.navigate("ChatMessages", { id: props.chatRoom.id, chatroomName: props.chatRoom.name })}
         >
-            <View style={styles.chatRoom}>
+            <View style={styles.chatUser}>
                 <View style={styles.imageView}>
                     <Image
                         style={styles.tinyLogo}
@@ -31,42 +31,28 @@ const ChatUser = props => {
 
 const styles = StyleSheet.create({
 
-    chatRoom: {
+    chatUser: {
         flexDirection: 'row',
-        marginTop: 10,
-        marginBottom: 10,
-        paddingLeft: 20,
-        paddingRight: 20
+        alignItems: 'center',
+        margin: 15,
+        marginLeft: 25,
     },
     textView: {
-        paddingLeft: 5,
-        paddingRight: 5,
-        width: '80%'
-    },
-    message: {
-
+        width: '80%',
+        textAlign: 'center',
     },
     text: {
         fontWeight: "bold",
-    },
-    dotView: {
-        marginLeft: 'auto',
+        fontSize: 18,
+        color: 'rgb(64,64,64)',
+        paddingLeft: 20
     },
     imageView: {
-        marginTop: -10,
-    },
-    dot: {
-        height: 12,
-        width: 12,
-        backgroundColor: '#5050A5',
-        borderRadius: 100 / 2,
-
-        // borderRadius: '50%',
-        // display: 'inline-block'
+        // marginTop: -10,
     },
     tinyLogo: {
-        width: 50,
-        height: 50,
+        width: 65,
+        height: 65,
     },
 });
 

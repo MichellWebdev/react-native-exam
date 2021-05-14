@@ -32,7 +32,7 @@ const ChatReducer = (state = initialState, action) => {
             // const chatroom = new ChatRoom(action.payload.localId, action.payload.chatroomName)
             // console.log('keys ', Object.keys(action.payload));
 
-            const newChatroom = new ChatRoom(action.payload.id, action.payload.name, action.payload.participants, action.payload.image, action.payload.createdDate)
+            const newChatroom = new ChatRoom(action.payload.id, action.payload.participants, action.payload.createdDate)
             console.log(newChatroom)
             return {
                 ...state

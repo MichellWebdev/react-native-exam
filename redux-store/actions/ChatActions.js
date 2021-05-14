@@ -34,6 +34,7 @@ export const getChatrooms = () => {
 export const createChatroom = (chatroomName, chatroomImage, chatroomUser) => {
     return async (dispatch, getState) => {
 
+        // Moved to CreateChatRoom.js
         // let oneself = false;
         // let alreadyExists = false;
 

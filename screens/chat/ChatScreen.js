@@ -1,7 +1,7 @@
 // Need to improve:
 // (1) dispatch(getChatrooms(())) infinite loop?
 
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, FlatList } from 'react-native';
 import ChatRoom from '../../components/chat/ChatRoom';
 import { CHATROOMS } from '../../data/dummy';

@@ -1,5 +1,5 @@
 // Need to improve:
-// (1) dispatch(getChatrooms(())) infinite loop?
+// SOLVED - (1) dispatch(getChatrooms(())) infinite loop?
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, FlatList } from 'react-native';

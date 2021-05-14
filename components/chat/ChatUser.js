@@ -34,7 +34,7 @@ const ChatUser = props => {
                 if (userEmail == invitedUser.email) {
                     alreadyExists = true;
 
-                    // dispatch(resetUserResearch());
+                    dispatch(resetUserResearch());
 
                     navigation.goBack();
                     navigation.navigate("ChatMessages", { id: chatroom.id, chatroomName: userEmail });
@@ -53,7 +53,8 @@ const ChatUser = props => {
 
             navigation.goBack();
             navigation.navigate("ChatMessages", { id: chatroomId, chatroomName: invitedUser.email });
-            // dispatch(resetUserResearch());
+
+            dispatch(resetUserResearch());
         }
 
         // dispatch(createChatroom(chatroomName, chatroomImage, chatroomUser));

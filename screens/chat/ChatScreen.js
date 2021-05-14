@@ -1,7 +1,7 @@
 // Need to improve:
 // (1) dispatch(getChatrooms(())) infinite loop?
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, FlatList } from 'react-native';
 import ChatRoom from '../../components/chat/ChatRoom';
 import { CHATROOMS } from '../../data/dummy';
@@ -10,7 +10,12 @@ import { getChatrooms } from '../../redux-store/actions/ChatActions';
 
 const Chat = props => {
   const dispatch = useDispatch();
+
+  // https://stackoverflow.com/questions/62091146/componentwillmount-for-react-functional-component
   // dispatch(getChatrooms());
+  const [mounted, setMounted] = useState(false)
+  if (!mounted) { dispatch(getChatrooms()); }
+  useEffect(() => { setMounted(true) }, [])
 
   // Old (using dummy data)
   // const myChatrooms = []

@@ -116,7 +116,7 @@ export const searchUsers = email => {
 
     if (!response.ok) {
       console.log('User retrieval failed')
-      // console.log(data)
+      console.log(data)
     } else {
       console.log('Users retrieved')
       dispatch({ type: SEARH_USERS, payload: { data: data, email: email } });

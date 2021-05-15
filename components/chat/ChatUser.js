@@ -11,7 +11,7 @@ import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector, useDispatch } from 'react-redux';
-import { createChatroom, getChatrooms } from '../../redux-store/actions/ChatActions';
+import { createChatroom, getChatrooms, openChatroom } from '../../redux-store/actions/ChatActions';
 import { resetUserResearch } from '../../redux-store/actions/UserActions'
 import uuid from 'react-native-uuid';
 
@@ -46,15 +46,13 @@ const ChatUser = props => {
         if (!alreadyExists) {
 
             const chatroomId = uuid.v4()
-            console.log(chatroomId)
+            // console.log(chatroomId)
 
             dispatch(createChatroom(invitedUser, chatroomId));
-            // dispatch(getChatrooms());
+            dispatch(resetUserResearch());
 
             navigation.goBack();
             navigation.navigate("ChatMessages", { id: chatroomId, chatroomName: invitedUser.email });
-
-            dispatch(resetUserResearch());
         }
 
         // dispatch(createChatroom(chatroomName, chatroomImage, chatroomUser));

@@ -23,7 +23,7 @@ const Chat = props => {
   const myChatrooms = useSelector(state => state.chat.myChatrooms);
 
   let noChatroom = false;
-  if (myChatrooms.length == 0) { noChatroom = true; } else { noChatroom = false; }
+  if (myChatrooms == null || myChatrooms == undefined || myChatrooms.length == 0) { noChatroom = true; } else { noChatroom = false; }
 
   // Old (using dummy data)
   // const myChatrooms = []

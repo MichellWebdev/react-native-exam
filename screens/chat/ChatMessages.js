@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, FlatList, TextInput, Image } from 'react-native';
 import ChatRoom from '../../components/chat/ChatRoom';
 import ChatMessage from '../../components/chat/ChatMessage';
-import { CHATMESSAGES } from '../../data/dummy';
+import { useSelector, useDispatch } from 'react-redux';
+import { sendMessage } from '../../redux-store/actions/ChatActions';
 
 const ChatMessages = props => {
-  // const dispatch = useDispatch();
+
+  const dispatch = useDispatch();
+
   // const chatMessages = useSelector(state => state.chat.chatrooms).find(room => room.id === id).chatMessages;
 
   // const test = useSelector(state => state.chat.test);
@@ -20,15 +23,10 @@ const ChatMessages = props => {
   // let buttonDisabled = false;
   const [value, onChangeText] = useState('Write message');
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const messages = [];
   const { id } = props.route.params;
   // console.log(id);
 
-  CHATMESSAGES.forEach(message => {
-    if (message.chatroomId == id) {
-      messages.push(message);
-    }
-  });
+  const myChatrooms = useSelector(state => state.chat.myChatrooms);
 
   const handleTextInput = text => {
     onChangeText(text);
@@ -36,15 +34,14 @@ const ChatMessages = props => {
   };
 
   const handleSend = () => {
-    console.log('value ' + value);
-    // dispatch(addToChats(value, id));
+    dispatch(sendMessage(id, value));
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.messages}>
         <FlatList
-          data={messages}
+          data={myChatrooms.messages}
           renderItem={itemData => (
             <ChatMessage chatmessage={itemData.item} img={require('../../assets/images/user.png')}></ChatMessage>
           )}></FlatList>

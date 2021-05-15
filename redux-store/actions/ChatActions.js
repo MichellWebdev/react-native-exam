@@ -24,6 +24,7 @@ export const getChatrooms = () => {
 
         if (!response.ok) {
             console.log('Chatroom retrieval failed')
+            console.log(data)
         } else {
             console.log('Chatrooms retrieved')
             dispatch({ type: GET_CHATROOMS, payload: { data: data, loggedInUserEmail: loggedInUserEmail } });
@@ -31,9 +32,10 @@ export const getChatrooms = () => {
     }
 }
 
-export const createChatroom = (chatroomName, chatroomImage, chatroomUser) => {
+export const createChatroom = (invitedUser, chatroomId) => {
     return async (dispatch, getState) => {
 
+        // Moved to CreateChatRoom.js
         // let oneself = false;
         // let alreadyExists = false;
 
@@ -80,10 +82,9 @@ export const createChatroom = (chatroomName, chatroomImage, chatroomUser) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ //javascript to json
-                name: chatroomName,
                 createdDate: createdDate,
-                participants: [loggedInUserEmail, chatroomUser],
-                chatroomImage: chatroomImage
+                participants: [loggedInUserEmail, invitedUser.email],
+                messages: []
             })
         });
 
@@ -95,7 +96,8 @@ export const createChatroom = (chatroomName, chatroomImage, chatroomUser) => {
         } else {
             // chatroom.id = data.name;
             console.log('Chat Room Created');
-            dispatch({ type: CREATE_CHATROOM, payload: { id: data['name'].name, name: chatroomName, image: chatroomImage, participants: [loggedInUserEmail, chatroomUser], createdDate: createdDate } });
+            // dispatch({ type: CREATE_CHATROOM, payload: { id: data['name'].name, participants: [loggedInUserEmail, invitedUser.email], createdDate: createdDate } });
+            dispatch({ type: CREATE_CHATROOM, payload: { id: chatroomId, participants: [loggedInUserEmail, invitedUser.email], createdDate: createdDate } });
         }
     };
 };

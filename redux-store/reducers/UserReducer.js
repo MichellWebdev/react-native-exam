@@ -1,11 +1,16 @@
 import User from '../../models/User';
-import { SAVE_USER, SIGNUP, LOGIN } from '../actions/UserActions';
+import { SAVE_USER, SIGNUP, LOGIN, SEARH_USERS, RESET_USER_RESEARCH } from '../actions/UserActions';
 
 const initialState = {
-  loggedInUser: null,
-  // loggedInUser: new User('70u0mxeQITdpnkDiQfsRZCtpzEt1', '', 'test@test.com', '', '', false),
-  idToken: null,
-  // idToken: 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImNjM2Y0ZThiMmYxZDAyZjBlYTRiMWJkZGU1NWFkZDhiMDhiYzUzODYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2Jzc3R1ZGVudGFwcCIsImF1ZCI6ImNic3N0dWRlbnRhcHAiLCJhdXRoX3RpbWUiOjE2MjAxMTg0MjMsInVzZXJfaWQiOiI3MHUwbXhlUUlUZHBua0RpUWZzUlpDdHB6RXQxIiwic3ViIjoiNzB1MG14ZVFJVGRwbmtEaVFmc1JaQ3RwekV0MSIsImlhdCI6MTYyMDExODQyMywiZXhwIjoxNjIwMTIyMDIzLCJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGVzdEB0ZXN0LmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.aCIF9dQ6SuEyIoEQlxXx5CA5ZmCzWfVa4VtxDlwLYpbV-1E6P68QqHBcKI4dzNNhxGZG1hA-nS3_pcOr49EXkuepcJdn8Tm74XpNzFZvdWVXT5BFf83C4D-paDT38vKuFjIwFRaRvlFsu7oy0V6qBAWXuVhND1QzMsXNILYzYOvkQbXDXoB14plrlemqpauAA5lCelsY86bMDjHhrynT4L8OP3XegxPmjZjwepDkCoXkHizLB__WM9tLqM0j81YMtkHqTu1m_oH2dNUJY-1Iq5OK0G5559-n_OA75pyQlouFW1KzfMKd_sxQlL7i5p89XhfBy4NyPDViYrMutCVTDQ'
+  // Original Code
+  // loggedInUser: null,
+  // idToken: null,
+
+  // Debugging Code
+  loggedInUser: new User('70u0mxeQITdpnkDiQfsRZCtpzEt1', '', 'test@test.com', '', '', false),
+  idToken: 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjUzNmRhZWFiZjhkZDY1ZDRkZTIxZTgyNGI4OTlhMWYzZGEyZjg5NTgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2Jzc3R1ZGVudGFwcCIsImF1ZCI6ImNic3N0dWRlbnRhcHAiLCJhdXRoX3RpbWUiOjE2MjEwMzM3NTgsInVzZXJfaWQiOiI3MHUwbXhlUUlUZHBua0RpUWZzUlpDdHB6RXQxIiwic3ViIjoiNzB1MG14ZVFJVGRwbmtEaVFmc1JaQ3RwekV0MSIsImlhdCI6MTYyMTAzMzc1OCwiZXhwIjoxNjIxMDM3MzU4LCJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGVzdEB0ZXN0LmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.JXygX2cZ7zI8yZugfkkHI8cVGfsjCkVkti6dEh2fys40OaEbOSRxiPfpnzB7-t23eSkK_bf6m4DKzKIp_QeRPeWGAL44l84Iymb1Tb1pWz8hXEebcltau_Zj0Vj6MQUGf8QqkaVp5OQQKi7OLh99mdRRChWM0fmtA_FwbNfI8Nuz51my-6ldv510kXDZ0rvgsnc6nrmPqj0cra1DSK4GRhzAQCCHhqI_uF4u4c80zc1X8NycV8lxuGMagAO5FleQlBpaQAZ3bIMcaui0oesG3pYqMGOUgsk1DFvAoE8ZlHJJhJyf7KQ6wYqcqhkc2A2tt6HkkYQUqZaCbXAe5_tFhQ',
+
+  searchUsers: null
 };
 
 const UserReducer = (state = initialState, action) => {
@@ -30,6 +35,33 @@ const UserReducer = (state = initialState, action) => {
         idToken: token,
       };
     }
+
+    case SEARH_USERS:
+
+      let users = [];
+
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+      for (const [key, value] of Object.entries(action.payload.data)) {
+        // console.log(key);
+        // console.log(value.userId);
+        // console.log(Object.keys(value))
+
+        if (value.email.startsWith(action.payload.email)) {
+          let oneUser = new User(value.userId, '', value.email, '', '', false);
+          users.push(oneUser)
+        }
+      }
+
+      return {
+        ...state,
+        searchUsers: users
+      };
+
+    case RESET_USER_RESEARCH:
+      return {
+        ...state,
+        searchUsers: null
+      };
 
     default:
       return state;

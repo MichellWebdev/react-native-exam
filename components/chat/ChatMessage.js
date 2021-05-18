@@ -49,7 +49,6 @@ const ChatMessage = props => {
     }
 
 
-
     return (
         <View style={styles.outerContainer}>
             <View style={[styles.container, isMe ? styles.reverseContainer : '']}>

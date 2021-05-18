@@ -24,6 +24,14 @@ const ChatRoom = props => {
     let displayTime;
     let latestText;
 
+    // Message Read
+    let read = false;
+    if (props.latestMessages.read) {
+        read = true;
+    }
+
+    // Lastest Message
+    let latestMessageExists = false;
     if (props.latestMessages !== undefined && props.latestMessages !== null && props.latestMessages.length !== 0) {
         props.latestMessages.forEach(message => {
             if (message.chatroomId == props.chatRoom.id) {
@@ -44,11 +52,18 @@ const ChatRoom = props => {
                     }
                 }
 
-                latestText = message.text
+                if (message.writtenBy.id == loggedInUser.id) {
+                    latestText = '(You) ' + message.text
+                    read = true;
+                } else {
+                    latestText = message.text
+                    // read = false;
+                }
+
+                latestMessageExists = true;
             }
         })
     }
-
 
     return (
         <TouchableOpacity onPress={
@@ -81,7 +96,13 @@ const ChatRoom = props => {
                     </Text>
                 </View>
                 <View style={styles.dotView}>
-                    <View style={styles.dot}></View>
+                    {
+                        latestMessageExists
+                            ?
+                            <View style={[read ? styles.undot : styles.dot]}></View>
+                            :
+                            <View style={styles.undot}></View>
+                    }
                     <Text>{displayTime}</Text>
                 </View>
             </View>
@@ -112,7 +133,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     dotView: {
-        // marginLeft: 'auto'
+        marginLeft: 'auto'
         // alignItems: 'center',
         // margin: 5
     },
@@ -123,6 +144,15 @@ const styles = StyleSheet.create({
         height: 12,
         width: 12,
         backgroundColor: '#5050A5',
+        borderRadius: 100 / 2,
+
+        // borderRadius: '50%',
+        // display: 'inline-block'
+    },
+    undot: {
+        height: 12,
+        width: 12,
+        backgroundColor: 'white',
         borderRadius: 100 / 2,
 
         // borderRadius: '50%',

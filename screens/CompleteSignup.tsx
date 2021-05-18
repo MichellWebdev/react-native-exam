@@ -6,7 +6,7 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { saveUser } from '../redux-store/actions/UserActions';
+import { saveUser, completeSignup } from '../redux-store/actions/UserActions';
 import { RootState } from '../App';
 
 // Stack navigation
@@ -47,21 +47,34 @@ const CompleteSignup = ({
   const profileInfo = useSelector((state: RootState) => state.user.loggedInUser || {});
 
   // User name
-  const [userName, setUserName] = useState('');
-  const [userNameValid, setUserNameValid] = useState(false);
+  const [displayName, setDisplayName] = useState('');
+  const [displayNameValid, setDisplayNameValid] = useState(false);
 
   // Study programme
   const [studyProgramme, setStudyProgramme] = useState('');
   const [studyProgrammeValid, setStudyProgrammeValid] = useState(false);
 
-  const handleCompleteSignup = () => {
-    if (userNameValid && studyProgrammeValid) {
-      let user = { ...profileInfo };
-      user.name = userName;
-      user.studyProgramme = studyProgramme;
+  // Photo URL
+  const [photoUrl, setPhotoUrl] = useState(
+    'https://images.unsplash.com/photo-1605429523419-d828acb941d9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1189&q=80'
+  );
+  const [photoUrlValid, setPhotoUrlValid] = useState(false);
 
-      dispatch(saveUser(user));
-      console.log(userName);
+  // const handleCompleteSignup = () => {
+  //   if (userNameValid && studyProgrammeValid) {
+  //     let user = { ...profileInfo };
+  //     user.name = userName;
+  //     user.studyProgramme = studyProgramme;
+
+  //     dispatch(saveUser(user));
+  //     console.log(userName);
+  //   }
+  // };
+  const handleCompleteSignup = () => {
+    if (displayNameValid) {
+      dispatch(completeSignup(displayName, photoUrl));
+      console.log(displayName, photoUrl);
+      // displayNameValid ? navigation.navigate('Login') : null;
     }
   };
 
@@ -93,21 +106,30 @@ const CompleteSignup = ({
         </View>
       </View>
       <Input
-        value={userName}
+        value={displayName}
         label={userNameLabel}
-        inputValid={userNameValid}
+        inputValid={displayNameValid}
         placeholder={userNamePlaceholder}
         errorMessage={userNameErrorMsg}
-        onValid={valid => setUserNameValid(valid)}
-        setContent={content => setUserName(content)}
+        onValid={valid => setDisplayNameValid(valid)}
+        setContent={content => setDisplayName(content)}
       />
-      <Input
+      {/* <Input
         label={studyProgrammeLabel}
         inputValid={studyProgrammeValid}
         placeholder={studyProgrammePlaceholder}
         errorMessage={studyProgrammeErrorMsg}
         onValid={valid => setStudyProgrammeValid(valid)}
         setContent={content => setStudyProgramme(content)}
+      /> */}
+      <Input
+        label={studyProgrammeLabel}
+        value={photoUrl}
+        inputValid={photoUrlValid}
+        placeholder={studyProgrammePlaceholder}
+        errorMessage={studyProgrammeErrorMsg}
+        onValid={valid => setPhotoUrlValid(valid)}
+        setContent={content => setPhotoUrl(content)}
       />
       <Button buttonText={buttonText} onPress={handleCompleteSignup} />
     </View>

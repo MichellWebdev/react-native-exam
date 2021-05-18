@@ -1,5 +1,6 @@
 // Need to improve:
 // SOLVED - (1) dispatch(getChatrooms(())) infinite loop?
+// (2) getChatroom at login stage (user action /reducer)? So it will automatically retrieve once logged in?
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, FlatList } from 'react-native';
@@ -23,7 +24,8 @@ const Chat = props => {
   const myChatrooms = useSelector(state => state.chat.myChatrooms);
 
   let noChatroom = false;
-  if (myChatrooms == null || myChatrooms == undefined || myChatrooms.length == 0) { noChatroom = true; } else { noChatroom = false; }
+  if (myChatrooms == null || myChatrooms.length == 0) { noChatroom = true; } else { noChatroom = false; }
+  if (myChatrooms == undefined) { noChatroom = false; }
 
   // Old (using dummy data)
   // const myChatrooms = []

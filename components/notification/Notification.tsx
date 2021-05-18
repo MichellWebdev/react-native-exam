@@ -8,7 +8,7 @@ const Notification = () => {
       <Text style={styles.notificationHeader}>Notifications</Text>
       <View>
         <ToggleSwitch header={'Chat'} infoText={'When you receive a new message'} />
-        <ToggleSwitch header={'Event reminder'} infoText={'An hour before events you are "going to"'} />
+        <ToggleSwitch header={'Event reminder'} infoText={'An hour before events you are "going to"'} disabled={true} />
       </View>
     </View>
   );

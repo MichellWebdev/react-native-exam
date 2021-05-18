@@ -4,9 +4,10 @@ import { StyleSheet, Text, View, Switch } from 'react-native';
 interface ToggleSwitchProps {
   header: string;
   infoText: string;
+  disabled?: boolean;
 }
 
-const ToggleSwitch = ({ header, infoText }: ToggleSwitchProps) => {
+const ToggleSwitch = ({ header, infoText, disabled = false }: ToggleSwitchProps) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitchButton = () => setIsEnabled(previousState => !previousState);
 
@@ -24,6 +25,7 @@ const ToggleSwitch = ({ header, infoText }: ToggleSwitchProps) => {
           // should be passed as props so we can set the event to each toggle ourselves
           onValueChange={toggleSwitchButton}
           value={isEnabled}
+          disabled={disabled}
         />
       </View>
     </View>

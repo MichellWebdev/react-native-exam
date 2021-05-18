@@ -72,6 +72,45 @@ const stackHeaderOptions = (title: string) => {
   };
 };
 
+function HomeStackNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name='Home' component={Home} options={stackHeaderOptions('HOME')} />
+      <Stack.Screen
+        name='EventsDetail'
+        component={EventsDetail} // https://reactnavigation.org/docs/headers/
+        options={({ route }) => ({
+          headerTitle: route.params.title,
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#5050A5',
+            textTransform: 'uppercase',
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
+          headerBackTitle: ' ',
+        })}
+      />
+      <Stack.Screen
+        name='StudentOrgsDetail'
+        component={StudentOrgDetail}
+        // https://reactnavigation.org/docs/headers/
+        options={({ route }) => ({
+          headerTitle: route.params.title,
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#5050A5',
+            textTransform: 'uppercase',
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
+          headerBackTitle: ' ',
+        })}
+      />
+    </Stack.Navigator>
+  );
+}
+
 function ProfileStackNavigator() {
   return (
     <Stack.Navigator>
@@ -312,7 +351,7 @@ const MainNavigationAccess = () => {
             activeTintColor: '#5050A5',
             inactiveTintColor: '#B7B7B7',
           }}>
-          <Tab.Screen name='Home' component={Home} />
+          <Tab.Screen name='Home' component={HomeStackNavigator} />
           <Tab.Screen name='Discover' component={DiscoverStackNavigator} />
           <Tab.Screen name='Chat' component={ChatStackNavigator} />
           <Tab.Screen name='Profile' component={ProfileStackNavigator} />

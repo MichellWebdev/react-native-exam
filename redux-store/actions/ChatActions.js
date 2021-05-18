@@ -154,7 +154,8 @@ export const sendMessage = (chatRoomId, message) => {
                 // When users are saved with name, profile image, email
                 writtenBy: writtenBy,
                 text: message,
-                createdDate: createdDate
+                createdDate: createdDate,
+                read: false
             })
         });
 
@@ -170,7 +171,7 @@ export const sendMessage = (chatRoomId, message) => {
             // When users are only saved as email
             // const newMessage = new ChatMessage(data.name, chatroomKey, loggedInUser.email, message, createdDate)
 
-            const newMessage = new ChatMessage(data.name, chatroomKey, writtenBy, message, createdDate)
+            const newMessage = new ChatMessage(data.name, chatroomKey, writtenBy, message, createdDate, false)
             dispatch({ type: SEND_MESSAGE, payload: newMessage });
         }
     };

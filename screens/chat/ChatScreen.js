@@ -18,16 +18,93 @@ const Chat = props => {
   // https://stackoverflow.com/questions/62091146/componentwillmount-for-react-functional-component
   // dispatch(getChatrooms());
   const [chatScreenMounted, setChatScreenMounted] = useState(false)
-  if (!chatScreenMounted) { dispatch(getChatrooms()); dispatch(getChatroomMessages()); }
+  if (!chatScreenMounted) { dispatch(getChatroomMessages()); dispatch(getChatrooms()); }
   useEffect(() => { setChatScreenMounted(true) }, [])
 
   const myChatrooms = useSelector(state => state.chat.myChatrooms);
+  const myChatroomMessages = useSelector(state => state.chat.myChatroomMessages);
+
+  let latestMessages = [];
+  let chatroomCopy = [];
 
   let noChatroom = false;
-  if (myChatrooms == null || myChatrooms.length == 0) { noChatroom = true; } else { noChatroom = false; }
-  if (myChatrooms == undefined) { noChatroom = false; }
+  if (myChatrooms == null || myChatrooms.length == 0) {
+    noChatroom = true;
+  } else if (myChatrooms == undefined) {
+    noChatroom = false;
+  } else if (myChatroomMessages !== null && myChatroomMessages !== undefined && myChatroomMessages.length !== 0) {
 
-  // Old (using dummy data)
+    noChatroom = false;
+    myChatroomsCopy = [...myChatrooms]
+
+    myChatrooms.forEach(chatroom => {
+
+      let latestTime = new Date(1900, 1, 1)
+      let latestMessage;
+
+      myChatroomMessages.forEach(message => {
+        if (message.chatroomId == chatroom.id) {
+          // console.log(message.chatroomId, message.text, message.createdDate)
+          // console.log(latestTime < message.createdDate)
+
+          if (latestTime < message.createdDate) {
+            latestTime = message.createdDate
+            latestMessage = message
+            latestMessages.push(latestMessage)
+            // console.log(latestMessage)
+          }
+        }
+      })
+
+    })
+  }
+
+  // console.log(latestMessages)
+
+  return (
+    <View style={styles.container}>
+      {noChatroom
+        ?
+        <View style={styles.noChatroomContainer}>
+          <Text style={styles.noChatroomText}>Looks like you don't have any chat yet.</Text>
+          {/* <Text style={styles.noChatroomText}>You don't have any chat yet.</Text> */}
+          <Text style={styles.noChatroomText}>Try creating one!</Text>
+        </View>
+        :
+        <FlatList
+          data={myChatrooms}
+          renderItem={itemData => <ChatRoom chatRoom={itemData.item} latestMessages={latestMessages}></ChatRoom>}
+          keyExtractor={item => item.id}
+        />
+      }
+    </View >
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10
+  },
+  noChatroomContainer: {
+    marginBottom: 250,
+  },
+  noChatroomText: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 5,
+    fontSize: 20,
+    color: '#989898',
+    textAlign: 'center',
+  },
+});
+
+export default Chat;
+
+
+// Old (using dummy data)
   // const myChatrooms = []
   // CHATROOMS.forEach(chatroom => {
   //   chatroom.participants.forEach(user => {
@@ -55,47 +132,3 @@ const Chat = props => {
   //   //   });
   //   // });
   // }
-
-
-  return (
-    <View style={styles.container}>
-      {noChatroom
-        ?
-        <View style={styles.noChatroomContainer}>
-          <Text style={styles.noChatroomText}>Looks like you don't have any chat yet.</Text>
-          {/* <Text style={styles.noChatroomText}>You don't have any chat yet.</Text> */}
-          <Text style={styles.noChatroomText}>Try creating one!</Text>
-        </View>
-        :
-        <FlatList
-          data={myChatrooms}
-          renderItem={itemData => <ChatRoom chatRoom={itemData.item}></ChatRoom>}
-          keyExtractor={item => item.id}
-        />
-      }
-
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 10
-  },
-  noChatroomContainer: {
-    marginBottom: 250,
-  },
-  noChatroomText: {
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 5,
-    fontSize: 20,
-    color: '#989898',
-    textAlign: 'center',
-  },
-});
-
-export default Chat;

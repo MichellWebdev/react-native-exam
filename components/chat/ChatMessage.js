@@ -9,8 +9,6 @@ const ChatMessage = props => {
     // Time Stamp
     const now = new Date();
     const year = now.getFullYear();
-    const month = now.getMonth() + 1;
-    const day = now.getDate();
 
     const m = props.chatmessage.createdDate;
     const mYear = m.getFullYear();
@@ -98,11 +96,13 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 15,
         padding: 10,
+        maxWidth: '55%',
     },
     messageViewFromMe: {
         backgroundColor: '#5050A5',
         right: 0,
-        marginRight: 5
+        marginRight: 5,
+        maxWidth: '55%',
     },
     tinyLogo: {
         marginTop: -5

@@ -191,7 +191,7 @@ export const getChatroomMessages = chatroomId => {
 
         const data = await response.json();
         // console.log(Object.keys(data));
-        console.log(chatroomId)
+        // console.log(chatroomId)
 
         if (!response.ok) {
             console.log('Chatroom Messages Retrieval Failed')

@@ -45,6 +45,7 @@ const ChatMessages = props => {
 
   const handleSend = () => {
     dispatch(sendMessage(chatroomId, value));
+    onChangeText('')
   };
 
   return (

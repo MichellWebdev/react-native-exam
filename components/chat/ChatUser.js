@@ -46,15 +46,13 @@ const ChatUser = props => {
         if (!alreadyExists) {
 
             const chatroomId = uuid.v4()
-            console.log(chatroomId)
+            // console.log(chatroomId)
 
             dispatch(createChatroom(invitedUser, chatroomId));
-            // dispatch(getChatrooms());
+            dispatch(resetUserResearch());
 
             navigation.goBack();
             navigation.navigate("ChatMessages", { id: chatroomId, chatroomName: invitedUser.email });
-
-            dispatch(resetUserResearch());
         }
 
         // dispatch(createChatroom(chatroomName, chatroomImage, chatroomUser));

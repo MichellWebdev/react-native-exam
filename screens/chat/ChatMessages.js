@@ -1,34 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, FlatList, TextInput, Image } from 'react-native';
 import ChatRoom from '../../components/chat/ChatRoom';
 import ChatMessage from '../../components/chat/ChatMessage';
-import { CHATMESSAGES } from '../../data/dummy';
+import { useSelector, useDispatch } from 'react-redux';
+import { sendMessage, getChatroomMessages } from '../../redux-store/actions/ChatActions';
+
+// Old Code
+// const chatMessages = useSelector(state => state.chat.chatrooms).find(room => room.id === id).chatMessages;
+
+// const test = useSelector(state => state.chat.test);
+// console.log("test");
+// console.log(test);
+
+// const handleSend = () => {
+//     console.log("value " + value);
+//     dispatch(addToChats(value, id));
+// };
 
 const ChatMessages = props => {
-  // const dispatch = useDispatch();
-  // const chatMessages = useSelector(state => state.chat.chatrooms).find(room => room.id === id).chatMessages;
 
-  // const test = useSelector(state => state.chat.test);
-  // console.log("test");
-  // console.log(test);
-
-  // const handleSend = () => {
-  //     console.log("value " + value);
-  //     dispatch(addToChats(value, id));
-  // };
+  const dispatch = useDispatch();
 
   // let buttonDisabled = false;
   const [value, onChangeText] = useState('Write message');
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const messages = [];
-  const { id } = props.route.params;
+  const { chatroomId } = props.route.params;
   // console.log(id);
 
-  CHATMESSAGES.forEach(message => {
-    if (message.chatroomId == id) {
-      messages.push(message);
-    }
-  });
+  // https://stackoverflow.com/questions/62091146/componentwillmount-for-react-functional-component
+  // dispatch(getChatrooms());
+  const [chatMessagesScreenMounted, setChatMessagesScreenMounted] = useState(false)
+  if (!chatMessagesScreenMounted) { dispatch(getChatroomMessages(chatroomId)); }
+  useEffect(() => { setChatMessagesScreenMounted(true) }, [])
+
+  // const myChatrooms = useSelector(state => state.chat.myChatrooms);
+  const myChatroomMessages = useSelector(state => state.chat.myChatroomMessages);
+  let openingChatroomMessages = [];
+
+  let noMessages = false;
+  if (myChatroomMessages == null || myChatroomMessages.length == 0) {
+    noMessages = true;
+  }
+  else {
+    noMessages = false;
+    myChatroomMessages.forEach(message => {
+      if (message.chatroomId == chatroomId) {
+        openingChatroomMessages.push(message)
+      }
+    })
+  }
 
   const handleTextInput = text => {
     onChangeText(text);
@@ -36,18 +56,24 @@ const ChatMessages = props => {
   };
 
   const handleSend = () => {
-    console.log('value ' + value);
-    // dispatch(addToChats(value, id));
+    dispatch(sendMessage(chatroomId, value));
+    onChangeText('')
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.messages}>
-        <FlatList
-          data={messages}
-          renderItem={itemData => (
-            <ChatMessage chatmessage={itemData.item} img={require('../../assets/images/user.png')}></ChatMessage>
-          )}></FlatList>
+        {
+          noMessages
+            ?
+            <Text></Text>
+            :
+            <FlatList
+              data={openingChatroomMessages}
+              renderItem={itemData => (
+                <ChatMessage chatmessage={itemData.item} img={require('../../assets/images/user.png')}></ChatMessage>
+              )}></FlatList>
+        }
       </View>
 
       <View style={styles.inputView}>

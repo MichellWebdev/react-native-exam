@@ -1,33 +1,53 @@
-import React from 'react';
-import { View, Text, Button, StyleSheet, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button, StyleSheet, FlatList, TextInput, Image } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 
 const ChatMessage = props => {
-    //props.chatmessage
-    //show image if not "me".
-    //show purple container if "me"
-    //show time if time is not the same as previous time and same user
-    //show date if this message contains a new date compared to previous.
 
-    const hardcodedUserId = '1';
+    const loggedInUser = useSelector(state => state.user.loggedInUser);
 
-    const hours = props.chatmessage.createdDate.getHours();
-    const minutes = props.chatmessage.createdDate.getMinutes();
+    // Time Stamp
+    const now = new Date();
+    const year = now.getFullYear();
 
-    const userIdOfMessage = props.chatmessage.writtenBy.id;
-    const isMe = hardcodedUserId === userIdOfMessage;
+    const m = props.chatmessage.createdDate;
+    const mYear = m.getFullYear();
+    const mMonth = m.getMonth();
+    const mDay = m.getDate();
+
+    const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+
+    let time;
+    if (m.getMinutes() < 10) {
+        time = [m.getHours(), '0' + m.getMinutes()].join(':') + ', '
+    } else {
+        time = [m.getHours(), m.getMinutes()].join(':') + ', '
+    }
+
+    if (year !== mYear) {
+        time += mDay + ' ' + monthNames[mMonth] + ', ' + mYear
+    } else {
+        time += mDay + ' ' + monthNames[mMonth]
+    }
+
+
+    // isMe flag
+    const isMe = loggedInUser.id === props.chatmessage.writtenBy.id;
 
     let name;
     if (!isMe) {
-        name = 'From ' + props.chatmessage.writtenBy.name;
+        name = 'From ' + props.chatmessage.writtenBy.email + ', ';
     }
-    console.log("----------------: " + props.img);
-    // only display the image if this message is not written by me.
+
+
+    // Profile Image
     let image;
     if (!isMe) {
         image = <Image
             style={styles.tinyLogo}
             source={props.img} />
     }
+
 
     return (
         <View style={styles.outerContainer}>
@@ -39,7 +59,7 @@ const ChatMessage = props => {
                 </View>
             </View>
             <View style={[styles.timeContainer, isMe ? styles.reverseContainer : '']}>
-                <Text style={styles.time}>{name}  {hours}:{minutes}</Text>
+                <Text style={styles.time}>{name}  {time}</Text>
             </View>
         </View>
     );
@@ -75,11 +95,13 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 15,
         padding: 10,
+        maxWidth: '55%',
     },
     messageViewFromMe: {
         backgroundColor: '#5050A5',
         right: 0,
-        marginRight: 5
+        marginRight: 5,
+        maxWidth: '55%',
     },
     tinyLogo: {
         marginTop: -5

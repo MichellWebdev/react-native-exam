@@ -6,7 +6,8 @@ import User from "./User";
 class ChatMessage {
     constructor(
         public id: string,
-        public writtenBy: User,
+        public chatroomId: string,
+        public writtenBy: Object,
         public text: string,
         public createdDate: Date
     ) { }

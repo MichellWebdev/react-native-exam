@@ -1,3 +1,4 @@
+import ChatMessage from '../../models/ChatMessage';
 import ChatRoom from '../../models/ChatRoom'
 import User from '../../models/User';
 import { GET_CHATROOMS, CREATE_CHATROOM, SEND_MESSAGE } from '../actions/ChatActions';
@@ -37,19 +38,22 @@ const ChatReducer = (state = initialState, action) => {
             // const chatroom = new ChatRoom(action.payload.localId, action.payload.chatroomName)
             // console.log('keys ', Object.keys(action.payload));
 
-            const newChatroom = new ChatRoom(action.payload.id, action.payload.participants, action.payload.createdDate, [])
+            // const newChatroom = new ChatRoom(action.payload.id, action.payload.participants, action.payload.createdDate, [])
 
             // console.log([...state.myChatrooms, newChatroom])
             // const ids = 
 
             return {
                 ...state,
-                myChatrooms: [...state.myChatrooms, newChatroom],
-                openedNewChatId: [action.payload.systemId, action.payload.id]
+                myChatrooms: [...state.myChatrooms, action.payload.newChatroom],
+                openedNewChatId: [action.payload.systemId, action.payload.newChatroom.id]
                 // newChatroom: [...state.newChatroom, newChatroom]
             };
 
         case SEND_MESSAGE:
+
+            // const newMessage = new ChatMessage(action.payload.name)
+
             return {
                 ...state,
             }

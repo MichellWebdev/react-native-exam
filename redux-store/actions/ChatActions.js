@@ -1,5 +1,6 @@
 import { State } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
+import ChatMessage from '../../models/ChatMessage';
 import ChatRoom from '../../models/ChatRoom';
 
 export const CREATE_CHATROOM = 'CREATE_CHATROOM';
@@ -74,6 +75,7 @@ export const createChatroom = (invitedUser, chatroomId) => {
         // console.log('loggedinUser: ', loggedinUser)
 
         const createdDate = new Date();
+        const participants = [{ email: loggedInUser.email, image: loggedInUser.image, name: loggedInUser.name }, { email: invitedUser.email, image: invitedUser.image, name: invitedUser.name }]
 
         const response = await fetch(
             //https://cbsstudents-38267-default-rtdb.firebaseio.com/chatrooms/<chatroom_id>/chatMessages.json?auth=' + token, {
@@ -84,7 +86,7 @@ export const createChatroom = (invitedUser, chatroomId) => {
             },
             body: JSON.stringify({ //javascript to json
                 createdDate: createdDate,
-                participants: [loggedInUserEmail, invitedUser.email]
+                participants: participants
             })
         });
 
@@ -93,11 +95,13 @@ export const createChatroom = (invitedUser, chatroomId) => {
 
         if (!response.ok) {
             //There was a problem..
+            console.log('Chat Room Not Created');
         } else {
             // chatroom.id = data.name;
             console.log('Chat Room Created');
-            // dispatch({ type: CREATE_CHATROOM, payload: { id: data['name'].name, participants: [loggedInUserEmail, invitedUser.email], createdDate: createdDate } });
-            dispatch({ type: CREATE_CHATROOM, payload: { systemId: chatroomId, id: data.name, participants: [loggedInUserEmail, invitedUser.email], createdDate: createdDate } });
+
+            const newChatroom = new ChatRoom(data.name, participants, createdDate, []);
+            dispatch({ type: CREATE_CHATROOM, payload: { systemId: chatroomId, newChatroom: newChatroom } });
         }
     };
 };
@@ -113,6 +117,8 @@ export const sendMessage = (chatRoomId, message) => {
         const newChatId = getState().chat.openedNewChatId
         const createdDate = new Date();
 
+        const writtenBy = { email: loggedInUser.email, image: loggedInUser.image, name: loggedInUser.name }
+
         let chatroomKey;
 
         if (newChatId != null && newChatId != undefined && chatRoomId == newChatId[0]) {
@@ -125,36 +131,35 @@ export const sendMessage = (chatRoomId, message) => {
             chatroomKey = chatRoomId
         }
 
-        console.log(chatroomKey)
+        // console.log(chatroomKey)
 
-        // const response = await fetch(
-        //     //https://cbsstudents-38267-default-rtdb.firebaseio.com/chatrooms/<chatroom_id>/chatMessages.json?auth=' + token, {
-        //     'https://cbsstudentapp-default-rtdb.firebaseio.com/chatrooms/' + chatroomKey + '.json?auth=' + token, {
-        //     method: 'PATCH',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({ //javascript to json
-        //         messages: {
-        //             writtenBy: loggedInUser.email,
-        //             text: message,
-        //             createdDate: createdDate
-        //         }
-        //     })
-        // });
+        const response = await fetch(
+            //https://cbsstudents-38267-default-rtdb.firebaseio.com/chatrooms/<chatroom_id>/chatMessages.json?auth=' + token, {
+            // 'https://cbsstudentapp-default-rtdb.firebaseio.com/chatrooms/' + chatroomKey + '/messages.json?auth=' + token, {
+            'https://cbsstudentapp-default-rtdb.firebaseio.com/chatmessages.json?auth=' + token, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ //javascript to json
+                chatroomId: chatroomKey,
+                writtenBy: writtenBy,
+                text: message,
+                createdDate: createdDate
+            })
+        });
 
-        // const data = await response.json(); // json to javascript
+        const data = await response.json(); // json to javascript
         // console.log(data);
 
-        // if (!response.ok) {
-        //     console.log('Chat Message Not Sent');
-        // } else {
-        //     // chatroom.id = data.name;
-        //     console.log('Chat Message Sent');
-        //     // dispatch({ type: CREATE_CHATROOM, payload: { id: data['name'].name, participants: [loggedInUserEmail, invitedUser.email], createdDate: createdDate } });
-        //     // dispatch({ type: CREATE_CHATROOM, payload: { systemId: chatroomId, id: data.name, participants: [loggedInUserEmail, invitedUser.email], createdDate: createdDate } });
-        // }
-    };
+        if (!response.ok) {
+            console.log('Chat Message Not Sent');
+        } else {
+            // chatroom.id = data.name;
+            console.log('Chat Message Sent');
 
-    dispatch({ type: SEND_MESSAGE, payload: data });
+            const newMessage = new ChatMessage(data.name, chatroomKey, writtenBy, message, createdDate)
+            dispatch({ type: SEND_MESSAGE, payload: newMessage });
+        }
+    };
 };

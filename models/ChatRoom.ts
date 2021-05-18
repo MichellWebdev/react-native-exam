@@ -7,7 +7,7 @@ import User from "./User";
 class ChatRoom {
     constructor(
         public id: string,
-        public participants: User[],
+        public participants: Object[],
         public createdDate: Date,
         public messages: ChatMessage[]
     ) { }

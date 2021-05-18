@@ -29,7 +29,7 @@ const ChatRoom = props => {
     return (
         <View>
             {
-                props.chatRoom.participants[0] == loggedInUser.email
+                props.chatRoom.participants[0].email == loggedInUser.email
                     ?
                     <TouchableOpacity onPress={() => navigation.navigate("ChatMessages", { id: props.chatRoom.id, chatroomName: props.chatRoom.participants[1] })}>
                         <View style={styles.chatRoom}>
@@ -41,11 +41,11 @@ const ChatRoom = props => {
                             </View>
                             <View style={styles.textView}>
                                 {
-                                    props.chatRoom.participants[0] == loggedInUser.email
+                                    props.chatRoom.participants[0].email == loggedInUser.email
                                         ?
-                                        <Text style={styles.text}>{props.chatRoom.participants[1]}</Text>
+                                        <Text style={styles.text}>{props.chatRoom.participants[1].email}</Text>
                                         :
-                                        <Text style={styles.text}>{props.chatRoom.participants[0]}</Text>
+                                        <Text style={styles.text}>{props.chatRoom.participants[0].email}</Text>
                                 }
                             </View>
                             <View style={styles.dotView}>

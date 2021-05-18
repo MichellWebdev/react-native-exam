@@ -35,6 +35,9 @@ const ChatMessages = props => {
   // const myChatrooms = useSelector(state => state.chat.myChatrooms);
   const openedChatroomMessages = useSelector(state => state.chat.openedChatroomMessages);
 
+  let noMessages = false;
+  if (openedChatroomMessages == null || openedChatroomMessages.length == 0) { noMessages = true; } else { noMessages = false; }
+
   const handleTextInput = text => {
     onChangeText(text);
     text.length == 0 ? setButtonDisabled(true) : setButtonDisabled(false);
@@ -47,11 +50,17 @@ const ChatMessages = props => {
   return (
     <View style={styles.container}>
       <View style={styles.messages}>
-        <FlatList
-          data={openedChatroomMessages}
-          renderItem={itemData => (
-            <ChatMessage chatmessage={itemData.item} img={require('../../assets/images/user.png')}></ChatMessage>
-          )}></FlatList>
+        {
+          noMessages
+            ?
+            <Text>Nothing</Text>
+            :
+            <FlatList
+              data={openedChatroomMessages}
+              renderItem={itemData => (
+                <ChatMessage chatmessage={itemData.item} img={require('../../assets/images/user.png')}></ChatMessage>
+              )}></FlatList>
+        }
       </View>
 
       <View style={styles.inputView}>

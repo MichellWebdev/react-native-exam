@@ -1,5 +1,6 @@
-import React from 'react';
-import { View, Text, Button, StyleSheet, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button, StyleSheet, FlatList, TextInput, Image } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 
 const ChatMessage = props => {
     //props.chatmessage
@@ -8,19 +9,18 @@ const ChatMessage = props => {
     //show time if time is not the same as previous time and same user
     //show date if this message contains a new date compared to previous.
 
-    const hardcodedUserId = '1';
+    const loggedInUser = useSelector(state => state.user.loggedInUser);
 
-    const hours = props.chatmessage.createdDate.getHours();
-    const minutes = props.chatmessage.createdDate.getMinutes();
+    const hours = props.chatmessage.createdDate;
+    const minutes = props.chatmessage.createdDate;
 
-    const userIdOfMessage = props.chatmessage.writtenBy.id;
-    const isMe = hardcodedUserId === userIdOfMessage;
+    const isMe = loggedInUser.id === props.chatmessage.writtenBy.id;
 
     let name;
     if (!isMe) {
-        name = 'From ' + props.chatmessage.writtenBy.name;
+        name = 'From ' + props.chatmessage.writtenBy.email;
     }
-    console.log("----------------: " + props.img);
+    // console.log("----------------: " + props.img);
     // only display the image if this message is not written by me.
     let image;
     if (!isMe) {

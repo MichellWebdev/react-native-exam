@@ -11,7 +11,7 @@ export const GET_CHATROOM_MESSAGES = 'GET_CHATROOM_MESSAGES';
 export const getChatrooms = () => {
     return async (dispatch, getState) => {
         const token = getState().user.idToken;
-        const loggedInUserEmail = getState().user.loggedInUser.email;
+        const loggedInUser = getState().user.loggedInUser;
 
         const response = await fetch(
             'https://cbsstudentapp-default-rtdb.firebaseio.com/chatrooms.json?auth=' + token, {
@@ -29,7 +29,7 @@ export const getChatrooms = () => {
             // console.log(data)
         } else {
             console.log('Chatrooms retrieved')
-            dispatch({ type: GET_CHATROOMS, payload: { data: data, loggedInUserEmail: loggedInUserEmail } });
+            dispatch({ type: GET_CHATROOMS, payload: { data: data, loggedInUserId: loggedInUser.id } });
         }
     }
 }
@@ -79,7 +79,7 @@ export const createChatroom = (invitedUser, chatroomId) => {
 
         // When users are only saved as email
         // const participants = [loggedInUser.email, invitedUser.email]
-        const participants = [{ email: loggedInUser.email, image: loggedInUser.image, name: loggedInUser.name }, { email: invitedUser.email, image: invitedUser.image, name: invitedUser.name }]
+        const participants = [{ id: loggedInUser.id, email: loggedInUser.email, image: loggedInUser.image, name: loggedInUser.name }, { id: invitedUser.id, email: invitedUser.email, image: invitedUser.image, name: invitedUser.name }]
 
         const response = await fetch(
             //https://cbsstudents-38267-default-rtdb.firebaseio.com/chatrooms/<chatroom_id>/chatMessages.json?auth=' + token, {
@@ -121,7 +121,7 @@ export const sendMessage = (chatRoomId, message) => {
         const newChatId = getState().chat.openedNewChatId
         const createdDate = new Date();
 
-        const writtenBy = { email: loggedInUser.email, image: loggedInUser.image, name: loggedInUser.name }
+        const writtenBy = { id: loggedInUser.id, email: loggedInUser.email, image: loggedInUser.image, name: loggedInUser.name }
 
         let chatroomKey;
 

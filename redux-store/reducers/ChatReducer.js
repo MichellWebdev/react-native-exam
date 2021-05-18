@@ -25,7 +25,7 @@ const ChatReducer = (state = initialState, action) => {
                         // if (user == action.payload.loggedInUserEmail) {
 
                         // When users are saved with email, name, profile image
-                        if (user.email == action.payload.loggedInUserEmail) {
+                        if (user.id == action.payload.loggedInUserId) {
                             chatrooms.push(new ChatRoom(key, value.participants, value.createdDate, value.messages))
                         }
                     });

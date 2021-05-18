@@ -76,7 +76,7 @@ const ChatReducer = (state = initialState, action) => {
 
                     // When users are saved with email, name, profile image
                     if (value.chatroomId == action.payload.chatroomId) {
-                        console.log(value)
+                        // console.log(value)
                         chatroomMessages.push(new ChatMessage(key, value.chatroomId, value.writtenBy, value.text, new Date(value.createdDate)))
                     }
                 }

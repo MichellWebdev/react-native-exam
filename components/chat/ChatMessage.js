@@ -24,7 +24,13 @@ const ChatMessage = props => {
 
     const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
-    let time = [m.getHours(), m.getMinutes()].join(':') + ', '
+    let time;
+    if (m.getMinutes() < 10) {
+        time = [m.getHours(), '0' + m.getMinutes()].join(':') + ', '
+    } else {
+        time = [m.getHours(), m.getMinutes()].join(':') + ', '
+    }
+
     if (year !== mYear) {
         time += mDay + ' ' + monthNames[mMonth] + ', ' + mYear
     } else {

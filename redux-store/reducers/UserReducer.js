@@ -29,15 +29,12 @@ const UserReducer = (state = initialState, action) => {
     }
 
     case COMPLETE_SIGNUP: {
-      const user = new User(action.payload.id, actiona.payload.name, state.signupFirstStage[0], action.payload.profile, '', false, action.payload.key);
-      const token = action.payload.idToken;
+      // const user = new User(action.payload.id, actiona.payload.name, state.signupFirstStage[0], action.payload.profile, '', false, action.payload.key);
+      // const token = action.payload.idToken;
 
       return {
         ...state,
-        loggedInUser: user,
-        idToken: token,
-        // signupFirstStage: null,
-        loggedInUserProfile: [actiona.payload.name, action.payload.profile, action.payload.key]
+        signupFirstStage: null,
       };
     }
 
@@ -49,17 +46,23 @@ const UserReducer = (state = initialState, action) => {
     }
 
     case LOGIN: {
+      let me;
+      if (action.payload.data != null) {
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+        for (const [key, value] of Object.entries(action.payload.data)) {
+          if (value.email == action.payload.myEmail) {
+            me = new User(action.payload.localId, value.name, value.email, value.profile, '', value.notification, key);
+          }
+        }
+      }
 
-      console.log(action.payload.data)
-      console.log(action.payload.profileInfo)
+      // console.log(me)
 
-      // const user = new User(action.payload.localId, state.loggedInUserProfile[0], action.payload.email, state.loggedInUserProfile[1], '', false, state.loggedInUserProfile[2]);
-      // const user = new User(action.payload.data.localId, state.loggedInUserProfile[0], action.payload.email, state.loggedInUserProfile[1], '', false, state.loggedInUserProfile[2]);
-      // const token = action.payload.idToken;
       return {
         ...state,
-        // loggedInUser: user,
-        // idToken: token,
+        loggedInUser: me,
+        idToken: action.payload.idToken,
+        loggedInUserProfile: [me.name, me.image, me.documentKey]
       };
     }
 

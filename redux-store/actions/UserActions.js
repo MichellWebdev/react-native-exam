@@ -50,7 +50,7 @@ export const completeSignup = (displayName, photoUrl) => {
     );
 
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     // console.log(data.name);
 
     if (!response.ok) {
@@ -71,12 +71,13 @@ export const completeSignup = (displayName, photoUrl) => {
           id: localId,
           email: signupFirstStage[0],
           profile: photoUrl,
-          name: displayName
+          name: displayName,
+          notification: false
         })
       });
 
       const data2 = await response2.json();
-      console.log(data2);
+      // console.log(data2);
 
       if (!response2.ok) {
         console.log('Signup Stage 2 Failed');
@@ -91,7 +92,7 @@ export const completeSignup = (displayName, photoUrl) => {
 export const login = (email, password) => {
   return async (dispatch, getState) => {
 
-    const loggedInUserProfile = getState().user.loggedInUserProfile
+    // const loggedInUserProfile = getState().user.loggedInUserProfile
 
     const response = await fetch(
       'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBZOK5_QuYUqtARpQyA3wS3qPPb7JXBZrM',
@@ -109,13 +110,34 @@ export const login = (email, password) => {
     );
 
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
 
     if (!response.ok) {
       console.log('problem');
     } else {
       console.log('User logged in')
-      dispatch({ type: LOGIN, payload: { data: data, profileInfo: loggedInUserProfile } });
+
+      const token = data.idToken;
+
+      const response2 = await fetch(
+        'https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + token, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+
+      const data2 = await response2.json();
+      // console.log(Object.keys(data));
+      // console.log(data2)
+
+      if (!response2.ok) {
+        console.log('Users retrieval failed')
+        // console.log(data)
+      } else {
+        console.log('Useres retrieved')
+        dispatch({ type: LOGIN, payload: { data: data2, myEmail: email, idToken: data.idToken } });
+      }
     }
   };
 };

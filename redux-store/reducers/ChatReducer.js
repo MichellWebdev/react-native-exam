@@ -73,12 +73,17 @@ const ChatReducer = (state = initialState, action) => {
                 for (const [key, value] of Object.entries(action.payload.data)) {
                     // console.log(key);
                     // console.log(Object.keys(value))
-                    chatroomMessages.push(new ChatMessage(key, value.chatroomId, value.writtenBy, value.text, new Date(value.createdDate), value.read))
+                    // chatroomMessages.push(new ChatMessage(key, value.chatroomId, value.writtenBy, value.text, new Date(value.createdDate), value.read))
 
                     // When users are saved with email, name, profile image
+                    state.myChatrooms.forEach(chatroom => {
+                        if (value.chatroomId == chatroom.id) {
+                            chatroomMessages.push(new ChatMessage(key, value.chatroomId, value.writtenBy, value.text, new Date(value.createdDate), value.read))
+                        }
+                    })
                     // if (value.chatroomId == action.payload.chatroomId) {
                     //     // console.log(value)
-                    //     chatroomMessages.push(new ChatMessage(key, value.chatroomId, value.writtenBy, value.text, new Date(value.createdDate)))
+                    //     chatroomMessages.push(new ChatMessage(key, value.chatroomId, value.writtenBy, value.text, new Date(value.createdDate), value.read))
                     // }
                 }
             }

@@ -7,7 +7,7 @@
 
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TextInput } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -42,6 +42,7 @@ import EventsDetail from './screens/discover/EventsDetailScreen';
 import StudentOrg from './screens/discover/StudentOrgScreen';
 import StudentOrgDetail from './screens/discover/StudentOrgDetailScreen';
 import Posts from './screens/discover/PostsScreen';
+import Input from './components/common/Input';
 
 // Redux store
 const rootReducer = combineReducers({
@@ -191,7 +192,7 @@ function ChatStackNavigator() {
         name='CreateChatRoom'
         component={CreateChatRoom}
         options={({ route }) => ({
-          headerTitle: 'CREATE CHATROOM',
+          headerTitle: 'Create Chatroom',
           headerTitleAlign: 'center',
           headerTitleStyle: {
             color: '#5050A5',
@@ -401,5 +402,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     paddingRight: 30,
+    color: '#5050A5',
   },
 });

@@ -7,6 +7,8 @@ import { State } from 'react-native-gesture-handler';
 export const SAVE_USER = 'SAVE_USER';
 export const SIGNUP = 'SIGNUP';
 export const LOGIN = 'LOGIN';
+export const SEARH_USERS = 'SEARH_USERS';
+export const RESET_USER_RESEARCH = 'RESET_USER_RESEARCH';
 
 export const saveUser = user => {
   // https://firebase.google.com/docs/reference/rest/auth#section-update-profile
@@ -95,5 +97,36 @@ export const login = (email, password) => {
       console.log('User logged in')
       dispatch({ type: LOGIN, payload: data });
     }
+  };
+};
+
+export const searchUsers = email => {
+  return async (dispatch, getState) => {
+    const token = getState().user.idToken;
+
+    const response = await fetch(
+      'https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + token, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+
+    const data = await response.json();
+    // console.log(Object.keys(data));
+
+    if (!response.ok) {
+      console.log('User retrieval failed')
+      console.log(data)
+    } else {
+      console.log('Users retrieved')
+      dispatch({ type: SEARH_USERS, payload: { data: data, email: email } });
+    }
+  }
+};
+
+export const resetUserResearch = () => {
+  return {
+    type: RESET_USER_RESEARCH,
   };
 };

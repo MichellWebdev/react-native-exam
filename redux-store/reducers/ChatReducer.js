@@ -1,11 +1,12 @@
 import ChatMessage from '../../models/ChatMessage';
 import ChatRoom from '../../models/ChatRoom'
 import User from '../../models/User';
-import { GET_CHATROOMS, CREATE_CHATROOM, SEND_MESSAGE } from '../actions/ChatActions';
+import { GET_CHATROOMS, CREATE_CHATROOM, SEND_MESSAGE, GET_CHATROOM_MESSAGES } from '../actions/ChatActions';
 
 const initialState = {
     myChatrooms: null,
     openedNewChatId: null,
+    openedChatroomMessages: null,
 };
 
 const ChatReducer = (state = initialState, action) => {
@@ -20,7 +21,11 @@ const ChatReducer = (state = initialState, action) => {
                     // console.log(key);
                     // console.log(Object.keys(value))
                     value.participants.forEach(user => {
-                        if (user == action.payload.loggedInUserEmail) {
+                        // When users are only saved as email
+                        // if (user == action.payload.loggedInUserEmail) {
+
+                        // When users are saved with email, name, profile image
+                        if (user.email == action.payload.loggedInUserEmail) {
                             chatrooms.push(new ChatRoom(key, value.participants, value.createdDate, value.messages))
                         }
                     });
@@ -56,7 +61,33 @@ const ChatReducer = (state = initialState, action) => {
 
             return {
                 ...state,
+                openedChatroomMessages: [...state.openedChatroomMessages, action.payload]
             }
+
+        case GET_CHATROOM_MESSAGES:
+
+            let chatroomMessages = [];
+
+            if (action.payload.data != null) {
+                // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+                for (const [key, value] of Object.entries(action.payload.data)) {
+                    // console.log(key);
+                    // console.log(Object.keys(value))
+
+                    // When users are saved with email, name, profile image
+                    if (value.chatroomId == action.payload.chatroomId) {
+                        // console.log(value)
+                        chatroomMessages.push(new ChatMessage(key, value.chatroomId, value.writtenBy, value.text, value.createdDate))
+                    }
+                }
+            }
+
+            // console.log(chatroomMessages)
+
+            return {
+                ...state,
+                openedChatroomMessages: chatroomMessages,
+            };
 
         default:
             return state;

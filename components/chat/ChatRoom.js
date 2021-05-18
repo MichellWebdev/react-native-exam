@@ -31,7 +31,7 @@ const ChatRoom = props => {
             {
                 props.chatRoom.participants[0].email == loggedInUser.email
                     ?
-                    <TouchableOpacity onPress={() => navigation.navigate("ChatMessages", { id: props.chatRoom.id, chatroomName: props.chatRoom.participants[1] })}>
+                    <TouchableOpacity onPress={() => navigation.navigate("ChatMessages", { chatroomId: props.chatRoom.id, chatroomName: props.chatRoom.participants[1].email })}>
                         <View style={styles.chatRoom}>
 
                             <View style={styles.imageView}>

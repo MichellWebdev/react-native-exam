@@ -6,6 +6,7 @@ import ChatRoom from '../../models/ChatRoom';
 export const CREATE_CHATROOM = 'CREATE_CHATROOM';
 export const GET_CHATROOMS = 'GET_CHATROOMS';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
+export const GET_CHATROOM_MESSAGES = 'GET_CHATROOM_MESSAGES';
 
 export const getChatrooms = () => {
     return async (dispatch, getState) => {
@@ -75,6 +76,9 @@ export const createChatroom = (invitedUser, chatroomId) => {
         // console.log('loggedinUser: ', loggedinUser)
 
         const createdDate = new Date();
+
+        // When users are only saved as email
+        // const participants = [loggedInUser.email, invitedUser.email]
         const participants = [{ email: loggedInUser.email, image: loggedInUser.image, name: loggedInUser.name }, { email: invitedUser.email, image: invitedUser.image, name: invitedUser.name }]
 
         const response = await fetch(
@@ -143,6 +147,11 @@ export const sendMessage = (chatRoomId, message) => {
             },
             body: JSON.stringify({ //javascript to json
                 chatroomId: chatroomKey,
+
+                // When users are only saved as email
+                // writtenBy: loggedInUser.email,
+
+                // When users are saved with name, profile image, email
                 writtenBy: writtenBy,
                 text: message,
                 createdDate: createdDate
@@ -158,8 +167,37 @@ export const sendMessage = (chatRoomId, message) => {
             // chatroom.id = data.name;
             console.log('Chat Message Sent');
 
+            // When users are only saved as email
+            // const newMessage = new ChatMessage(data.name, chatroomKey, loggedInUser.email, message, createdDate)
+
             const newMessage = new ChatMessage(data.name, chatroomKey, writtenBy, message, createdDate)
             dispatch({ type: SEND_MESSAGE, payload: newMessage });
         }
     };
+};
+
+export const getChatroomMessages = chatroomId => {
+    return async (dispatch, getState) => {
+        const token = getState().user.idToken;
+        const loggedInUserEmail = getState().user.loggedInUser.email;
+
+        const response = await fetch(
+            'https://cbsstudentapp-default-rtdb.firebaseio.com/chatmessages.json?auth=' + token, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+
+        const data = await response.json();
+        // console.log(Object.keys(data));
+
+        if (!response.ok) {
+            console.log('Chatroom Messages Retrieval Failed')
+            // console.log(data)
+        } else {
+            console.log('Chatroom Messages Retrieved')
+            dispatch({ type: GET_CHATROOM_MESSAGES, payload: { data: data, chatroomId: chatroomId } });
+        }
+    }
 };

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, FlatList, TextInput, Image } from 'react-native';
 import ChatRoom from '../../components/chat/ChatRoom';
 import ChatMessage from '../../components/chat/ChatMessage';
 import { useSelector, useDispatch } from 'react-redux';
-import { sendMessage } from '../../redux-store/actions/ChatActions';
+import { sendMessage, getChatroomMessages } from '../../redux-store/actions/ChatActions';
 
 const ChatMessages = props => {
 
@@ -23,10 +23,17 @@ const ChatMessages = props => {
   // let buttonDisabled = false;
   const [value, onChangeText] = useState('Write message');
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const { id } = props.route.params;
+  const { chatroomId } = props.route.params;
   // console.log(id);
 
-  const myChatrooms = useSelector(state => state.chat.myChatrooms);
+  // https://stackoverflow.com/questions/62091146/componentwillmount-for-react-functional-component
+  // dispatch(getChatrooms());
+  const [chatMessagesScreenMounted, setChatMessagesScreenMounted] = useState(false)
+  if (!chatMessagesScreenMounted) { dispatch(getChatroomMessages(chatroomId)); }
+  useEffect(() => { setChatMessagesScreenMounted(true) }, [])
+
+  // const myChatrooms = useSelector(state => state.chat.myChatrooms);
+  const openedChatroomMessages = useSelector(state => state.chat.openedChatroomMessages);
 
   const handleTextInput = text => {
     onChangeText(text);
@@ -34,14 +41,14 @@ const ChatMessages = props => {
   };
 
   const handleSend = () => {
-    dispatch(sendMessage(id, value));
+    dispatch(sendMessage(chatroomId, value));
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.messages}>
         <FlatList
-          data={myChatrooms.messages}
+          data={openedChatroomMessages}
           renderItem={itemData => (
             <ChatMessage chatmessage={itemData.item} img={require('../../assets/images/user.png')}></ChatMessage>
           )}></FlatList>

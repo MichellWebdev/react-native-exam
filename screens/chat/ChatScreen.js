@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import ChatRoom from '../../components/chat/ChatRoom';
 import { CHATROOMS } from '../../data/dummy';
 import { useSelector, useDispatch } from 'react-redux';
-import { getChatrooms } from '../../redux-store/actions/ChatActions';
+import { getChatroomMessages, getChatrooms } from '../../redux-store/actions/ChatActions';
 
 const Chat = props => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Chat = props => {
   // https://stackoverflow.com/questions/62091146/componentwillmount-for-react-functional-component
   // dispatch(getChatrooms());
   const [chatScreenMounted, setChatScreenMounted] = useState(false)
-  if (!chatScreenMounted) { dispatch(getChatrooms()); }
+  if (!chatScreenMounted) { dispatch(getChatrooms()); dispatch(getChatroomMessages()); }
   useEffect(() => { setChatScreenMounted(true) }, [])
 
   const myChatrooms = useSelector(state => state.chat.myChatrooms);

@@ -3,16 +3,20 @@
 // (2) time display, latest message display
 // (3) chatroom name - user name instead of email
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+// import { getChatroomMessages } from '../../redux-store/actions/ChatActions';
 
 const ChatRoom = props => {
     const navigation = useNavigation();
-
     const loggedInUser = useSelector(state => state.user.loggedInUser);
+
+    // let noMessages = false;
+    // if (openedChatroomMessages == null || openedChatroomMessages.length == 0) { noMessages = true; } else { noMessages = false; }
+
     // const lastPos = props.chatroom.chatMessages.length - 1;
     // let lastMessageText = '';
     // let displayTime = '';
@@ -25,6 +29,7 @@ const ChatRoom = props => {
     // }
 
     // console.log(props.chatRoom.participants)
+
 
     return (
         <View>
@@ -43,9 +48,15 @@ const ChatRoom = props => {
                                 {
                                     props.chatRoom.participants[0].id == loggedInUser.id
                                         ?
-                                        <Text style={styles.text}>{props.chatRoom.participants[1].email}</Text>
+                                        <View>
+                                            <Text style={styles.text}>{props.chatRoom.participants[1].email}</Text>
+                                            {/* <Text ellipsizeMode='tail' numberOfLines={1} >{latestMessage}</Text> */}
+                                        </View>
                                         :
-                                        <Text style={styles.text}>{props.chatRoom.participants[0].email}</Text>
+                                        <View>
+                                            <Text style={styles.text}>{props.chatRoom.participants[0].email}</Text>
+                                            {/* <Text ellipsizeMode='tail' numberOfLines={1} >{latestMessage}</Text> */}
+                                        </View>
                                 }
                             </View>
                             <View style={styles.dotView}>
@@ -66,9 +77,15 @@ const ChatRoom = props => {
                                 {
                                     props.chatRoom.participants[0].id == loggedInUser.id
                                         ?
-                                        <Text style={styles.text}>{props.chatRoom.participants[1].email}</Text>
+                                        <View>
+                                            <Text style={styles.text}>{props.chatRoom.participants[1].email}</Text>
+                                            {/* <Text ellipsizeMode='tail' numberOfLines={1} >{latestMessage}</Text> */}
+                                        </View>
                                         :
-                                        <Text style={styles.text}>{props.chatRoom.participants[0].email}</Text>
+                                        <View>
+                                            <Text style={styles.text}>{props.chatRoom.participants[0].email}</Text>
+                                            {/* <Text ellipsizeMode='tail' numberOfLines={1} >{latestMessage}</Text> */}
+                                        </View>
                                 }
                             </View>
                             <View style={styles.dotView}>

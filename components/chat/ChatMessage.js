@@ -3,15 +3,10 @@ import { View, Text, Button, StyleSheet, FlatList, TextInput, Image } from 'reac
 import { useSelector, useDispatch } from 'react-redux';
 
 const ChatMessage = props => {
-    //props.chatmessage
-    //show image if not "me".
-    //show purple container if "me"
-    //show time if time is not the same as previous time and same user
-    //show date if this message contains a new date compared to previous.
 
     const loggedInUser = useSelector(state => state.user.loggedInUser);
 
-    // const now = new Date('4-1-2015');
+    // Time Stamp
     const now = new Date();
     const year = now.getFullYear();
     const month = now.getMonth() + 1;
@@ -37,20 +32,25 @@ const ChatMessage = props => {
         time += mDay + ' ' + monthNames[mMonth]
     }
 
+
+    // isMe flag
     const isMe = loggedInUser.id === props.chatmessage.writtenBy.id;
 
     let name;
     if (!isMe) {
         name = 'From ' + props.chatmessage.writtenBy.email + ', ';
     }
-    // console.log("----------------: " + props.img);
-    // only display the image if this message is not written by me.
+
+
+    // Profile Image
     let image;
     if (!isMe) {
         image = <Image
             style={styles.tinyLogo}
             source={props.img} />
     }
+
+
 
     return (
         <View style={styles.outerContainer}>

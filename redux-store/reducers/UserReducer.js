@@ -3,12 +3,12 @@ import { SAVE_USER, SIGNUP, LOGIN, SEARH_USERS, RESET_USER_RESEARCH } from '../a
 
 const initialState = {
   // Original Code
-  loggedInUser: null,
-  idToken: null,
+  // loggedInUser: null,
+  // idToken: null,
 
   // Debugging Code (test@test.com)
-  // loggedInUser: new User('70u0mxeQITdpnkDiQfsRZCtpzEt1', '', 'test@test.com', '', '', false),
-  // idToken: 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjUzNmRhZWFiZjhkZDY1ZDRkZTIxZTgyNGI4OTlhMWYzZGEyZjg5NTgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2Jzc3R1ZGVudGFwcCIsImF1ZCI6ImNic3N0dWRlbnRhcHAiLCJhdXRoX3RpbWUiOjE2MjEzNDA0MjcsInVzZXJfaWQiOiI3MHUwbXhlUUlUZHBua0RpUWZzUlpDdHB6RXQxIiwic3ViIjoiNzB1MG14ZVFJVGRwbmtEaVFmc1JaQ3RwekV0MSIsImlhdCI6MTYyMTM0MDQyNywiZXhwIjoxNjIxMzQ0MDI3LCJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGVzdEB0ZXN0LmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.LP7xuWsJ031HK8DmV8Fzm3wpBXZMnJQACzfltPxBtTtw6Q4BU8QRmYfP9g-KG3uPNf7BQ7TRblTZ5IlpF8gJmOtb8m_AEw25nOgJ5MuiJy2HMXxDxIHff4Vno8s6i5opWgP45M3GkfCUOMuNnviS6NsM-_oFunXDSLErM717cLPF3peBLt8YhmuXNTig8FQDSIGwur87HH_1LH9kKzUwS9A6RJFYry81NL5fMAVbfnyDXPhheIuxFvnS-eZ_TxihHhrq0KK3WgeX71dVYx5NnTF-3P_QL1dIvZ7neawiONrFAFOVnTq2wVnsjeCQtazrHS0_nyZTaXiWuSgcu2LG0w',
+  loggedInUser: new User('70u0mxeQITdpnkDiQfsRZCtpzEt1', '', 'test@test.com', '', '', false),
+  idToken: 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjUzNmRhZWFiZjhkZDY1ZDRkZTIxZTgyNGI4OTlhMWYzZGEyZjg5NTgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2Jzc3R1ZGVudGFwcCIsImF1ZCI6ImNic3N0dWRlbnRhcHAiLCJhdXRoX3RpbWUiOjE2MjEzNDQzMzcsInVzZXJfaWQiOiI3MHUwbXhlUUlUZHBua0RpUWZzUlpDdHB6RXQxIiwic3ViIjoiNzB1MG14ZVFJVGRwbmtEaVFmc1JaQ3RwekV0MSIsImlhdCI6MTYyMTM0NDMzNywiZXhwIjoxNjIxMzQ3OTM3LCJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGVzdEB0ZXN0LmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.STTh3vDUmguff6gmQHOREqoiA00GdffrLOG1kso3gzeDrCRoYahnUGOOjFETw9YY21lFPbWbakOkgNZze1dpezGsY6j_iXVdrgQMBD7trw-M01MQn4hMhCvSqeLYlk4qB8_5trKgvay7hoViHJ9EM547uLupCs_9wJjQjBukI1fOuidqtcURsIUrQe7XE6sTx624h42C6glwutlAAojwRsxdOGhspqjJFTUeQakeVFr4P0KtQHkqi8WQPB2r2DkvO4T_NAmX1-_Nz04wMwg4WS8am2fVi164pFRnqzF2N9OKlLAmP1BDF1S8MzGgQBrToGnAA7hItiJ2kZ-0AAUCEA',
 
   // (a@a.com)
   // loggedInUser: new User('KqpbiwkGMqS2Cfwd0gx2HAQTdkh2', '', 'a@a.com', '', '', false),

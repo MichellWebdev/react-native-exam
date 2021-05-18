@@ -5,20 +5,21 @@ import ChatMessage from '../../components/chat/ChatMessage';
 import { useSelector, useDispatch } from 'react-redux';
 import { sendMessage, getChatroomMessages } from '../../redux-store/actions/ChatActions';
 
+// Old Code
+// const chatMessages = useSelector(state => state.chat.chatrooms).find(room => room.id === id).chatMessages;
+
+// const test = useSelector(state => state.chat.test);
+// console.log("test");
+// console.log(test);
+
+// const handleSend = () => {
+//     console.log("value " + value);
+//     dispatch(addToChats(value, id));
+// };
+
 const ChatMessages = props => {
 
   const dispatch = useDispatch();
-
-  // const chatMessages = useSelector(state => state.chat.chatrooms).find(room => room.id === id).chatMessages;
-
-  // const test = useSelector(state => state.chat.test);
-  // console.log("test");
-  // console.log(test);
-
-  // const handleSend = () => {
-  //     console.log("value " + value);
-  //     dispatch(addToChats(value, id));
-  // };
 
   // let buttonDisabled = false;
   const [value, onChangeText] = useState('Write message');
@@ -33,10 +34,21 @@ const ChatMessages = props => {
   useEffect(() => { setChatMessagesScreenMounted(true) }, [])
 
   // const myChatrooms = useSelector(state => state.chat.myChatrooms);
-  const openedChatroomMessages = useSelector(state => state.chat.openedChatroomMessages);
+  const myChatroomMessages = useSelector(state => state.chat.myChatroomMessages);
+  let openingChatroomMessages = [];
 
   let noMessages = false;
-  if (openedChatroomMessages == null || openedChatroomMessages.length == 0) { noMessages = true; } else { noMessages = false; }
+  if (myChatroomMessages == null || myChatroomMessages.length == 0) {
+    noMessages = true;
+  }
+  else {
+    noMessages = false;
+    myChatroomMessages.forEach(message => {
+      if (message.chatroomId == chatroomId) {
+        openingChatroomMessages.push(message)
+      }
+    })
+  }
 
   const handleTextInput = text => {
     onChangeText(text);
@@ -57,7 +69,7 @@ const ChatMessages = props => {
             <Text></Text>
             :
             <FlatList
-              data={openedChatroomMessages}
+              data={openingChatroomMessages}
               renderItem={itemData => (
                 <ChatMessage chatmessage={itemData.item} img={require('../../assets/images/user.png')}></ChatMessage>
               )}></FlatList>

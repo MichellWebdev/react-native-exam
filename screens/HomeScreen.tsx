@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
+
+// Redux
+import { useDispatch } from 'react-redux';
+import { getChatroomMessages, getChatrooms } from '../redux-store/actions/ChatActions';
 
 // Dummy data
 import { EVENTS, HOME, STUDORGS } from '../data/dummy';
@@ -14,6 +18,17 @@ import StudentOrgBox from '../components/discover/StudentOrgBox';
 // Alternative is to only have either events or studentorgs on homepage
 
 const Home = () => {
+  const dispatch = useDispatch();
+
+  const [homeScreenMounted, setHomeScreenMounted] = useState(false);
+  if (!homeScreenMounted) {
+    dispatch(getChatrooms());
+    dispatch(getChatroomMessages());
+  }
+  useEffect(() => {
+    setHomeScreenMounted(true);
+  }, []);
+
   return (
     <View style={styles.homeContainer}>
       <FlatList

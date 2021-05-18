@@ -5,8 +5,9 @@ class User {
     public email: string,
     public image: string,
     public studyProgramme: string,
-    public chatNotification: boolean
-  ) {}
+    public chatNotification: boolean,
+    public documentKey: string
+  ) { }
 }
 
 export default User;

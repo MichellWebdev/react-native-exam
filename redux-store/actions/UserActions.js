@@ -9,6 +9,7 @@ export const SIGNUP = 'SIGNUP';
 export const LOGIN = 'LOGIN';
 export const SEARH_USERS = 'SEARH_USERS';
 export const RESET_USER_RESEARCH = 'RESET_USER_RESEARCH';
+export const COMPLETE_SIGNUP = 'COMPLETE_SIGNUP';
 
 export const saveUser = user => {
   // https://firebase.google.com/docs/reference/rest/auth#section-update-profile
@@ -19,7 +20,20 @@ export const saveUser = user => {
 };
 
 export const signup = (email, password) => {
-  return async dispatch => {
+  return {
+    type: SIGNUP,
+    payload: { email: email, password: password },
+  };
+};
+
+export const completeSignup = (displayName, photoUrl) => {
+
+  return async (dispatch, getState) => {
+
+    const signupFirstStage = getState().user.signupFirstStage
+    console.log(signupFirstStage);
+    console.log(signupFirstStage[1]);
+
     const response = await fetch(
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBZOK5_QuYUqtARpQyA3wS3qPPb7JXBZrM',
       {
@@ -28,8 +42,8 @@ export const signup = (email, password) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: email,
-          password: password,
+          email: signupFirstStage[0],
+          password: signupFirstStage[1],
           returnSecureToken: true,
         }),
       }
@@ -37,11 +51,12 @@ export const signup = (email, password) => {
 
     const data = await response.json();
     console.log(data);
+    // console.log(data.name);
 
     if (!response.ok) {
-      console.log('There was a problem: signup');
+      console.log('Signup Failed');
     } else {
-      console.log('User signed up')
+      console.log('Signup Completed')
 
       const token = data.idToken;
       const localId = data.localId;
@@ -53,25 +68,31 @@ export const signup = (email, password) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ //javascript to json
-          userId: localId,
-          email: email
+          id: localId,
+          email: signupFirstStage[0],
+          profile: photoUrl,
+          name: displayName
         })
       });
 
       const data2 = await response2.json();
-      // console.log(data2);
+      console.log(data2);
 
       if (!response2.ok) {
-        console.log('There was a problem');
+        console.log('Signup Stage 2 Failed');
       } else {
-        dispatch({ type: SIGNUP, payload: data });
+        console.log('Signup Stage 2 Completed');
+        dispatch({ type: SIGNUP, payload: { key: data2.name, id: localId, profile: photoUrl, name: displayName } });
       }
     }
   };
 };
 
 export const login = (email, password) => {
-  return async dispatch => {
+  return async (dispatch, getState) => {
+
+    const loggedInUserProfile = getState().user.loggedInUserProfile
+
     const response = await fetch(
       'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBZOK5_QuYUqtARpQyA3wS3qPPb7JXBZrM',
       {
@@ -82,7 +103,6 @@ export const login = (email, password) => {
         body: JSON.stringify({
           email: email,
           password: password,
-
           returnSecureToken: true,
         }),
       }
@@ -95,7 +115,7 @@ export const login = (email, password) => {
       console.log('problem');
     } else {
       console.log('User logged in')
-      dispatch({ type: LOGIN, payload: data });
+      dispatch({ type: LOGIN, payload: { data: data, profileInfo: loggedInUserProfile } });
     }
   };
 };

@@ -26,7 +26,7 @@ const ChatReducer = (state = initialState, action) => {
 
                         // When users are saved with email, name, profile image
                         if (user.id == action.payload.loggedInUserId) {
-                            chatrooms.push(new ChatRoom(key, value.participants, value.createdDate, value.messages))
+                            chatrooms.push(new ChatRoom(key, value.participants, new Date(value.createdDate), value.messages))
                         }
                     });
                 }
@@ -76,8 +76,8 @@ const ChatReducer = (state = initialState, action) => {
 
                     // When users are saved with email, name, profile image
                     if (value.chatroomId == action.payload.chatroomId) {
-                        // console.log(value)
-                        chatroomMessages.push(new ChatMessage(key, value.chatroomId, value.writtenBy, value.text, value.createdDate))
+                        console.log(value)
+                        chatroomMessages.push(new ChatMessage(key, value.chatroomId, value.writtenBy, value.text, new Date(value.createdDate)))
                     }
                 }
             }

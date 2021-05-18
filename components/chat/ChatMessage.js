@@ -11,14 +11,31 @@ const ChatMessage = props => {
 
     const loggedInUser = useSelector(state => state.user.loggedInUser);
 
-    const hours = props.chatmessage.createdDate;
-    const minutes = props.chatmessage.createdDate;
+    // const now = new Date('4-1-2015');
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+
+    const m = props.chatmessage.createdDate;
+    const mYear = m.getFullYear();
+    const mMonth = m.getMonth();
+    const mDay = m.getDate();
+
+    const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+
+    let time = [m.getHours(), m.getMinutes()].join(':') + ', '
+    if (year !== mYear) {
+        time += mDay + ' ' + monthNames[mMonth] + ', ' + mYear
+    } else {
+        time += mDay + ' ' + monthNames[mMonth]
+    }
 
     const isMe = loggedInUser.id === props.chatmessage.writtenBy.id;
 
     let name;
     if (!isMe) {
-        name = 'From ' + props.chatmessage.writtenBy.email;
+        name = 'From ' + props.chatmessage.writtenBy.email + ', ';
     }
     // console.log("----------------: " + props.img);
     // only display the image if this message is not written by me.
@@ -39,7 +56,7 @@ const ChatMessage = props => {
                 </View>
             </View>
             <View style={[styles.timeContainer, isMe ? styles.reverseContainer : '']}>
-                <Text style={styles.time}>{name}  {hours}:{minutes}</Text>
+                <Text style={styles.time}>{name}  {time}</Text>
             </View>
         </View>
     );

@@ -53,7 +53,7 @@ const ChatMessages = props => {
         {
           noMessages
             ?
-            <Text>Nothing</Text>
+            <Text></Text>
             :
             <FlatList
               data={openedChatroomMessages}

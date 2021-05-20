@@ -78,7 +78,7 @@ export const createChatroom = (invitedUser, chatroomId) => {
         const createdDate = new Date();
 
         // When users are only saved as email
-        // const participants = [loggedInUser.email, invitedUser.email]
+        // const participants = [loggedInUser.id, invitedUser.id]
         const participants = [{ id: loggedInUser.id, email: loggedInUser.email, image: loggedInUser.image, name: loggedInUser.name }, { id: invitedUser.id, email: invitedUser.email, image: invitedUser.image, name: invitedUser.name }]
         console.log(loggedInUser.id)
 

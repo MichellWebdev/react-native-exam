@@ -117,10 +117,10 @@ export const login = (email, password) => {
     } else {
       console.log('User logged in')
 
-      const token = data.idToken;
+      // const token = data.idToken;
 
       const response2 = await fetch(
-        'https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + token, {
+        'https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + data.idToken, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -136,7 +136,7 @@ export const login = (email, password) => {
         // console.log(data)
       } else {
         console.log('Useres retrieved')
-        dispatch({ type: LOGIN, payload: { data: data2, myEmail: email, idToken: data.idToken } });
+        dispatch({ type: LOGIN, payload: { data: data2, localId: data.localId, myEmail: email, idToken: data.idToken } });
       }
     }
   };

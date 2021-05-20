@@ -23,15 +23,10 @@ const ChatReducer = (state = initialState, action) => {
                 for (const [key, value] of Object.entries(action.payload.data)) {
                     // console.log(key);
                     // console.log(Object.keys(value))
-                    value.participants.forEach(user => {
-                        // When users are only saved as email
-                        // if (user == action.payload.loggedInUserEmail) {
 
-                        // When users are saved with email, name, profile image
-                        if (user.id == action.payload.loggedInUserId) {
-                            chatrooms.push(new ChatRoom(key, value.participants, new Date(value.createdDate), value.messages))
-                        }
-                    });
+                    if (value.participants[0] == action.payload.loggedInUserId || value.participants[1] == action.payload.loggedInUserId) {
+                        chatrooms.push(new ChatRoom(key, value.participants, new Date(value.createdDate), value.messages))
+                    }
                 }
             }
 
@@ -114,9 +109,9 @@ const ChatReducer = (state = initialState, action) => {
                             // console.log('1: ', chatroom.participants[1])
                             // console.log('myId: ', action.payload.myId)
 
-                            if (chatroom.participants[0].id == action.payload.myId && chatroom.participants[1].id == value.id) {
+                            if (chatroom.participants[0] == action.payload.myId && chatroom.participants[1] == value.id) {
                                 chatroomsUsers.push(new User(value.id, value.name, value.email, value.profile, null, null, null));
-                            } else if (chatroom.participants[1].id == action.payload.myId && chatroom.participants[0].id == value.id) {
+                            } else if (chatroom.participants[1] == action.payload.myId && chatroom.participants[0] == value.id) {
                                 chatroomsUsers.push(new User(value.id, value.name, value.email, value.profile, null, null, null));
                             }
                         })
@@ -137,3 +132,13 @@ const ChatReducer = (state = initialState, action) => {
 };
 
 export default ChatReducer;
+
+
+// old
+// value.participants.forEach(user => {
+//     // When users are only saved as email
+//     // if (user == action.payload.loggedInUserEmail) {
+
+//     // When users are saved with email, name, profile image
+
+// });

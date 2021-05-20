@@ -8,11 +8,13 @@ import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+// import { getChatroomsUsersInfo } from '../../redux-store/actions/ChatActions';
 // import { getChatroomMessages } from '../../redux-store/actions/ChatActions';
 
 const ChatRoom = props => {
     const navigation = useNavigation();
     const loggedInUser = useSelector(state => state.user.loggedInUser);
+    const chatroomsUsersInfo = useSelector(state => state.chat.chatroomsUsersInfo)
 
     // Time Stamp
     const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -52,7 +54,7 @@ const ChatRoom = props => {
                     }
                 }
 
-                if (message.writtenBy.id == loggedInUser.id) {
+                if (message.writtenBy == loggedInUser.id) {
                     latestText = '(You) ' + message.text
                     read = true;
                 } else {
@@ -65,14 +67,18 @@ const ChatRoom = props => {
         })
     }
 
+    // Another participant name
+    let participantName = '';
+    chatroomsUsersInfo.forEach(user => {
+        if (user.id == props.chatRoom.participants[0]) {
+            participantName = user.name
+        } else if (user.id == props.chatRoom.participants[1]) {
+            participantName = user.name
+        }
+    })
+
     return (
-        <TouchableOpacity onPress={
-            props.chatRoom.participants[0].id == loggedInUser.id
-                ?
-                () => navigation.navigate("ChatMessages", { chatroomId: props.chatRoom.id, chatroomName: props.chatRoom.participants[1].email })
-                :
-                () => navigation.navigate("ChatMessages", { chatroomId: props.chatRoom.id, chatroomName: props.chatRoom.participants[0].email })
-        }>
+        <TouchableOpacity onPress={() => navigation.navigate("ChatMessages", { chatroomId: props.chatRoom.id, chatroomName: participantName })}>
             <View style={styles.chatRoom}>
                 <View style={styles.imageView}>
                     <Image
@@ -80,19 +86,12 @@ const ChatRoom = props => {
                         source={require('../../assets/images/chatroom.png')} />
                 </View>
                 <View style={styles.textView}>
-                    <Text style={styles.text}>{
-                        props.chatRoom.participants[0].id == loggedInUser.id
-                            ?
-                            <View>
-                                <Text style={styles.text}>{props.chatRoom.participants[1].email}</Text>
-                                <Text ellipsizeMode='tail' numberOfLines={1} >{latestText}</Text>
-                            </View>
-                            :
-                            <View>
-                                <Text style={styles.text}>{props.chatRoom.participants[0].email}</Text>
-                                <Text ellipsizeMode='tail' numberOfLines={1} >{latestText}</Text>
-                            </View>
-                    }
+
+                    <Text style={styles.text}>
+                        <View>
+                            <Text style={styles.text}>{participantName}</Text>
+                            <Text ellipsizeMode='tail' numberOfLines={1} >{latestText}</Text>
+                        </View>
                     </Text>
                 </View>
                 <View style={styles.dotView}>
@@ -165,6 +164,33 @@ const styles = StyleSheet.create({
 });
 
 export default ChatRoom;
+
+
+
+// New
+// <TouchableOpacity onPress={
+//     props.chatRoom.participants[0].id == loggedInUser.id
+//         ?
+//         () => navigation.navigate("ChatMessages", { chatroomId: props.chatRoom.id, chatroomName: props.chatRoom.participants[1].email })
+//         :
+//         () => navigation.navigate("ChatMessages", { chatroomId: props.chatRoom.id, chatroomName: props.chatRoom.participants[0].email })
+// }>
+{/* <Text style={styles.text}>{
+    props.chatRoom.participants[0].id == loggedInUser.id
+        ?
+        <View>
+            <Text style={styles.text}>{props.chatRoom.participants[1].email}</Text>
+            <Text ellipsizeMode='tail' numberOfLines={1} >{latestText}</Text>
+        </View>
+        :
+        <View>
+            <Text style={styles.text}>{props.chatRoom.participants[0].email}</Text>
+            <Text ellipsizeMode='tail' numberOfLines={1} >{latestText}</Text>
+        </View>
+}
+</Text> */}
+
+
 
 // Old
 // <View>

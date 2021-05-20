@@ -37,36 +37,6 @@ export const getChatrooms = () => {
 
 export const createChatroom = (invitedUser, chatroomId) => {
     return async (dispatch, getState) => {
-
-        // Moved to CreateChatRoom.js
-        // let oneself = false;
-        // let alreadyExists = false;
-
-        // // Cannot invite oneself 
-        // if (chatroomUser == loggedinUser.email) {
-        //     oneself = true;
-        //     console.log('Cannot create chatroom with yourself')
-        // }
-
-        // if (!oneself) {
-        //     myChatrooms.forEach(chatroom => {
-        //         chatroom.participants.forEach(user => {
-        //             if (user == chatroomUser) {
-        //                 alreadyExists = true;
-        //             }
-        //         })
-        //     });
-
-        //     // Cannot create chatroom with same user again
-        //     if (alreadyExists) {
-        //         console.log('Chatroom already exists with this user')
-        //     }
-
-        //     if (!oneself && !alreadyExists) {
-
-        //     }
-        // }
-
         const loggedInUser = getState().user.loggedInUser
         const token = getState().user.idToken;
 
@@ -79,8 +49,8 @@ export const createChatroom = (invitedUser, chatroomId) => {
         const createdDate = new Date();
 
         // When users are only saved as email
-        // const participants = [loggedInUser.id, invitedUser.id]
-        const participants = [{ id: loggedInUser.id, email: loggedInUser.email, image: loggedInUser.image, name: loggedInUser.name }, { id: invitedUser.id, email: invitedUser.email, image: invitedUser.image, name: invitedUser.name }]
+        const participants = [loggedInUser.id, invitedUser.id]
+        // const participants = [{ id: loggedInUser.id, email: loggedInUser.email, image: loggedInUser.image, name: loggedInUser.name }, { id: invitedUser.id, email: invitedUser.email, image: invitedUser.image, name: invitedUser.name }]
         console.log(loggedInUser.id)
 
         const response = await fetch(
@@ -123,7 +93,8 @@ export const sendMessage = (chatRoomId, message) => {
         const newChatId = getState().chat.openedNewChatId
         const createdDate = new Date();
 
-        const writtenBy = { id: loggedInUser.id, email: loggedInUser.email, image: loggedInUser.image, name: loggedInUser.name }
+        // const writtenBy = { id: loggedInUser.id, email: loggedInUser.email, image: loggedInUser.image, name: loggedInUser.name }
+        const writtenBy = loggedInUser.id
 
         let chatroomKey;
 
@@ -232,3 +203,34 @@ export const getChatroomsUsersInfo = () => {
         }
     }
 };
+
+
+// Create Chatroom Old
+// Moved to CreateChatRoom.js
+// let oneself = false;
+// let alreadyExists = false;
+
+// // Cannot invite oneself 
+// if (chatroomUser == loggedinUser.email) {
+//     oneself = true;
+//     console.log('Cannot create chatroom with yourself')
+// }
+
+// if (!oneself) {
+//     myChatrooms.forEach(chatroom => {
+//         chatroom.participants.forEach(user => {
+//             if (user == chatroomUser) {
+//                 alreadyExists = true;
+//             }
+//         })
+//     });
+
+//     // Cannot create chatroom with same user again
+//     if (alreadyExists) {
+//         console.log('Chatroom already exists with this user')
+//     }
+
+//     if (!oneself && !alreadyExists) {
+
+//     }
+// }

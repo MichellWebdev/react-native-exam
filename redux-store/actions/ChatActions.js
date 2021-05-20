@@ -7,6 +7,7 @@ export const CREATE_CHATROOM = 'CREATE_CHATROOM';
 export const GET_CHATROOMS = 'GET_CHATROOMS';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const GET_CHATROOM_MESSAGES = 'GET_CHATROOM_MESSAGES';
+export const GET_CHATROOMS_USERS_INFO = 'GET_CHATROOM_USER_INFO';
 
 export const getChatrooms = () => {
     return async (dispatch, getState) => {
@@ -200,6 +201,34 @@ export const getChatroomMessages = chatroomId => {
         } else {
             console.log('Chatroom Messages Retrieved')
             dispatch({ type: GET_CHATROOM_MESSAGES, payload: { data: data, chatroomId: chatroomId } });
+        }
+    }
+};
+
+export const getChatroomsUsersInfo = () => {
+    return async (dispatch, getState) => {
+        const token = getState().user.idToken;
+        const loggedInUser = getState().user.loggedInUser;
+        const chatrooms = getState().chat.myChatrooms;
+
+        const response = await fetch(
+            'https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + token, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+
+        const data = await response.json();
+        // console.log(Object.keys(data));
+        // console.log(chatroomId)
+
+        if (!response.ok) {
+            console.log('Chatroom User Information Retrieval Failed')
+            // console.log(data)
+        } else {
+            console.log('Chatroom User Information Retrieved')
+            dispatch({ type: GET_CHATROOMS_USERS_INFO, payload: { data: data, myId: loggedInUser.id } });
         }
     }
 };

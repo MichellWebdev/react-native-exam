@@ -1,12 +1,13 @@
 import ChatMessage from '../../models/ChatMessage';
 import ChatRoom from '../../models/ChatRoom'
 import User from '../../models/User';
-import { GET_CHATROOMS, CREATE_CHATROOM, SEND_MESSAGE, GET_CHATROOM_MESSAGES } from '../actions/ChatActions';
+import { GET_CHATROOMS, CREATE_CHATROOM, SEND_MESSAGE, GET_CHATROOM_MESSAGES, GET_CHATROOMS_USERS_INFO } from '../actions/ChatActions';
 
 const initialState = {
     myChatrooms: null,
     openedNewChatId: null,
     myChatroomMessages: null,
+    chatroomsUsersInfo: null
 };
 
 const ChatReducer = (state = initialState, action) => {
@@ -95,6 +96,39 @@ const ChatReducer = (state = initialState, action) => {
             return {
                 ...state,
                 myChatroomMessages: chatroomMessages,
+            };
+
+        case GET_CHATROOMS_USERS_INFO:
+            let chatroomsUsers = [];
+
+            if (action.payload.data != null) {
+                // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+                for (const [key, value] of Object.entries(action.payload.data)) {
+                    // console.log(key);
+                    // console.log(Object.keys(value))
+
+
+                    if (state.myChatrooms !== undefined || state.myChatrooms !== null) {
+                        state.myChatrooms.forEach(chatroom => {
+                            // console.log('0: ', chatroom.participants[0])
+                            // console.log('1: ', chatroom.participants[1])
+                            // console.log('myId: ', action.payload.myId)
+
+                            if (chatroom.participants[0].id == action.payload.myId && chatroom.participants[1].id == value.id) {
+                                chatroomsUsers.push(new User(value.id, value.name, value.email, value.profile, null, null, null));
+                            } else if (chatroom.participants[1].id == action.payload.myId && chatroom.participants[0].id == value.id) {
+                                chatroomsUsers.push(new User(value.id, value.name, value.email, value.profile, null, null, null));
+                            }
+                        })
+                    }
+                }
+            }
+
+            // console.log('chatroom users: ', chatroomsUsers)
+
+            return {
+                ...state,
+                chatroomsUsersInfo: chatroomsUsers
             };
 
         default:

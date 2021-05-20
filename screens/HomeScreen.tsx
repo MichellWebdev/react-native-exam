@@ -3,7 +3,7 @@ import { StyleSheet, View, FlatList } from 'react-native';
 
 // Redux
 import { useDispatch } from 'react-redux';
-import { getChatroomMessages, getChatrooms } from '../redux-store/actions/ChatActions';
+import { getChatroomMessages, getChatrooms, getChatroomsUsersInfo } from '../redux-store/actions/ChatActions';
 
 // Dummy data
 import { EVENTS, HOME, STUDORGS } from '../data/dummy';
@@ -24,6 +24,7 @@ const Home = () => {
   if (!homeScreenMounted) {
     dispatch(getChatrooms());
     dispatch(getChatroomMessages());
+    dispatch(getChatroomsUsersInfo());
   }
   useEffect(() => {
     setHomeScreenMounted(true);

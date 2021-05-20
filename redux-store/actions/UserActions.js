@@ -31,8 +31,8 @@ export const completeSignup = (displayName, photoUrl) => {
   return async (dispatch, getState) => {
 
     const signupFirstStage = getState().user.signupFirstStage
-    console.log(signupFirstStage);
-    console.log(signupFirstStage[1]);
+    // console.log(signupFirstStage);
+    // console.log(signupFirstStage[1]);
 
     const response = await fetch(
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBZOK5_QuYUqtARpQyA3wS3qPPb7JXBZrM',

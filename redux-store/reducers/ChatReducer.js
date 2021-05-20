@@ -15,6 +15,8 @@ const ChatReducer = (state = initialState, action) => {
 
             let chatrooms = [];
 
+            // console.log('logged in ID: ', action.payload.loggedInUserId)
+
             if (action.payload.data != null) {
                 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
                 for (const [key, value] of Object.entries(action.payload.data)) {

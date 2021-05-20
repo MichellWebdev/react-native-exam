@@ -18,7 +18,11 @@ const ChatMessages = props => {
   // https://stackoverflow.com/questions/62091146/componentwillmount-for-react-functional-component
   // dispatch(getChatrooms());
   const [chatMessagesScreenMounted, setChatMessagesScreenMounted] = useState(false)
-  if (!chatMessagesScreenMounted) { dispatch(getChatroomMessages(chatroomId)); }
+  if (!chatMessagesScreenMounted) {
+    dispatch(getChatrooms());
+    dispatch(getChatroomMessages());
+    dispatch(getChatroomMessages(chatroomId));
+  }
   useEffect(() => { setChatMessagesScreenMounted(true) }, [])
 
   // const myChatrooms = useSelector(state => state.chat.myChatrooms);
@@ -26,7 +30,7 @@ const ChatMessages = props => {
   const openedNewChatId = useSelector(state => state.chat.openedNewChatId);
   let openingChatroomMessages = [];
 
-  let validChatroomId = ''
+  let validChatroomId = chatroomId + ''
   let noMessages = false;
 
   if (myChatroomMessages == null || myChatroomMessages.length == 0) {
@@ -38,14 +42,7 @@ const ChatMessages = props => {
     if (openedNewChatId != null || openedNewChatId != undefined) {
       if (chatroomId == openedNewChatId[0]) {
         validChatroomId = openedNewChatId[1]
-        // console.log('1: ', validChatroomId)
-      } else {
-        validChatroomId = chatroomId + ''
-        // console.log('2: ', validChatroomId)
       }
-    } else {
-      validChatroomId = chatroomId + ''
-      // console.log('3: ', validChatroomId)
     }
 
     myChatroomMessages.forEach(message => {

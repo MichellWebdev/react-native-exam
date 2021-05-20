@@ -30,7 +30,7 @@ const ChatReducer = (state = initialState, action) => {
                 }
             }
 
-            // console.log('chatrooms: ', chatrooms)
+            console.log('chatrooms: ', chatrooms)
 
             return {
                 ...state,

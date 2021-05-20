@@ -8,6 +8,7 @@ export const GET_CHATROOMS = 'GET_CHATROOMS';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const GET_CHATROOM_MESSAGES = 'GET_CHATROOM_MESSAGES';
 export const GET_CHATROOMS_USERS_INFO = 'GET_CHATROOM_USER_INFO';
+export const REMOVE_NEW_CHAT_INFO = 'REMOVE_NEW_CHAT_INFO';
 
 export const getChatrooms = () => {
     return async (dispatch, getState) => {
@@ -96,17 +97,16 @@ export const sendMessage = (chatRoomId, message) => {
         // const writtenBy = { id: loggedInUser.id, email: loggedInUser.email, image: loggedInUser.image, name: loggedInUser.name }
         const writtenBy = loggedInUser.id
 
-        let chatroomKey;
-
-        if (newChatId != null && newChatId != undefined && chatRoomId == newChatId[0]) {
-            myChatrooms.forEach(chatroom => {
-                if (chatroom.id == newChatId[1]) {
-                    chatroomKey = newChatId[1]
-                }
-            });
-        } else {
-            chatroomKey = chatRoomId
-        }
+        // let chatroomKey = '';
+        // if (newChatId !== null && newChatId !== undefined && chatRoomId == newChatId[0]) {
+        //     myChatrooms.forEach(chatroom => {
+        //         if (chatroom.id == newChatId[1]) {
+        //             chatroomKey = newChatId[1]
+        //         }
+        //     });
+        // } else {
+        //     chatroomKey = chatRoomId
+        // }
 
         // console.log(chatroomKey)
 
@@ -123,7 +123,7 @@ export const sendMessage = (chatRoomId, message) => {
 
             // When users are saved with name, profile image, email
             body: JSON.stringify({ //javascript to json
-                chatroomId: chatroomKey,
+                chatroomId: chatRoomId,
                 writtenBy: writtenBy,
                 text: message,
                 createdDate: createdDate,
@@ -143,7 +143,8 @@ export const sendMessage = (chatRoomId, message) => {
             // When users are only saved as email
             // const newMessage = new ChatMessage(data.name, chatroomKey, loggedInUser.email, message, createdDate)
 
-            const newMessage = new ChatMessage(data.name, chatroomKey, writtenBy, message, createdDate, false)
+            // const newMessage = new ChatMessage(data.name, chatroomKey, writtenBy, message, createdDate, false)
+            const newMessage = new ChatMessage(data.name, chatRoomId, writtenBy, message, createdDate, false)
             dispatch({ type: SEND_MESSAGE, payload: newMessage });
         }
     };
@@ -152,7 +153,7 @@ export const sendMessage = (chatRoomId, message) => {
 export const getChatroomMessages = chatroomId => {
     return async (dispatch, getState) => {
         const token = getState().user.idToken;
-        const loggedInUserEmail = getState().user.loggedInUser.email;
+        // const loggedInUserEmail = getState().user.loggedInUser.email;
 
         const response = await fetch(
             'https://cbsstudentapp-default-rtdb.firebaseio.com/chatmessages.json?auth=' + token, {
@@ -203,6 +204,14 @@ export const getChatroomsUsersInfo = () => {
         }
     }
 };
+
+export const removeNewChatInfo = () => {
+    return {
+        type: REMOVE_NEW_CHAT_INFO,
+        payload: '',
+    };
+}
+
 
 
 // Create Chatroom Old

@@ -1,7 +1,7 @@
 import ChatMessage from '../../models/ChatMessage';
 import ChatRoom from '../../models/ChatRoom'
 import User from '../../models/User';
-import { GET_CHATROOMS, CREATE_CHATROOM, SEND_MESSAGE, GET_CHATROOM_MESSAGES, GET_CHATROOMS_USERS_INFO } from '../actions/ChatActions';
+import { GET_CHATROOMS, CREATE_CHATROOM, SEND_MESSAGE, GET_CHATROOM_MESSAGES, GET_CHATROOMS_USERS_INFO, REMOVE_NEW_CHAT_INFO } from '../actions/ChatActions';
 
 const initialState = {
     myChatrooms: null,
@@ -30,11 +30,11 @@ const ChatReducer = (state = initialState, action) => {
                 }
             }
 
-            // console.log(chatrooms)
+            // console.log('chatrooms: ', chatrooms)
 
             return {
                 ...state,
-                myChatrooms: chatrooms
+                myChatrooms: chatrooms,
             };
 
         case CREATE_CHATROOM:
@@ -75,6 +75,8 @@ const ChatReducer = (state = initialState, action) => {
 
                     // When users are saved with email, name, profile image
                     state.myChatrooms.forEach(chatroom => {
+                        console.log(chatroom.id)
+                        console.log(value.chatroomId)
                         if (value.chatroomId == chatroom.id) {
                             chatroomMessages.push(new ChatMessage(key, value.chatroomId, value.writtenBy, value.text, new Date(value.createdDate), value.read))
                         }
@@ -124,6 +126,12 @@ const ChatReducer = (state = initialState, action) => {
             return {
                 ...state,
                 chatroomsUsersInfo: chatroomsUsers
+            };
+
+        case REMOVE_NEW_CHAT_INFO:
+            return {
+                ...state,
+                // openedNewChatId: null
             };
 
         default:

@@ -36,7 +36,7 @@ const ChatMessage = props => {
 
     let name;
     if (!isMe) {
-        name = 'From ' + props.chatmessage.writtenBy.email + ', ';
+        name = 'From ' + props.chatmessage.writtenBy + ', ';
     }
 
 

@@ -69,6 +69,7 @@ const ChatRoom = props => {
 
     // Another participant name
     let participantName = '';
+    // console.log(chatroomsUsersInfo)
     chatroomsUsersInfo.forEach(user => {
         if (user.id == props.chatRoom.participants[0]) {
             participantName = user.name
@@ -76,6 +77,8 @@ const ChatRoom = props => {
             participantName = user.name
         }
     })
+
+    // console.log(participantName)
 
     return (
         <TouchableOpacity onPress={() => navigation.navigate("ChatMessages", { chatroomId: props.chatRoom.id, chatroomName: participantName })}>

@@ -30,17 +30,18 @@ const ChatUser = props => {
         let alreadyExists = false;
 
         myChatrooms.forEach(chatroom => {
-            chatroom.participants.forEach(user => {
-                if (user.email == invitedUser.email) {
-                    alreadyExists = true;
+            // chatroom.participants.forEach(user => { 
+            // });
 
-                    dispatch(resetUserResearch());
+            if (chatroom.participants[0] == invitedUser.id || chatroom.participants[1] == invitedUser.id) {
+                alreadyExists = true;
 
-                    navigation.goBack();
-                    navigation.navigate("ChatMessages", { id: chatroom.id, chatroomName: user.name });
-                    // navigation.navigate("CHAT", { openChat: user });
-                }
-            });
+                dispatch(resetUserResearch());
+
+                navigation.goBack();
+                navigation.navigate("ChatMessages", { chatroomId: chatroom.id, chatroomName: invitedUser.name });
+                // navigation.navigate("CHAT", { openChat: user });
+            }
         });
 
         if (!alreadyExists) {
@@ -50,10 +51,11 @@ const ChatUser = props => {
 
             dispatch(createChatroom(invitedUser, chatroomId));
             dispatch(resetUserResearch());
+            dispatch(getChatrooms());
             dispatch(getChatroomsUsersInfo());
 
             navigation.goBack();
-            navigation.navigate("ChatMessages", { id: chatroomId, chatroomName: invitedUser.name });
+            navigation.navigate("ChatMessages", { chatroomId: chatroomId, chatroomName: invitedUser.name });
         }
 
 

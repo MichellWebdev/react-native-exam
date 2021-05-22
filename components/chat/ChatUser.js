@@ -11,7 +11,7 @@ import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector, useDispatch } from 'react-redux';
-import { createChatroom, getChatrooms } from '../../redux-store/actions/ChatActions';
+import { createChatroom, getChatrooms, getChatroomsUsersInfo } from '../../redux-store/actions/ChatActions';
 import { resetUserResearch } from '../../redux-store/actions/UserActions'
 import uuid from 'react-native-uuid';
 
@@ -30,17 +30,18 @@ const ChatUser = props => {
         let alreadyExists = false;
 
         myChatrooms.forEach(chatroom => {
-            chatroom.participants.forEach(userEmail => {
-                if (userEmail == invitedUser.email) {
-                    alreadyExists = true;
+            // chatroom.participants.forEach(user => { 
+            // });
 
-                    dispatch(resetUserResearch());
+            if (chatroom.participants[0] == invitedUser.id || chatroom.participants[1] == invitedUser.id) {
+                alreadyExists = true;
 
-                    navigation.goBack();
-                    navigation.navigate("ChatMessages", { id: chatroom.id, chatroomName: userEmail });
-                    // navigation.navigate("CHAT", { openChat: user });
-                }
-            });
+                dispatch(resetUserResearch());
+
+                navigation.goBack();
+                navigation.navigate("ChatMessages", { chatroomId: chatroom.id, chatroomName: invitedUser.name });
+                // navigation.navigate("CHAT", { openChat: user });
+            }
         });
 
         if (!alreadyExists) {
@@ -50,40 +51,14 @@ const ChatUser = props => {
 
             dispatch(createChatroom(invitedUser, chatroomId));
             dispatch(resetUserResearch());
+            dispatch(getChatrooms());
+            dispatch(getChatroomsUsersInfo());
 
             navigation.goBack();
-            navigation.navigate("ChatMessages", { id: chatroomId, chatroomName: invitedUser.email });
+            navigation.navigate("ChatMessages", { chatroomId: chatroomId, chatroomName: invitedUser.name });
         }
 
-        // dispatch(createChatroom(chatroomName, chatroomImage, chatroomUser));
-        // navigation.goBack();
 
-        // console.log(invitedUserId)
-
-        // let oneself = false;
-        // let alreadyExists = false;
-
-        // Cannot invite oneself
-        // if (chatroomUser == loggedInUser.email) {
-        //     oneself = true;
-        //     console.log('Cannot create chatroom with yourself');
-        // } else {
-        //     myChatrooms.forEach(chatroom => {
-        //         chatroom.participants.forEach(user => {
-        //             if (user == chatroomUser) {
-        //                 alreadyExists = true;
-        //             }
-        //         });
-        //     });
-
-        //     if (alreadyExists) {
-        //         console.log('Chatroom already exists with this user');
-        //     } else {
-        //         dispatch(createChatroom(chatroomName, chatroomImage, chatroomUser));
-        //         dispatch(getChatrooms());
-        //         navigation.goBack();
-        //     }
-        // }
     };
 
     return (
@@ -144,3 +119,34 @@ const styles = StyleSheet.create({
 });
 
 export default ChatUser;
+
+
+// dispatch(createChatroom(chatroomName, chatroomImage, chatroomUser));
+// navigation.goBack();
+
+// console.log(invitedUserId)
+
+// let oneself = false;
+// let alreadyExists = false;
+
+// Cannot invite oneself
+// if (chatroomUser == loggedInUser.email) {
+//     oneself = true;
+//     console.log('Cannot create chatroom with yourself');
+// } else {
+//     myChatrooms.forEach(chatroom => {
+//         chatroom.participants.forEach(user => {
+//             if (user == chatroomUser) {
+//                 alreadyExists = true;
+//             }
+//         });
+//     });
+
+//     if (alreadyExists) {
+//         console.log('Chatroom already exists with this user');
+//     } else {
+//         dispatch(createChatroom(chatroomName, chatroomImage, chatroomUser));
+//         dispatch(getChatrooms());
+//         navigation.goBack();
+//     }
+// }

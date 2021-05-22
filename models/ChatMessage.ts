@@ -7,7 +7,7 @@ class ChatMessage {
     constructor(
         public id: string,
         public chatroomId: string,
-        public writtenBy: Object,
+        public writtenBy: string,
         public text: string,
         public createdDate: Date,
         public read: boolean

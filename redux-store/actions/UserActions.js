@@ -31,8 +31,8 @@ export const completeSignup = (displayName, photoUrl) => {
   return async (dispatch, getState) => {
 
     const signupFirstStage = getState().user.signupFirstStage
-    console.log(signupFirstStage);
-    console.log(signupFirstStage[1]);
+    // console.log(signupFirstStage);
+    // console.log(signupFirstStage[1]);
 
     const response = await fetch(
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBZOK5_QuYUqtARpQyA3wS3qPPb7JXBZrM',
@@ -117,10 +117,10 @@ export const login = (email, password) => {
     } else {
       console.log('User logged in')
 
-      const token = data.idToken;
+      // const token = data.idToken;
 
       const response2 = await fetch(
-        'https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + token, {
+        'https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + data.idToken, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -136,7 +136,7 @@ export const login = (email, password) => {
         // console.log(data)
       } else {
         console.log('Useres retrieved')
-        dispatch({ type: LOGIN, payload: { data: data2, myEmail: email, idToken: data.idToken } });
+        dispatch({ type: LOGIN, payload: { data: data2, localId: data.localId, myEmail: email, idToken: data.idToken } });
       }
     }
   };

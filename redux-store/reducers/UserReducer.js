@@ -73,14 +73,16 @@ const UserReducer = (state = initialState, action) => {
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
       for (const [key, value] of Object.entries(action.payload.data)) {
         // console.log(key);
-        // console.log(value.userId);
+        // console.log(value.id);
         // console.log(Object.keys(value))
 
         if (value.email.startsWith(action.payload.email)) {
-          let oneUser = new User(value.userId, '', value.email, '', '', false);
+          let oneUser = new User(value.id, value.name, value.email, value.profile, '', value.notification, key);
           users.push(oneUser)
         }
       }
+
+      // console.log(users)
 
       return {
         ...state,

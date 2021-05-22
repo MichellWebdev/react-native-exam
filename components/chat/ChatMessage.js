@@ -32,11 +32,11 @@ const ChatMessage = props => {
 
 
     // isMe flag
-    const isMe = loggedInUser.id === props.chatmessage.writtenBy.id;
+    const isMe = loggedInUser.id === props.chatmessage.writtenBy;
 
     let name;
     if (!isMe) {
-        name = 'From ' + props.chatmessage.writtenBy.email + ', ';
+        name = 'From ' + props.chatmessage.writtenBy + ', ';
     }
 
 

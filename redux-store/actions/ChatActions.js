@@ -52,7 +52,7 @@ export const createChatroom = (invitedUser, chatroomId) => {
         // When users are only saved as email
         const participants = [loggedInUser.id, invitedUser.id]
         // const participants = [{ id: loggedInUser.id, email: loggedInUser.email, image: loggedInUser.image, name: loggedInUser.name }, { id: invitedUser.id, email: invitedUser.email, image: invitedUser.image, name: invitedUser.name }]
-        console.log(loggedInUser.id)
+        // console.log(loggedInUser.id)
 
         const response = await fetch(
             //https://cbsstudents-38267-default-rtdb.firebaseio.com/chatrooms/<chatroom_id>/chatMessages.json?auth=' + token, {

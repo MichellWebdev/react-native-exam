@@ -45,12 +45,18 @@ const ChatMessages = props => {
       }
     }
 
+    // console.log('openedNewChatId: ', openedNewChatId)
+    // console.log('chatroomId: ', chatroomId)
+    // console.log('validChatroomId: ', validChatroomId)
+
     myChatroomMessages.forEach(message => {
       // if (message.chatroomId == chatroomId) {
       if (message.chatroomId == validChatroomId) {
         openingChatroomMessages.push(message)
       }
     })
+
+    // console.log(openingChatroomMessages)
   }
 
   const handleTextInput = text => {

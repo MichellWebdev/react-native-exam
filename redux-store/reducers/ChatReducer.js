@@ -30,7 +30,7 @@ const ChatReducer = (state = initialState, action) => {
                 }
             }
 
-            console.log('chatrooms: ', chatrooms)
+            // console.log('chatrooms: ', chatrooms)
 
             return {
                 ...state,
@@ -75,8 +75,8 @@ const ChatReducer = (state = initialState, action) => {
 
                     // When users are saved with email, name, profile image
                     state.myChatrooms.forEach(chatroom => {
-                        console.log(chatroom.id)
-                        console.log(value.chatroomId)
+                        // console.log(chatroom.id)
+                        // console.log(value.chatroomId)
                         if (value.chatroomId == chatroom.id) {
                             chatroomMessages.push(new ChatMessage(key, value.chatroomId, value.writtenBy, value.text, new Date(value.createdDate), value.read))
                         }
@@ -131,7 +131,6 @@ const ChatReducer = (state = initialState, action) => {
         case REMOVE_NEW_CHAT_INFO:
             return {
                 ...state,
-                // openedNewChatId: null
             };
 
         default:

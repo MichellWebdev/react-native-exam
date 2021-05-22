@@ -69,7 +69,6 @@ const ChatRoom = props => {
 
     // Another participant name
     let participantName = '';
-    // console.log(chatroomsUsersInfo)
     chatroomsUsersInfo.forEach(user => {
         if (user.id == props.chatRoom.participants[0]) {
             participantName = user.name
@@ -78,6 +77,7 @@ const ChatRoom = props => {
         }
     })
 
+    // console.log(chatroomsUsersInfo)
     // console.log(participantName)
 
     return (

@@ -121,6 +121,7 @@ const ChatReducer = (state = initialState, action) => {
                 }
             }
 
+            // console.log('chatrooms: ', state.myChatrooms)
             // console.log('chatroom users: ', chatroomsUsers)
 
             return {

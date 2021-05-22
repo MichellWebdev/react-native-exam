@@ -20,7 +20,7 @@ const ChatMessages = props => {
   const [chatMessagesScreenMounted, setChatMessagesScreenMounted] = useState(false)
   if (!chatMessagesScreenMounted) {
     dispatch(getChatrooms());
-    dispatch(getChatroomMessages());
+    dispatch(getChatroomsUsersInfo());
     dispatch(getChatroomMessages(chatroomId));
   }
   useEffect(() => { setChatMessagesScreenMounted(true) }, [])
@@ -68,7 +68,7 @@ const ChatMessages = props => {
     // dispatch(sendMessage(chatroomId, value));
     // console.log(validChatroomId)
     dispatch(sendMessage(validChatroomId, value));
-    dispatch(getChatroomMessages(chatroomId));
+    dispatch(getChatroomMessages(validChatroomId));
     onChangeText('')
   };
 

@@ -1,5 +1,13 @@
 import User from '../../models/User';
-import { SAVE_USER, SIGNUP, LOGIN, SEARH_USERS, RESET_USER_RESEARCH, COMPLETE_SIGNUP } from '../actions/UserActions';
+import {
+  SAVE_USER,
+  SIGNUP,
+  LOGIN,
+  SEARH_USERS,
+  RESET_USER_RESEARCH,
+  COMPLETE_SIGNUP,
+  EDIT_USER,
+} from '../actions/UserActions';
 
 const initialState = {
   // Original Code
@@ -24,8 +32,8 @@ const UserReducer = (state = initialState, action) => {
     case SIGNUP: {
       return {
         ...state,
-        signupFirstStage: [action.payload.email, action.payload.password]
-      }
+        signupFirstStage: [action.payload.email, action.payload.password],
+      };
     }
 
     case COMPLETE_SIGNUP: {
@@ -45,29 +53,48 @@ const UserReducer = (state = initialState, action) => {
       };
     }
 
+    // case EDIT_USER: {
+    //   let updateProfile;
+    //   for (const [key, value] of Object.entries(action.payload.data)) {
+    //     updateProfile = new User(value.displayName, value.studyProgramme, key);
+    //   }
+    //   console.log(updateProfile);
+
+    //   return {
+    //     ...state,
+    //     loggedInUserProfile: [updateProfile.displayName, updateProfile.studyProgramme],
+    //   };
+    // }
+
     case LOGIN: {
       let me;
       if (action.payload.data != null) {
         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
         for (const [key, value] of Object.entries(action.payload.data)) {
           if (value.email == action.payload.myEmail) {
-            me = new User(action.payload.localId, value.name, value.email, value.profile, '', value.notification, key);
+            me = new User(
+              action.payload.localId,
+              value.name,
+              value.email,
+              value.profile,
+              value.studyProgramme,
+              value.notification,
+              key
+            );
           }
         }
       }
-
-      // console.log(me)
+      // console.log(me);
 
       return {
         ...state,
         loggedInUser: me,
         idToken: action.payload.idToken,
-        loggedInUserProfile: [me.name, me.image, me.documentKey]
+        loggedInUserProfile: [me.name, me.image, me.documentKey],
       };
     }
 
     case SEARH_USERS:
-
       let users = [];
 
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
@@ -78,7 +105,7 @@ const UserReducer = (state = initialState, action) => {
 
         if (value.email.startsWith(action.payload.email)) {
           let oneUser = new User(value.id, value.name, value.email, value.profile, '', value.notification, key);
-          users.push(oneUser)
+          users.push(oneUser);
         }
       }
 
@@ -86,13 +113,13 @@ const UserReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        searchUsers: users
+        searchUsers: users,
       };
 
     case RESET_USER_RESEARCH:
       return {
         ...state,
-        searchUsers: null
+        searchUsers: null,
       };
 
     default:

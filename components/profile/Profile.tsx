@@ -34,9 +34,8 @@ const Profile = ({ buttonText = 'Edit profile' }: ProfileLabels) => {
         </View>
         <View style={styles.profileInfoContainer}>
           <Text style={styles.profileName}>{loggedInUser.name}</Text>
-          {/* Should be email */}
           <Text style={styles.profileInfo}>{loggedInUser.email}</Text>
-          <Text style={styles.profileInfo}>{loggedInUser.image}</Text>
+          <Text style={styles.profileInfo}>{loggedInUser.studyProgramme}</Text>
         </View>
       </View>
       <Button buttonText={buttonText} onPress={handleRedirect} />

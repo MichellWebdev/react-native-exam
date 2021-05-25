@@ -49,7 +49,6 @@ const Input = ({
   };
 
   return (
-    // <View style={styles.container}>
     <View style={[styles.container, editable === false ? styles.disabled : styles.container]}>
       {label && <Text style={styles.label}>{label}</Text>}
       <View style={[iconName ? styles.withIcon : styles.noIcon]}>

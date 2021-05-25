@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { saveUser } from '../../redux-store/actions/UserActions';
+import { completeSignup, saveUser, editProfile } from '../../redux-store/actions/UserActions';
 import { RootState } from '../../App';
 
 // Stack navigation
@@ -36,19 +36,28 @@ const EditProfile = ({
 
   const profileInfo = useSelector((state: RootState) => state.user.loggedInUser || {});
 
-  // Handling input
-  const [changeName, setChangeName] = useState(profileInfo.name);
+  // Name
+  const [displayName, setDisplayName] = useState(profileInfo.name);
   const [nameValid, setNameValid] = useState(false);
 
+  // Study programme
   const [studyProgramme, setStudyProgramme] = useState(profileInfo.studyProgramme);
   const [studyProgrammeValid, setStudyProgrammeValid] = useState(false);
 
   const handleSave = () => {
+    // if (nameValid || studyProgrammeValid) {
+    //   let user = { ...profileInfo };
+    //   user.name = changeName;
+    //   user.studyProgramme = studyProgramme;
+    //   dispatch(saveUser(user));
+
+    //   navigation.navigate('Profile');
+    // } else {
+    //   console.log(false);
+    // }
     if (nameValid || studyProgrammeValid) {
-      let user = { ...profileInfo };
-      user.name = changeName;
-      user.studyProgramme = studyProgramme;
-      dispatch(saveUser(user));
+      dispatch(editProfile(displayName, studyProgramme));
+      console.log(displayName, studyProgramme);
 
       navigation.navigate('Profile');
     } else {
@@ -80,11 +89,11 @@ const EditProfile = ({
       </View>
       <Input
         label={userNameLabel}
-        value={changeName}
+        value={displayName}
         inputValid={nameValid}
         errorMessage={errorMessage}
         onValid={(valid: any) => setNameValid(valid)}
-        setContent={(content: any) => setChangeName(content)}
+        setContent={(content: any) => setDisplayName(content)}
       />
       <Input
         label={studyProgrammeLabel}

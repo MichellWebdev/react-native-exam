@@ -10,8 +10,9 @@ const StudentOrg = () => {
     <SafeAreaView style={styles.studentOrgScreenContainer}>
       <View>
         <FlatList
-          showsVerticalScrollIndicator={false}
           data={STUDORGS}
+          showsVerticalScrollIndicator={false}
+          initialNumToRender={10}
           renderItem={itemData => (
             <StudentOrgBox
               boxBackgroundColor='rgba(46, 49, 49, 0.5)'

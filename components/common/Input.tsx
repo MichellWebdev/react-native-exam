@@ -20,7 +20,8 @@ interface InputProps {
   password?: boolean;
   autoCapitalize?: any;
   inputValid?: boolean;
-  errorMessage: string;
+  errorMessage?: string;
+  editable?: boolean;
   setContent: (arg: string) => void;
   onValid: (arg: boolean) => void;
 }
@@ -35,6 +36,7 @@ const Input = ({
   autoCapitalize,
   inputValid,
   errorMessage,
+  editable,
   setContent,
   onValid,
 }: InputProps) => {
@@ -47,11 +49,13 @@ const Input = ({
   };
 
   return (
-    <View style={styles.container}>
+    // <View style={styles.container}>
+    <View style={[styles.container, editable === false ? styles.disabled : styles.container]}>
       {label && <Text style={styles.label}>{label}</Text>}
       <View style={[iconName ? styles.withIcon : styles.noIcon]}>
         {iconName && <Ionicons name={iconName} size={25} color={iconColor} />}
         <TextInput
+          editable={editable}
           autoCapitalize={autoCapitalize}
           value={value}
           placeholder={placeholder}
@@ -101,6 +105,10 @@ const styles = StyleSheet.create({
   },
   noIcon: {
     flexDirection: 'column',
+  },
+  disabled: {
+    backgroundColor: 'lightgray',
+    borderColor: 'lightgray',
   },
 });
 

@@ -11,6 +11,7 @@ const Events = () => {
       <View>
         <FlatList
           data={EVENTS}
+          initialNumToRender={10}
           showsVerticalScrollIndicator={false}
           renderItem={itemData => (
             <EventBox

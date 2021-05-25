@@ -34,6 +34,8 @@ const Home = () => {
     <View style={styles.homeContainer}>
       <FlatList
         data={EVENTS || STUDORGS}
+        initialNumToRender={10}
+        showsVerticalScrollIndicator={false}
         renderItem={itemData => (
           <View>
             <EventBox

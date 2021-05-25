@@ -24,6 +24,7 @@ const Profile = ({ buttonText = 'Edit profile' }: ProfileLabels) => {
   const handleRedirect = () => {
     navigation.navigate('EditProfile');
   };
+  console.log(`loggedInUser`, loggedInUser);
 
   return (
     <View>
@@ -35,7 +36,7 @@ const Profile = ({ buttonText = 'Edit profile' }: ProfileLabels) => {
           <Text style={styles.profileName}>{loggedInUser.name}</Text>
           {/* Should be email */}
           <Text style={styles.profileInfo}>{loggedInUser.email}</Text>
-          <Text style={styles.profileInfo}>{loggedInUser.studyProgramme}</Text>
+          <Text style={styles.profileInfo}>{loggedInUser.image}</Text>
         </View>
       </View>
       <Button buttonText={buttonText} onPress={handleRedirect} />

@@ -1,5 +1,5 @@
 // Need to improve
-// (1) signup - instead of second fetch (response2), using Admin SDK instead? 
+// (1) signup - instead of second fetch (response2), using Admin SDK instead?
 //              https://firebase.google.com/docs/auth/admin/manage-users
 
 import { State } from 'react-native-gesture-handler';
@@ -27,10 +27,8 @@ export const signup = (email, password) => {
 };
 
 export const completeSignup = (displayName, photoUrl) => {
-
   return async (dispatch, getState) => {
-
-    const signupFirstStage = getState().user.signupFirstStage
+    const signupFirstStage = getState().user.signupFirstStage;
     // console.log(signupFirstStage);
     // console.log(signupFirstStage[1]);
 
@@ -56,24 +54,24 @@ export const completeSignup = (displayName, photoUrl) => {
     if (!response.ok) {
       console.log('Signup Failed');
     } else {
-      console.log('Signup Completed')
+      console.log('Signup Completed');
 
       const token = data.idToken;
       const localId = data.localId;
 
-      const response2 = await fetch(
-        'https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + token, {
+      const response2 = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + token, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ //javascript to json
+        body: JSON.stringify({
+          //javascript to json
           id: localId,
           email: signupFirstStage[0],
           profile: photoUrl,
           name: displayName,
-          notification: false
-        })
+          notification: true,
+        }),
       });
 
       const data2 = await response2.json();
@@ -91,7 +89,6 @@ export const completeSignup = (displayName, photoUrl) => {
 
 export const login = (email, password) => {
   return async (dispatch, getState) => {
-
     // const loggedInUserProfile = getState().user.loggedInUserProfile
 
     const response = await fetch(
@@ -115,15 +112,14 @@ export const login = (email, password) => {
     if (!response.ok) {
       console.log('problem');
     } else {
-      console.log('User logged in')
+      console.log('User logged in');
 
       // const token = data.idToken;
 
-      const response2 = await fetch(
-        'https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + data.idToken, {
+      const response2 = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + data.idToken, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
       });
 
@@ -132,10 +128,10 @@ export const login = (email, password) => {
       // console.log(data2)
 
       if (!response2.ok) {
-        console.log('Users retrieval failed')
+        console.log('Users retrieval failed');
         // console.log(data)
       } else {
-        console.log('Useres retrieved')
+        console.log('Useres retrieved');
         dispatch({ type: LOGIN, payload: { data: data2, localId: data.localId, myEmail: email, idToken: data.idToken } });
       }
     }
@@ -146,11 +142,10 @@ export const searchUsers = email => {
   return async (dispatch, getState) => {
     const token = getState().user.idToken;
 
-    const response = await fetch(
-      'https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + token, {
+    const response = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + token, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
     });
 
@@ -158,13 +153,13 @@ export const searchUsers = email => {
     // console.log(Object.keys(data));
 
     if (!response.ok) {
-      console.log('User retrieval failed')
-      console.log(data)
+      console.log('User retrieval failed');
+      console.log(data);
     } else {
-      console.log('Users retrieved')
+      console.log('Users retrieved');
       dispatch({ type: SEARH_USERS, payload: { data: data, email: email } });
     }
-  }
+  };
 };
 
 export const resetUserResearch = () => {

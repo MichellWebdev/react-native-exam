@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Switch } from 'react-native';
+import { useSelector } from 'react-redux';
 
 interface ToggleSwitchProps {
   header: string;
@@ -8,8 +9,9 @@ interface ToggleSwitchProps {
 }
 
 const ToggleSwitch = ({ header, infoText, disabled = false }: ToggleSwitchProps) => {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitchButton = () => setIsEnabled(previousState => !previousState);
+  const loggedInUser = useSelector((state: any) => state.user.loggedInUser || {});
+  const [isEnabled, setIsEnabled] = useState(loggedInUser.chatNotification);
+  const toggleSwitchButton = () => setIsEnabled((previousState: boolean) => !previousState);
 
   return (
     <View style={styles.toggleSwitchContainer}>

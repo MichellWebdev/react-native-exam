@@ -24,8 +24,8 @@ const UserReducer = (state = initialState, action) => {
     case SIGNUP: {
       return {
         ...state,
-        signupFirstStage: [action.payload.email, action.payload.password]
-      }
+        signupFirstStage: [action.payload.email, action.payload.password],
+      };
     }
 
     case COMPLETE_SIGNUP: {
@@ -51,23 +51,29 @@ const UserReducer = (state = initialState, action) => {
         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
         for (const [key, value] of Object.entries(action.payload.data)) {
           if (value.email == action.payload.myEmail) {
-            me = new User(action.payload.localId, value.name, value.email, value.profile, '', value.notification, key);
+            me = new User(
+              action.payload.localId,
+              value.name,
+              value.email,
+              value.profile,
+              value.studyProgramme,
+              value.notification,
+              key
+            );
           }
         }
       }
-
-      // console.log(me)
+      // console.log(me);
 
       return {
         ...state,
         loggedInUser: me,
         idToken: action.payload.idToken,
-        loggedInUserProfile: [me.name, me.image, me.documentKey]
+        loggedInUserProfile: [me.name, me.image, me.documentKey],
       };
     }
 
     case SEARH_USERS:
-
       let users = [];
 
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
@@ -78,7 +84,7 @@ const UserReducer = (state = initialState, action) => {
 
         if (value.email.startsWith(action.payload.email)) {
           let oneUser = new User(value.id, value.name, value.email, value.profile, '', value.notification, key);
-          users.push(oneUser)
+          users.push(oneUser);
         }
       }
 
@@ -86,13 +92,13 @@ const UserReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        searchUsers: users
+        searchUsers: users,
       };
 
     case RESET_USER_RESEARCH:
       return {
         ...state,
-        searchUsers: null
+        searchUsers: null,
       };
 
     default:

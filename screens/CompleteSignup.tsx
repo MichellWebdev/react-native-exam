@@ -1,13 +1,9 @@
-// Need to improve
-// (1) CompleteSignup page shows even when signup failed (when signing up using already registered email)
-
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 
 // Redux
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { completeSignup } from '../redux-store/actions/UserActions';
-import { RootState } from '../App';
 
 // Stack navigation
 import { useNavigation } from '@react-navigation/native';
@@ -26,6 +22,10 @@ interface CompleteSignupLabels {
   studyProgrammeLabel: string;
   studyProgrammePlaceholder: string;
   studyProgrammeErrorMsg: string;
+  photoURL: string;
+  prototypeLabel: string;
+  photoLabel: string;
+  photoUrlPlaceholder: string;
   buttonText: string;
 }
 
@@ -39,12 +39,14 @@ const CompleteSignup = ({
   studyProgrammeLabel = 'Study programme',
   studyProgrammePlaceholder = 'Select study programme',
   studyProgrammeErrorMsg = 'Please select you study programme',
+  photoURL = 'Please choose an image',
+  prototypeLabel = '* Prototype *',
+  photoLabel = 'Photo url',
+  photoUrlPlaceholder = 'Write photo URL',
   buttonText = 'Next',
 }: CompleteSignupLabels) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-
-  // const profileInfo = useSelector((state: RootState) => state.user.loggedInUser || {});
 
   // User name
   const [displayName, setDisplayName] = useState('');
@@ -60,8 +62,8 @@ const CompleteSignup = ({
 
   const handleCompleteSignup = () => {
     if (displayNameValid) {
-      dispatch(completeSignup(displayName, photoUrl));
-      console.log(displayName, photoUrl);
+      dispatch(completeSignup(displayName, photoUrl, studyProgramme));
+      console.log(displayName, photoUrl, studyProgramme);
       displayNameValid ? navigation.navigate('Login') : null;
     }
   };
@@ -72,7 +74,6 @@ const CompleteSignup = ({
         <Image style={styles.completeSignupImage} source={require('../assets/images/cbsStudentsLogo.png')} />
       </View>
       <Text style={styles.completeSignupHeader}>{headerLabel}</Text>
-
       <View style={styles.profilePicture}>
         <View>
           <View style={styles.profilePictureContainer}>
@@ -93,6 +94,17 @@ const CompleteSignup = ({
           </View>
         </View>
       </View>
+      <Text style={styles.prototypeLabel}>{prototypeLabel}</Text>
+      <Input
+        label={photoLabel}
+        value={photoUrl}
+        inputValid={photoUrlValid}
+        placeholder={photoUrlPlaceholder}
+        autoCapitalize={'none'}
+        errorMessage={photoURL}
+        onValid={valid => setPhotoUrlValid(valid)}
+        setContent={content => setPhotoUrl(content)}
+      />
       <Input
         value={displayName}
         label={userNameLabel}
@@ -102,22 +114,13 @@ const CompleteSignup = ({
         onValid={valid => setDisplayNameValid(valid)}
         setContent={content => setDisplayName(content)}
       />
-      {/* <Input
+      <Input
         label={studyProgrammeLabel}
         inputValid={studyProgrammeValid}
         placeholder={studyProgrammePlaceholder}
         errorMessage={studyProgrammeErrorMsg}
         onValid={valid => setStudyProgrammeValid(valid)}
         setContent={content => setStudyProgramme(content)}
-      /> */}
-      <Input
-        label={studyProgrammeLabel}
-        value={photoUrl}
-        inputValid={photoUrlValid}
-        placeholder={studyProgrammePlaceholder}
-        errorMessage={studyProgrammeErrorMsg}
-        onValid={valid => setPhotoUrlValid(valid)}
-        setContent={content => setPhotoUrl(content)}
       />
       <Button buttonText={buttonText} onPress={handleCompleteSignup} />
     </View>
@@ -129,7 +132,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 40,
     margin: 20,
     marginTop: 0,
   },
@@ -163,7 +165,6 @@ const styles = StyleSheet.create({
   completeSignupImage: {
     alignSelf: 'center',
     marginTop: 70,
-    marginBottom: 30,
     width: 150,
     height: 150,
   },
@@ -174,6 +175,12 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     fontWeight: 'bold',
     color: '#32305D',
+  },
+  prototypeLabel: {
+    marginLeft: 20,
+    textTransform: 'uppercase',
+    color: 'grey',
+    marginBottom: 10,
   },
 });
 

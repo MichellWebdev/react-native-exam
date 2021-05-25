@@ -1,14 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 
 // Redux
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // Stack navigation
 import { useNavigation } from '@react-navigation/native';
-
-// Icons
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Custom components
 import Button from '../common/Button';
@@ -29,14 +26,13 @@ const Profile = ({ buttonText = 'Edit profile' }: ProfileLabels) => {
   return (
     <View>
       <View style={styles.profileContainer}>
-        <View>
-          <Ionicons name={'person-circle-outline'} size={100} color={'grey'} />
+        <View style={styles.profileImageContainer}>
+          <Image style={styles.profileImage} source={require('../../assets/images/chatroom.png')} />
         </View>
         <View style={styles.profileInfoContainer}>
           <Text style={styles.profileName}>{loggedInUser.name}</Text>
-          {/* Should be email */}
           <Text style={styles.profileInfo}>{loggedInUser.email}</Text>
-          <Text style={styles.profileInfo}>{loggedInUser.image}</Text>
+          <Text style={styles.profileInfo}>{loggedInUser.studyProgramme}</Text>
         </View>
       </View>
       <Button buttonText={buttonText} onPress={handleRedirect} />
@@ -50,6 +46,17 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  profileImageContainer: {
+    borderWidth: 1,
+    borderColor: '#EEEEEE',
+    borderRadius: 150,
+    padding: 10,
+  },
+  profileImage: {
+    width: 70,
+    height: 70,
+    borderRadius: 150,
   },
   profileInfoContainer: {
     marginLeft: 15,

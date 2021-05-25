@@ -1,7 +1,3 @@
-// Need to improve
-// (1) signup - instead of second fetch (response2), using Admin SDK instead?
-//              https://firebase.google.com/docs/auth/admin/manage-users
-
 import { State } from 'react-native-gesture-handler';
 
 export const SAVE_USER = 'SAVE_USER';
@@ -12,7 +8,6 @@ export const RESET_USER_RESEARCH = 'RESET_USER_RESEARCH';
 export const COMPLETE_SIGNUP = 'COMPLETE_SIGNUP';
 
 export const saveUser = user => {
-  // https://firebase.google.com/docs/reference/rest/auth#section-update-profile
   return {
     type: SAVE_USER,
     payload: user,
@@ -26,11 +21,9 @@ export const signup = (email, password) => {
   };
 };
 
-export const completeSignup = (displayName, photoUrl) => {
+export const completeSignup = (displayName, photoUrl, studyProgramme) => {
   return async (dispatch, getState) => {
     const signupFirstStage = getState().user.signupFirstStage;
-    // console.log(signupFirstStage);
-    // console.log(signupFirstStage[1]);
 
     const response = await fetch(
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBZOK5_QuYUqtARpQyA3wS3qPPb7JXBZrM',
@@ -48,8 +41,6 @@ export const completeSignup = (displayName, photoUrl) => {
     );
 
     const data = await response.json();
-    // console.log(data);
-    // console.log(data.name);
 
     if (!response.ok) {
       console.log('Signup Failed');
@@ -70,27 +61,28 @@ export const completeSignup = (displayName, photoUrl) => {
           email: signupFirstStage[0],
           profile: photoUrl,
           name: displayName,
+          studyProgramme: studyProgramme,
           notification: true,
         }),
       });
 
       const data2 = await response2.json();
-      // console.log(data2);
 
       if (!response2.ok) {
         console.log('Signup Stage 2 Failed');
       } else {
         console.log('Signup Stage 2 Completed');
-        dispatch({ type: SIGNUP, payload: { key: data2.name, id: localId, profile: photoUrl, name: displayName } });
+        dispatch({
+          type: SIGNUP,
+          payload: { key: data2.name, id: localId, profile: photoUrl, name: displayName, studyProgramme: studyProgramme },
+        });
       }
     }
   };
 };
 
 export const login = (email, password) => {
-  return async (dispatch, getState) => {
-    // const loggedInUserProfile = getState().user.loggedInUserProfile
-
+  return async dispatch => {
     const response = await fetch(
       'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBZOK5_QuYUqtARpQyA3wS3qPPb7JXBZrM',
       {
@@ -107,14 +99,11 @@ export const login = (email, password) => {
     );
 
     const data = await response.json();
-    // console.log(data);
 
     if (!response.ok) {
       console.log('problem');
     } else {
       console.log('User logged in');
-
-      // const token = data.idToken;
 
       const response2 = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + data.idToken, {
         method: 'GET',
@@ -124,12 +113,9 @@ export const login = (email, password) => {
       });
 
       const data2 = await response2.json();
-      // console.log(Object.keys(data));
-      // console.log(data2)
 
       if (!response2.ok) {
         console.log('Users retrieval failed');
-        // console.log(data)
       } else {
         console.log('Useres retrieved');
         dispatch({ type: LOGIN, payload: { data: data2, localId: data.localId, myEmail: email, idToken: data.idToken } });

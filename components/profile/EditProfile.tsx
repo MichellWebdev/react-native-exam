@@ -36,10 +36,11 @@ const EditProfile = ({
 
   const profileInfo = useSelector((state: RootState) => state.user.loggedInUser || {});
 
-  // Handling input
+  // Name
   const [changeName, setChangeName] = useState(profileInfo.name);
   const [nameValid, setNameValid] = useState(false);
 
+  // Study programme
   const [studyProgramme, setStudyProgramme] = useState(profileInfo.studyProgramme);
   const [studyProgrammeValid, setStudyProgrammeValid] = useState(false);
 

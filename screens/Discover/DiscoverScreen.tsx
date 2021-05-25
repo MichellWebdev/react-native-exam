@@ -13,13 +13,11 @@ import { discoverbox1, discoverbox2, discoverbox3 } from '../../assets/Assets';
 
 interface DiscoverLabels {
   saerchPlaceholder: string;
-  errorMessageEmail: string;
   iconName: string;
 }
 
 const Discover = ({
   saerchPlaceholder = 'Search for events, posts, and more',
-  errorMessageEmail = 'Please fill out seach field',
   iconName = 'search-outline',
 }: DiscoverLabels) => {
   const [search, setSearch] = useState('');
@@ -31,7 +29,6 @@ const Discover = ({
         iconName={iconName}
         inputValid={searchValid}
         placeholder={saerchPlaceholder}
-        errorMessage={errorMessageEmail}
         onValid={valid => setSearchValid(valid)}
         setContent={content => setSearch(content)}
         editable={false}

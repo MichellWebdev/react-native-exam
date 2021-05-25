@@ -16,16 +16,15 @@ const Chat = props => {
 
 
   // https://stackoverflow.com/questions/62091146/componentwillmount-for-react-functional-component
-  // const [chatScreenMounted, setChatScreenMounted] = useState(false)
-  // if (!chatScreenMounted) {
-  // dispatch(removeNewChatInfo());
-
-  // (already running in HomeScreen.js)
-  // dispatch(getChatrooms());
-  // (already running in HomeScreen.js)
-  // dispatch(getChatroomMessages());
-  // }
-  // useEffect(() => { setChatScreenMounted(true) }, [])
+  const [chatScreenMounted, setChatScreenMounted] = useState(false)
+  if (!chatScreenMounted) {
+    // dispatch(removeNewChatInfo());
+    // (already running in HomeScreen.js)
+    dispatch(getChatrooms());
+    // (already running in HomeScreen.js)
+    dispatch(getChatroomMessages());
+  }
+  useEffect(() => { setChatScreenMounted(true) }, [])
 
   const myChatrooms = useSelector(state => state.chat.myChatrooms);
   const myChatroomMessages = useSelector(state => state.chat.myChatroomMessages);

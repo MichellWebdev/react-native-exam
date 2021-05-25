@@ -34,6 +34,7 @@ const Discover = ({
         errorMessage={errorMessageEmail}
         onValid={valid => setSearchValid(valid)}
         setContent={content => setSearch(content)}
+        editable={false}
       />
       <View style={styles.discoverBoxContainer}>
         <DiscoverBox

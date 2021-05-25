@@ -14,9 +14,8 @@ const Chat = props => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-
   // https://stackoverflow.com/questions/62091146/componentwillmount-for-react-functional-component
-  const [chatScreenMounted, setChatScreenMounted] = useState(false)
+  const [chatScreenMounted, setChatScreenMounted] = useState(false);
   if (!chatScreenMounted) {
     // dispatch(removeNewChatInfo());
     // (already running in HomeScreen.js)
@@ -24,7 +23,9 @@ const Chat = props => {
     // (already running in HomeScreen.js)
     dispatch(getChatroomMessages());
   }
-  useEffect(() => { setChatScreenMounted(true) }, [])
+  useEffect(() => {
+    setChatScreenMounted(true);
+  }, []);
 
   const myChatrooms = useSelector(state => state.chat.myChatrooms);
   const myChatroomMessages = useSelector(state => state.chat.myChatroomMessages);
@@ -38,13 +39,11 @@ const Chat = props => {
   } else if (myChatrooms == undefined) {
     noChatroom = false;
   } else if (myChatroomMessages !== null && myChatroomMessages !== undefined && myChatroomMessages.length !== 0) {
-
     noChatroom = false;
-    myChatroomsCopy = [...myChatrooms]
+    myChatroomsCopy = [...myChatrooms];
 
     myChatrooms.forEach(chatroom => {
-
-      let latestTime = new Date(1900, 1, 1)
+      let latestTime = new Date(1900, 1, 1);
       let latestMessage;
 
       myChatroomMessages.forEach(message => {
@@ -53,45 +52,40 @@ const Chat = props => {
           // console.log(latestTime < message.createdDate)
 
           if (latestTime < message.createdDate) {
-            latestTime = message.createdDate
-            latestMessage = message
-            latestMessages.push(latestMessage)
+            latestTime = message.createdDate;
+            latestMessage = message;
+            latestMessages.push(latestMessage);
             // console.log(latestMessage)
           }
         }
-      })
-
-    })
+      });
+    });
   }
 
   // console.log(latestMessages)
 
   return (
     <View style={styles.container}>
-      {noChatroom
-        ?
+      {noChatroom ? (
         <View style={styles.noChatroomContainer}>
           <Text style={styles.noChatroomText}>Looks like you don't have any chat yet.</Text>
           {/* <Text style={styles.noChatroomText}>You don't have any chat yet.</Text> */}
           <Text style={styles.noChatroomText}>Try creating one!</Text>
         </View>
-        :
+      ) : (
         <FlatList
           data={myChatrooms}
           renderItem={itemData => <ChatRoom chatRoom={itemData.item} latestMessages={latestMessages}></ChatRoom>}
           keyExtractor={item => item.id}
         />
-      }
-    </View >
+      )}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 10
   },
   noChatroomContainer: {
     marginBottom: 250,
@@ -108,32 +102,31 @@ const styles = StyleSheet.create({
 
 export default Chat;
 
-
 // Old (using dummy data)
-  // const myChatrooms = []
-  // CHATROOMS.forEach(chatroom => {
-  //   chatroom.participants.forEach(user => {
-  //     if (user.id == '1') {
-  //       myChatrooms.push(chatroom)
-  //     }
-  //   })
-  // })
+// const myChatrooms = []
+// CHATROOMS.forEach(chatroom => {
+//   chatroom.participants.forEach(user => {
+//     if (user.id == '1') {
+//       myChatrooms.push(chatroom)
+//     }
+//   })
+// })
 
-  // if (props.route.params != undefined) {
-  //   const { openChatUserEmail } = props.route.params;
+// if (props.route.params != undefined) {
+//   const { openChatUserEmail } = props.route.params;
 
-  //   // const newChatroom = useSelector(state => state.chat.newChatroom);
+//   // const newChatroom = useSelector(state => state.chat.newChatroom);
 
-  //   // newChatroom.forEach(chatroom => {
-  //   //   chatroom.participants.forEach(userEmail => {
-  //   //     if (userEmail == openChatUserEmail) {
-  //   //       // alreadyExists = true;
-  //   //       // navigation.goBack();
-  //   //       // console.log(userEmail)
-  //   //       // console.log(openChatUserEmail)
-  //   //       navigation.navigate("ChatMessages", { id: chatroom.id, chatroomName: userEmail });
-  //   //       // navigation.navigate("CHAT", { openChat: user });
-  //   //     }
-  //   //   });
-  //   // });
-  // }
+//   // newChatroom.forEach(chatroom => {
+//   //   chatroom.participants.forEach(userEmail => {
+//   //     if (userEmail == openChatUserEmail) {
+//   //       // alreadyExists = true;
+//   //       // navigation.goBack();
+//   //       // console.log(userEmail)
+//   //       // console.log(openChatUserEmail)
+//   //       navigation.navigate("ChatMessages", { id: chatroom.id, chatroomName: userEmail });
+//   //       // navigation.navigate("CHAT", { openChat: user });
+//   //     }
+//   //   });
+//   // });
+// }

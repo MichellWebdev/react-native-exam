@@ -20,7 +20,7 @@ interface InputProps {
   password?: boolean;
   autoCapitalize?: any;
   inputValid?: boolean;
-  errorMessage: string;
+  errorMessage?: string;
   editable?: boolean;
   setContent: (arg: string) => void;
   onValid: (arg: boolean) => void;

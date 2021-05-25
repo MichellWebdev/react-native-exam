@@ -1,13 +1,5 @@
 import User from '../../models/User';
-import {
-  SAVE_USER,
-  SIGNUP,
-  LOGIN,
-  SEARH_USERS,
-  RESET_USER_RESEARCH,
-  COMPLETE_SIGNUP,
-  EDIT_USER,
-} from '../actions/UserActions';
+import { SAVE_USER, SIGNUP, LOGIN, SEARH_USERS, RESET_USER_RESEARCH, COMPLETE_SIGNUP } from '../actions/UserActions';
 
 const initialState = {
   // Original Code
@@ -52,19 +44,6 @@ const UserReducer = (state = initialState, action) => {
         loggedInUser: action.payload,
       };
     }
-
-    // case EDIT_USER: {
-    //   let updateProfile;
-    //   for (const [key, value] of Object.entries(action.payload.data)) {
-    //     updateProfile = new User(value.displayName, value.studyProgramme, key);
-    //   }
-    //   console.log(updateProfile);
-
-    //   return {
-    //     ...state,
-    //     loggedInUserProfile: [updateProfile.displayName, updateProfile.studyProgramme],
-    //   };
-    // }
 
     case LOGIN: {
       let me;

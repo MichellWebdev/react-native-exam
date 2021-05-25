@@ -1,7 +1,3 @@
-// Need to improve
-// (1) signup - instead of second fetch (response2), using Admin SDK instead?
-//              https://firebase.google.com/docs/auth/admin/manage-users
-
 import { State } from 'react-native-gesture-handler';
 
 export const SAVE_USER = 'SAVE_USER';
@@ -10,10 +6,8 @@ export const LOGIN = 'LOGIN';
 export const SEARH_USERS = 'SEARH_USERS';
 export const RESET_USER_RESEARCH = 'RESET_USER_RESEARCH';
 export const COMPLETE_SIGNUP = 'COMPLETE_SIGNUP';
-export const EDIT_USER = 'EDIT_USER';
 
 export const saveUser = user => {
-  // https://firebase.google.com/docs/reference/rest/auth#section-update-profile
   return {
     type: SAVE_USER,
     payload: user,
@@ -126,37 +120,6 @@ export const login = (email, password) => {
         console.log('Useres retrieved');
         dispatch({ type: LOGIN, payload: { data: data2, localId: data.localId, myEmail: email, idToken: data.idToken } });
       }
-    }
-  };
-};
-
-export const editProfile = (displayName, studyProgramme) => {
-  return async (dispatch, getState) => {
-    const token = getState().user.idToken;
-
-    const response = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + token, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        //javascript to json
-        displayName: displayName,
-        studyProgramme: studyProgramme,
-      }),
-    });
-
-    const data = await response.json();
-    console.log(data);
-
-    if (!response.ok) {
-      console.log('update failed');
-    } else {
-      console.log('success');
-      dispatch({
-        type: EDIT_USER,
-        payload: { data: data, displayName: displayName, studyProgramme: studyProgramme },
-      });
     }
   };
 };

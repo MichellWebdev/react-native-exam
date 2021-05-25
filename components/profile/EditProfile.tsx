@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { completeSignup, saveUser, editProfile } from '../../redux-store/actions/UserActions';
+import { saveUser } from '../../redux-store/actions/UserActions';
 import { RootState } from '../../App';
 
 // Stack navigation
@@ -37,7 +37,7 @@ const EditProfile = ({
   const profileInfo = useSelector((state: RootState) => state.user.loggedInUser || {});
 
   // Name
-  const [displayName, setDisplayName] = useState(profileInfo.name);
+  const [changeName, setChangeName] = useState(profileInfo.name);
   const [nameValid, setNameValid] = useState(false);
 
   // Study programme
@@ -45,19 +45,11 @@ const EditProfile = ({
   const [studyProgrammeValid, setStudyProgrammeValid] = useState(false);
 
   const handleSave = () => {
-    // if (nameValid || studyProgrammeValid) {
-    //   let user = { ...profileInfo };
-    //   user.name = changeName;
-    //   user.studyProgramme = studyProgramme;
-    //   dispatch(saveUser(user));
-
-    //   navigation.navigate('Profile');
-    // } else {
-    //   console.log(false);
-    // }
     if (nameValid || studyProgrammeValid) {
-      dispatch(editProfile(displayName, studyProgramme));
-      console.log(displayName, studyProgramme);
+      let user = { ...profileInfo };
+      user.name = changeName;
+      user.studyProgramme = studyProgramme;
+      dispatch(saveUser(user));
 
       navigation.navigate('Profile');
     } else {
@@ -89,11 +81,11 @@ const EditProfile = ({
       </View>
       <Input
         label={userNameLabel}
-        value={displayName}
+        value={changeName}
         inputValid={nameValid}
         errorMessage={errorMessage}
         onValid={(valid: any) => setNameValid(valid)}
-        setContent={(content: any) => setDisplayName(content)}
+        setContent={(content: any) => setChangeName(content)}
       />
       <Input
         label={studyProgrammeLabel}

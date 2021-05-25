@@ -21,7 +21,6 @@ interface InputProps {
   autoCapitalize?: any;
   inputValid?: boolean;
   errorMessage: string;
-  editable?: boolean;
   setContent: (arg: string) => void;
   onValid: (arg: boolean) => void;
 }
@@ -36,7 +35,6 @@ const Input = ({
   autoCapitalize,
   inputValid,
   errorMessage,
-  editable,
   setContent,
   onValid,
 }: InputProps) => {

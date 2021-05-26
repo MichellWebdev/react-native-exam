@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   noChatroomContainer: {
-    marginBottom: 250,
+    marginTop: 250,
   },
   noChatroomText: {
     paddingLeft: 10,

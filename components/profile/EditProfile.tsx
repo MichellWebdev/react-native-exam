@@ -65,12 +65,7 @@ const EditProfile = ({
             <Text style={styles.profilePictureText}>{profilePictureLabel}</Text>
           </View>
           <View>
-            <Button
-              buttonText={uploadButtonText}
-              onPress={() => {
-                console.log('setting profile image...');
-              }}
-            />
+            <Button buttonText={uploadButtonText} onPress={() => {}} />
           </View>
         </View>
         <View style={styles.profilePictureImgContainer}>

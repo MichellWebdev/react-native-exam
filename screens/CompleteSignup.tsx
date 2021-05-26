@@ -39,7 +39,6 @@ const CompleteSignup = ({
   studyProgrammeLabel = 'Study programme',
   studyProgrammePlaceholder = 'Select study programme',
   studyProgrammeErrorMsg = 'Please select you study programme',
-  photoURL = 'Please choose an image',
   prototypeLabel = '* Prototype *',
   photoLabel = 'Photo url',
   photoUrlPlaceholder = 'Write photo URL',
@@ -61,10 +60,10 @@ const CompleteSignup = ({
   const [photoUrlValid, setPhotoUrlValid] = useState(false);
 
   const handleCompleteSignup = () => {
-    if (displayNameValid) {
+    if (displayNameValid && studyProgrammeValid) {
       dispatch(completeSignup(displayName, photoUrl, studyProgramme));
       console.log(displayName, photoUrl, studyProgramme);
-      displayNameValid ? navigation.navigate('Login') : null;
+      displayNameValid && studyProgrammeValid ? navigation.navigate('Login') : null;
     }
   };
 
@@ -80,12 +79,7 @@ const CompleteSignup = ({
             <Text style={styles.profilePictureText}>{profilePicture}</Text>
           </View>
           <View>
-            <Button
-              buttonText={profilePictureBtn}
-              onPress={() => {
-                console.log('setting profile image...');
-              }}
-            />
+            <Button buttonText={profilePictureBtn} onPress={() => {}} />
           </View>
         </View>
         <View style={styles.profilePictureImgContainer}>
@@ -101,7 +95,6 @@ const CompleteSignup = ({
         inputValid={photoUrlValid}
         placeholder={photoUrlPlaceholder}
         autoCapitalize={'none'}
-        errorMessage={photoURL}
         onValid={valid => setPhotoUrlValid(valid)}
         setContent={content => setPhotoUrl(content)}
       />

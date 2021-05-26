@@ -21,7 +21,6 @@ const Profile = ({ buttonText = 'Edit profile' }: ProfileLabels) => {
   const handleRedirect = () => {
     navigation.navigate('EditProfile');
   };
-  console.log(`loggedInUser`, loggedInUser);
 
   return (
     <View>

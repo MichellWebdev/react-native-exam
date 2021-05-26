@@ -27,7 +27,7 @@ const Profile = ({ buttonText = 'Edit profile' }: ProfileLabels) => {
     <View>
       <View style={styles.profileContainer}>
         <View style={styles.profileImageContainer}>
-          <Image style={styles.profileImage} source={require('../../assets/images/chatroom.png')} />
+          <Image style={styles.profileImage} source={{ uri: loggedInUser.image }} />
         </View>
         <View style={styles.profileInfoContainer}>
           <Text style={styles.profileName}>{loggedInUser.name}</Text>

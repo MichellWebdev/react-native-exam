@@ -12,6 +12,7 @@ import {
 
 const ChatMessages = props => {
   const dispatch = useDispatch();
+  const loggedInUser = useSelector(state => state.user.loggedInUser || {});
 
   // let buttonDisabled = false;
   const [value, onChangeText] = useState('Write message');
@@ -93,7 +94,11 @@ const ChatMessages = props => {
         )}
       </View>
       <View style={styles.inputView}>
-        <Image style={styles.tinyLogo} source={require('../../assets/images/user.png')} />
+        {loggedInUser.image === '' ? (
+          <Image style={styles.tinyLogo} source={require('../../assets/images/profile-image-placeholder.png')} />
+        ) : (
+          <Image style={styles.tinyLogo} source={{ uri: loggedInUser.image }} />
+        )}
         <TextInput autoCorrect={false} style={styles.textInput} onChangeText={text => handleTextInput(text)} value={value} />
         <Button disabled={buttonDisabled} title='Send' onPress={handleSend} />
       </View>
@@ -131,6 +136,9 @@ const styles = StyleSheet.create({
   },
   tinyLogo: {
     marginTop: -5,
+    width: 30,
+    height: 30,
+    borderRadius: 150,
   },
 });
 

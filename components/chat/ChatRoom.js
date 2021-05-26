@@ -98,7 +98,7 @@ const ChatRoom = props => {
               </Text>
             </View>
           </View>
-          <View style={styles.timeContainer}>
+          <View>
             <View style={styles.dotView}>
               {latestMessageExists ? (
                 <View style={[read ? styles.undot : styles.dot]}></View>
@@ -122,9 +122,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     padding: 10,
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: 'lightgray',
-    paddingBottom: 15,
+    backgroundColor: 'white',
+    marginTop: 20,
   },
   textView: {
     flex: 2,
@@ -158,7 +157,6 @@ const styles = StyleSheet.create({
   undot: {
     height: 12,
     width: 12,
-    backgroundColor: '#F5F5F5',
     borderRadius: 100 / 2,
   },
   tinyLogo: {},

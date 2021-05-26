@@ -34,7 +34,7 @@ const EditProfile = ({
 
   const dispatch = useDispatch();
 
-  const profileInfo = useSelector((state: RootState) => state.user.loggedInUser || {});
+  const profileInfo = useSelector((state: any) => state.user.loggedInUser || {});
 
   // Name
   const [changeName, setChangeName] = useState(profileInfo.name);
@@ -75,7 +75,7 @@ const EditProfile = ({
         </View>
         <View style={styles.profilePictureImgContainer}>
           <View style={styles.profilePictureImgBorder}>
-            <Image style={styles.profilePictureImg} source={require('../../assets/images/profile-image-placeholder.png')} />
+            <Image style={styles.profilePictureImg} source={{ uri: profileInfo.image }} />
           </View>
         </View>
       </View>
@@ -123,9 +123,10 @@ const styles = StyleSheet.create({
   },
   profilePictureImgBorder: {
     borderWidth: 1,
-    borderColor: '#999999',
+    borderColor: '#DCDCDC',
     borderRadius: 150,
-    padding: 10,
+    backgroundColor: 'white',
+    padding: 5,
   },
   profilePictureImg: {
     borderRadius: 150,

@@ -85,6 +85,7 @@ const ChatMessages = props => {
         ) : (
           <FlatList
             data={openingChatroomMessages}
+            showsVerticalScrollIndicator={false}
             renderItem={itemData => (
               <ChatMessage chatmessage={itemData.item} img={require('../../assets/images/user.png')} />
             )}
@@ -93,7 +94,7 @@ const ChatMessages = props => {
       </View>
       <View style={styles.inputView}>
         <Image style={styles.tinyLogo} source={require('../../assets/images/user.png')} />
-        <TextInput style={styles.textInput} onChangeText={text => handleTextInput(text)} value={value} />
+        <TextInput autoCorrect={false} style={styles.textInput} onChangeText={text => handleTextInput(text)} value={value} />
         <Button disabled={buttonDisabled} title='Send' onPress={handleSend} />
       </View>
     </View>

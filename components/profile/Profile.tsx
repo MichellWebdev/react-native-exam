@@ -21,12 +21,17 @@ const Profile = ({ buttonText = 'Edit profile' }: ProfileLabels) => {
   const handleRedirect = () => {
     navigation.navigate('EditProfile');
   };
+  console.log(`loggedInUser`, loggedInUser.image);
 
   return (
     <View>
       <View style={styles.profileContainer}>
         <View style={styles.profileImageContainer}>
-          <Image style={styles.profileImage} source={{ uri: loggedInUser.image }} />
+          {loggedInUser.image === '' ? (
+            <Image style={styles.profileImage} source={require('../../assets/images/profile-image-placeholder.png')} />
+          ) : (
+            <Image style={styles.profileImage} source={{ uri: loggedInUser.image }} />
+          )}
         </View>
         <View style={styles.profileInfoContainer}>
           <Text style={styles.profileName}>{loggedInUser.name}</Text>

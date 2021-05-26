@@ -75,7 +75,14 @@ const EditProfile = ({
         </View>
         <View style={styles.profilePictureImgContainer}>
           <View style={styles.profilePictureImgBorder}>
-            <Image style={styles.profilePictureImg} source={{ uri: profileInfo.image }} />
+            {profileInfo.image === '' ? (
+              <Image
+                style={styles.profilePictureImg}
+                source={require('../../assets/images/profile-image-placeholder.png')}
+              />
+            ) : (
+              <Image style={styles.profilePictureImg} source={{ uri: profileInfo.image }} />
+            )}
           </View>
         </View>
       </View>

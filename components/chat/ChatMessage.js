@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     paddingTop: 20,
+    alignItems: 'center',
   },
   timeContainer: {
     flex: 1,

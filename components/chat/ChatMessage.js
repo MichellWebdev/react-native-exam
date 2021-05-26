@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     paddingTop: 20,
+    alignItems: 'center',
   },
   timeContainer: {
     flex: 1,
@@ -92,12 +93,14 @@ const styles = StyleSheet.create({
   },
   messageViewFromMe: {
     backgroundColor: '#5050A5',
-    right: 0,
-    marginRight: 5,
     maxWidth: '55%',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 5,
   },
   tinyLogo: {
-    marginTop: -5,
+    marginRight: 10,
   },
   time: {
     color: '#333333',

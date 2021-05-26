@@ -85,6 +85,7 @@ const ChatMessages = props => {
         ) : (
           <FlatList
             data={openingChatroomMessages}
+            showsVerticalScrollIndicator={false}
             renderItem={itemData => (
               <ChatMessage chatmessage={itemData.item} img={require('../../assets/images/user.png')} />
             )}
@@ -93,7 +94,7 @@ const ChatMessages = props => {
       </View>
       <View style={styles.inputView}>
         <Image style={styles.tinyLogo} source={require('../../assets/images/user.png')} />
-        <TextInput style={styles.textInput} onChangeText={text => handleTextInput(text)} value={value} />
+        <TextInput autoCorrect={false} style={styles.textInput} onChangeText={text => handleTextInput(text)} value={value} />
         <Button disabled={buttonDisabled} title='Send' onPress={handleSend} />
       </View>
     </View>
@@ -117,13 +118,16 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     borderRadius: 5,
     padding: 10,
-    marginRight: 10,
-    marginBottom: 10,
   },
   inputView: {
     flexDirection: 'row',
-    marginTop: 20,
-    marginLeft: 5,
+    backgroundColor: 'white',
+    padding: 10,
+    paddingTop: 15,
+    paddingBottom: 15,
+    borderTopWidth: 1,
+    borderTopColor: '#E8E8E8',
+    alignItems: 'center',
   },
   tinyLogo: {
     marginTop: -5,

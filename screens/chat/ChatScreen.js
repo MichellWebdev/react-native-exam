@@ -31,7 +31,7 @@ const Chat = props => {
   const myChatroomMessages = useSelector(state => state.chat.myChatroomMessages);
 
   let latestMessages = [];
-  let chatroomCopy = [];
+  let myChatroomsCopy = [];
 
   let noChatroom = false;
   if (myChatrooms == null || myChatrooms.length == 0) {

@@ -119,9 +119,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 20,
     marginRight: 20,
-    marginTop: 20,
+    marginTop: 10,
     padding: 10,
     alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: 'lightgray',
+    paddingBottom: 15,
   },
   textView: {
     flex: 2,

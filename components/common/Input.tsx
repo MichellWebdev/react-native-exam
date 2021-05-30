@@ -4,12 +4,12 @@ import { StyleSheet, Text, View, TextInput } from 'react-native';
 // Icons
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-// enum AutoCapitalizeType {
-//   none = 'none',
-//   sentences = 'sentences',
-//   words = 'words',
-//   characters = 'characters',
-// }
+enum AutoCapitalizeType {
+  none = 'none',
+  sentences = 'sentences',
+  words = 'words',
+  characters = 'characters',
+}
 
 interface InputProps {
   label?: string;
@@ -18,7 +18,7 @@ interface InputProps {
   iconColor?: string;
   placeholder?: string;
   password?: boolean;
-  autoCapitalize?: any;
+  autoCapitalize?: AutoCapitalizeType | undefined;
   inputValid?: boolean;
   errorMessage?: string;
   editable?: boolean;

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 
-// Redux
+// React navigation
+import { useNavigation } from '@react-navigation/native';
+
+// React redux
 import { useDispatch } from 'react-redux';
 import { completeSignup } from '../redux-store/actions/UserActions';
 
-// Stack navigation
-import { useNavigation } from '@react-navigation/native';
-
 // Common components
-import Input from './../components/common/Input';
+import Input, { AutoCapitalizeType } from './../components/common/Input';
 import Button from '../components/common/Button';
 
 interface CompleteSignupLabels {
@@ -94,7 +94,7 @@ const CompleteSignup = ({
         value={photoUrl}
         inputValid={photoUrlValid}
         placeholder={photoUrlPlaceholder}
-        autoCapitalize={'none'}
+        autoCapitalize={AutoCapitalizeType.none}
         onValid={valid => setPhotoUrlValid(valid)}
         setContent={content => setPhotoUrl(content)}
       />

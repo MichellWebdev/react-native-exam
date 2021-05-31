@@ -3,13 +3,13 @@ import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface ButtonProps {
+  buttonText: string;
   buttonWidth?: string;
   secondaryBtn?: boolean;
-  buttonText: string;
   onPress: () => void;
 }
 
-const Button = ({ buttonText, onPress, buttonWidth, secondaryBtn }: ButtonProps) => {
+const Button = ({ buttonText, buttonWidth, secondaryBtn, onPress }: ButtonProps) => {
   return (
     <View style={{ width: buttonWidth }}>
       <TouchableOpacity

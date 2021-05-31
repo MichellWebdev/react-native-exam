@@ -4,11 +4,6 @@ import { StyleSheet } from 'react-native';
 // Reference: https://stackoverflow.com/questions/42707327/passing-props-into-external-stylesheet-in-react-native
 // Reference: https://stackoverflow.com/questions/49144649/flexbox-height-in-react-native
 
-// Need to improve:
-// (1) text align center - located center manually atm
-// (2) border radius - not perfect
-// (3) Event texts - bottom left (need to move down)
-
 export default class StyleSheetFactory {
   static getSheet(backgroundColor?: string, backgroundImage?: string) {
     const discoverBoxWidth = 350;

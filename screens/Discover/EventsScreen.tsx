@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React from 'react';
+import { FlatList, StyleSheet, View, SafeAreaView } from 'react-native';
 
+// Dummy data
 import { EVENTS } from '../../data/dummy';
+
+// Custom components
 import EventBox from '../../components/discover/EventBox';
 
 const Events = () => {
@@ -29,8 +31,8 @@ const Events = () => {
 
 const styles = StyleSheet.create({
   eventScreenContainer: {
-    flex: 1,
-    margin: 20,
+    marginRight: 20,
+    marginLeft: 20,
     marginTop: -15,
   },
 });

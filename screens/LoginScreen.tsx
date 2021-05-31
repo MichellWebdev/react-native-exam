@@ -1,19 +1,16 @@
-// Need to improve
-// (1) error message - when log in fails, nothing pops up
-
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-// Redux
+// React navigation
+import { useNavigation } from '@react-navigation/native';
+
+// React redux
 import { useDispatch } from 'react-redux';
 import { login } from '../redux-store/actions/UserActions';
 
-// Stack navigation
-import { useNavigation } from '@react-navigation/native';
-
 // Common components
-import Input from './../components/common/Input';
+import Input, { AutoCapitalizeType } from './../components/common/Input';
 import Button from '../components/common/Button';
 
 interface LoginLabels {
@@ -21,7 +18,7 @@ interface LoginLabels {
   emailLabel: string;
   emailPlaceholder: string;
   errorMessageEmail: string;
-  passwordLabel: string; // do labels and/or interfaces for each to look better
+  passwordLabel: string;
   passwordPlaceholder: string;
   passwordErrorMessage: string;
   forgotPassword: string;
@@ -54,7 +51,6 @@ const LoginScreen = ({
 
   const handleLogin = () => {
     dispatch(login(email, password));
-    // passwordValid && emailValid ? navigation.navigate('Home') : null;
   };
 
   return (
@@ -68,7 +64,7 @@ const LoginScreen = ({
         inputValid={emailValid}
         placeholder={emailPlaceholder}
         errorMessage={errorMessageEmail}
-        autoCapitalize={'none'}
+        autoCapitalize={AutoCapitalizeType.none}
         onValid={valid => setEmailValid(valid)}
         setContent={content => setEmail(content)}
       />

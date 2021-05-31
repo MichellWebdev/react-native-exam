@@ -5,6 +5,8 @@ import User from '../models/User';
 import Schedule from '../models/Schedule';
 import ChatRoom from '../models/ChatRoom';
 import ChatMessage from '../models/ChatMessage';
+
+// Images
 import { event1, event2, event3, event4, studOrg1, studOrg2, chatroom1, chatroom2 } from '../assets/Assets';
 
 export const USERS = [

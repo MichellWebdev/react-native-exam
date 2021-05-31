@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 
-// Redux
-import { useSelector } from 'react-redux';
-
-// Stack navigation
+// React navigation
 import { useNavigation } from '@react-navigation/native';
 
-// Custom components
+// React redux
+import { useSelector } from 'react-redux';
+
+// Common components
 import Button from '../common/Button';
 
 interface ProfileLabels {
@@ -15,13 +15,12 @@ interface ProfileLabels {
 }
 
 const Profile = ({ buttonText = 'Edit profile' }: ProfileLabels) => {
-  const navigation = useNavigation();
   const loggedInUser = useSelector((state: any) => state.user.loggedInUser || {});
+  const navigation = useNavigation();
 
   const handleRedirect = () => {
     navigation.navigate('EditProfile');
   };
-  console.log(`loggedInUser`, loggedInUser.image);
 
   return (
     <View>

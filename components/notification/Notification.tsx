@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+
+// Common components
 import ToggleSwitch from '../common/ToggleSwitch';
 
 const Notification = () => {

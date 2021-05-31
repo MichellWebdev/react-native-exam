@@ -1,36 +1,14 @@
 import React from 'react';
 import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 
+// Utils
+import { formatDate } from '../../utils/formatDate';
+
 // Custom components
 import EventInfo from '../../components/discover/EventInfo';
 
-// Need to improve:
-// FlatList gives warning - using SafeAreaView on EventsScreen.tsx worked
-// but here it is not working because there are more than one box
-// formatDate should also formatTime for FlatList (and not show year)
-// TODO: Move schedule into it's own component??
-
-// Can be deleted when we move schedule to own component
-// https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd
-function formatDate(date: Date) {
-  let d = new Date(date),
-    month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate(),
-    year = d.getFullYear();
-
-  if (month.length < 2) month = '0' + month;
-  if (day.length < 2) day = '0' + day;
-
-  return [day, month, year].join('.');
-}
-
 const EventsDetail = (props: any) => {
-  // For later, when connected to database
-  const { title } = props.route.params;
   const { event } = props.route.params;
-
-  console.log(event.interested.length);
-
   const image = { uri: event.image };
 
   return (

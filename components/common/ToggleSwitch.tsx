@@ -10,6 +10,7 @@ interface ToggleSwitchProps {
 
 const ToggleSwitch = ({ header, infoText, disabled = false }: ToggleSwitchProps) => {
   const loggedInUser = useSelector((state: any) => state.user.loggedInUser || {});
+
   const [isEnabled, setIsEnabled] = useState(loggedInUser.chatNotification);
   const toggleSwitchButton = () => setIsEnabled((previousState: boolean) => !previousState);
 
@@ -23,8 +24,6 @@ const ToggleSwitch = ({ header, infoText, disabled = false }: ToggleSwitchProps)
         <Switch
           trackColor={{ false: '#D4D4D4', true: '#DCDCEE' }}
           thumbColor={isEnabled ? '#5050A5' : '#F5F5F5'}
-          // use onChange to make an even happen instead
-          // should be passed as props so we can set the event to each toggle ourselves
           onValueChange={toggleSwitchButton}
           value={isEnabled}
           disabled={disabled}

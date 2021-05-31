@@ -2,7 +2,10 @@ import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+// Dummy data
 import { STUDORGS } from '../../data/dummy';
+
+// Custom components
 import StudentOrgBox from '../../components/discover/StudentOrgBox';
 
 const StudentOrg = () => {
@@ -29,7 +32,8 @@ const StudentOrg = () => {
 
 const styles = StyleSheet.create({
   studentOrgScreenContainer: {
-    margin: 20,
+    marginLeft: 20,
+    marginRight: 20,
     marginTop: -15,
   },
 });

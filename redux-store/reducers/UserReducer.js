@@ -19,7 +19,7 @@ const UserReducer = (state = initialState, action) => {
         searchUsers: null,
         signupFirstStage: null,
         loggedInUserProfile: null,
-      }
+      };
     }
 
     case SIGNUP: {
@@ -30,9 +30,6 @@ const UserReducer = (state = initialState, action) => {
     }
 
     case COMPLETE_SIGNUP: {
-      // const user = new User(action.payload.id, actiona.payload.name, state.signupFirstStage[0], action.payload.profile, '', false, action.payload.key);
-      // const token = action.payload.idToken;
-
       return {
         ...state,
         signupFirstStage: null,
@@ -64,7 +61,6 @@ const UserReducer = (state = initialState, action) => {
           }
         }
       }
-      // console.log(me);
 
       return {
         ...state,
@@ -79,17 +75,11 @@ const UserReducer = (state = initialState, action) => {
 
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
       for (const [key, value] of Object.entries(action.payload.data)) {
-        // console.log(key);
-        // console.log(value.id);
-        // console.log(Object.keys(value))
-
         if (value.email.startsWith(action.payload.email)) {
           let oneUser = new User(value.id, value.name, value.email, value.profile, '', value.notification, key);
           users.push(oneUser);
         }
       }
-
-      // console.log(users)
 
       return {
         ...state,

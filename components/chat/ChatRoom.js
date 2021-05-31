@@ -1,15 +1,11 @@
-// Need to improve:
-// (1) require using variable, not string
-// (2) time display, latest message display
-// (3) chatroom name - user name instead of email
+import React from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-import React, { useState, useEffect } from 'react';
-import { View, Text, Button, StyleSheet, Image } from 'react-native';
+// React navigation
 import { useNavigation } from '@react-navigation/native';
-import { useSelector, useDispatch } from 'react-redux';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-// import { getChatroomsUsersInfo } from '../../redux-store/actions/ChatActions';
-// import { getChatroomMessages } from '../../redux-store/actions/ChatActions';
+
+// React redux
+import { useSelector } from 'react-redux';
 
 const ChatRoom = props => {
   const navigation = useNavigation();
@@ -76,9 +72,6 @@ const ChatRoom = props => {
       participantName = user.name;
     }
   });
-
-  // console.log(chatroomsUsersInfo)
-  // console.log(participantName)
 
   return (
     <View>
@@ -163,137 +156,3 @@ const styles = StyleSheet.create({
 });
 
 export default ChatRoom;
-
-// New
-// <TouchableOpacity onPress={
-//     props.chatRoom.participants[0].id == loggedInUser.id
-//         ?
-//         () => navigation.navigate("ChatMessages", { chatroomId: props.chatRoom.id, chatroomName: props.chatRoom.participants[1].email })
-//         :
-//         () => navigation.navigate("ChatMessages", { chatroomId: props.chatRoom.id, chatroomName: props.chatRoom.participants[0].email })
-// }>
-{
-  /* <Text style={styles.text}>{
-    props.chatRoom.participants[0].id == loggedInUser.id
-        ?
-        <View>
-            <Text style={styles.text}>{props.chatRoom.participants[1].email}</Text>
-            <Text ellipsizeMode='tail' numberOfLines={1} >{latestText}</Text>
-        </View>
-        :
-        <View>
-            <Text style={styles.text}>{props.chatRoom.participants[0].email}</Text>
-            <Text ellipsizeMode='tail' numberOfLines={1} >{latestText}</Text>
-        </View>
-}
-</Text> */
-}
-
-// Old
-// <View>
-//     {
-//         props.chatRoom.participants[0].id == loggedInUser.id
-//             ?
-//             <TouchableOpacity onPress={() => navigation.navigate("ChatMessages", { chatroomId: props.chatRoom.id, chatroomName: props.chatRoom.participants[1].email })}>
-//                 <View style={styles.chatRoom}>
-
-//                     <View style={styles.imageView}>
-//                         <Image
-//                             style={styles.tinyLogo}
-//                             source={require('../../assets/images/chatroom.png')} />
-//                     </View>
-//                     <View style={styles.textView}>
-//                         {
-//                             props.chatRoom.participants[0].id == loggedInUser.id
-//                                 ?
-//                                 <View>
-//                                     <Text style={styles.text}>{props.chatRoom.participants[1].email}</Text>
-//                                     {/* <Text ellipsizeMode='tail' numberOfLines={1} >{latestMessage}</Text> */}
-//                                 </View>
-//                                 :
-//                                 <View>
-//                                     <Text style={styles.text}>{props.chatRoom.participants[0].email}</Text>
-//                                     {/* <Text ellipsizeMode='tail' numberOfLines={1} >{latestMessage}</Text> */}
-//                                 </View>
-//                         }
-//                     </View>
-//                     <View style={styles.dotView}>
-//                         <View style={styles.dot}></View>
-//                     </View>
-//                 </View>
-//             </TouchableOpacity>
-//             :
-//             <TouchableOpacity onPress={() => navigation.navigate("ChatMessages", { chatroomId: props.chatRoom.id, chatroomName: props.chatRoom.participants[0].email })}>
-//                 <View style={styles.chatRoom}>
-
-//                     <View style={styles.imageView}>
-//                         <Image
-//                             style={styles.tinyLogo}
-//                             source={require('../../assets/images/chatroom.png')} />
-//                     </View>
-//                     <View style={styles.textView}>
-//                         {
-//                             props.chatRoom.participants[0].id == loggedInUser.id
-//                                 ?
-//                                 <View>
-//                                     <Text style={styles.text}>{props.chatRoom.participants[1].email}</Text>
-//                                     {/* <Text ellipsizeMode='tail' numberOfLines={1} >{latestMessage}</Text> */}
-//                                 </View>
-//                                 :
-//                                 <View>
-//                                     <Text style={styles.text}>{props.chatRoom.participants[0].email}</Text>
-//                                     {/* <Text ellipsizeMode='tail' numberOfLines={1} >{latestMessage}</Text> */}
-//                                 </View>
-//                         }
-//                     </View>
-//                     <View style={styles.dotView}>
-//                         <View style={styles.dot}></View>
-//                     </View>
-//                 </View>
-//             </TouchableOpacity>
-//     }
-// </View>
-
-// Older
-// let noMessages = false;
-// if (openedChatroomMessages == null || openedChatroomMessages.length == 0) { noMessages = true; } else { noMessages = false; }
-
-// const lastPos = props.chatroom.chatMessages.length - 1;
-// let lastMessageText = '';
-// let displayTime = '';
-// if (lastPos > -1) {
-//     lastMessageText = props.chatroom.chatMessages[props.chatroom.chatMessages.length - 1].message;
-//     const lastTime = props.chatroom.chatMessages[props.chatroom.chatMessages.length - 1].createdDate;
-
-//     // Should only do this if on the same date as today...
-//     displayTime = lastTime.getHours() + ":" + lastTime.getMinutes();
-// }
-
-// <TouchableOpacity onPress={() => navigation.navigate("ChatMessages", { id: props.chatRoom.id, chatroomName: anotherEmail })}>
-//     <View style={styles.chatRoom}>
-
-//         <View style={styles.imageView}>
-//             <Image
-//                 style={styles.tinyLogo}
-//                 source={require('../../assets/images/chatroom.png')} />
-//         </View>
-//         <View style={styles.textView}>
-//             {
-//                 props.chatRoom.participants[0] == loggedInUser.email
-//                     ?
-//                     <Text style={styles.text}>{props.chatRoom.participants[1]}</Text>
-//                     :
-//                     <Text style={styles.text}>{props.chatRoom.participants[0]}</Text>
-//             }
-//             {/* <Text ellipsizeMode='tail' numberOfLines={1} >{lastMessageText}</Text> */}
-//         </View>
-//         <View style={styles.dotView}>
-//             <View style={styles.dot}></View>
-//             {/* <Text>{displayTime}</Text> */}
-//         </View>
-
-//         {/* <Button title="Navigate somewhere"
-//             onPress={() => navigation.navigate("nameOfNavigationRouteEgMenu")} /> */}
-
-//     </View>
-// </TouchableOpacity>

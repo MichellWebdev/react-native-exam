@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
 interface SeparatorProps {
   borderBottomColor: any;
@@ -13,7 +13,5 @@ const Separator = ({ borderBottomColor, borderBottomWidth, marginTop }: Separato
       style={{ borderBottomColor: borderBottomColor, borderBottomWidth: borderBottomWidth, marginTop: marginTop }}></View>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default Separator;

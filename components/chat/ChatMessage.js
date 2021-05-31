@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
+
+// React redux
 import { useSelector } from 'react-redux';
 
 const ChatMessage = props => {
@@ -82,7 +84,6 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   messageView: {
-    //  flex: 0.8,
     backgroundColor: 'white',
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
@@ -106,7 +107,6 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginLeft: 60,
     fontSize: 11,
-    // paddingTop: 3
   },
 });
 

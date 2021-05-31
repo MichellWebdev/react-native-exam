@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, FlatList, TextInput, Image } from 'react-native';
-import ChatRoom from '../../components/chat/ChatRoom';
-import ChatMessage from '../../components/chat/ChatMessage';
+
+// React redux
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getChatrooms,
@@ -9,6 +9,9 @@ import {
   getChatroomMessages,
   getChatroomsUsersInfo,
 } from '../../redux-store/actions/ChatActions';
+
+// Custom components
+import ChatMessage from '../../components/chat/ChatMessage';
 
 const ChatMessages = props => {
   const dispatch = useDispatch();
@@ -18,10 +21,8 @@ const ChatMessages = props => {
   const [value, onChangeText] = useState('Write message');
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const { chatroomId } = props.route.params;
-  // console.log(id);
 
   // https://stackoverflow.com/questions/62091146/componentwillmount-for-react-functional-component
-  // dispatch(getChatrooms());
   const [chatMessagesScreenMounted, setChatMessagesScreenMounted] = useState(false);
   if (!chatMessagesScreenMounted) {
     dispatch(getChatrooms());
@@ -32,7 +33,6 @@ const ChatMessages = props => {
     setChatMessagesScreenMounted(true);
   }, []);
 
-  // const myChatrooms = useSelector(state => state.chat.myChatrooms);
   const myChatroomMessages = useSelector(state => state.chat.myChatroomMessages);
   const openedNewChatId = useSelector(state => state.chat.openedNewChatId);
   let openingChatroomMessages = [];
@@ -51,18 +51,11 @@ const ChatMessages = props => {
       }
     }
 
-    // console.log('openedNewChatId: ', openedNewChatId)
-    // console.log('chatroomId: ', chatroomId)
-    // console.log('validChatroomId: ', validChatroomId)
-
     myChatroomMessages.forEach(message => {
-      // if (message.chatroomId == chatroomId) {
       if (message.chatroomId == validChatroomId) {
         openingChatroomMessages.push(message);
       }
     });
-
-    // console.log(openingChatroomMessages)
   }
 
   const handleTextInput = text => {
@@ -71,8 +64,6 @@ const ChatMessages = props => {
   };
 
   const handleSend = () => {
-    // dispatch(sendMessage(chatroomId, value));
-    // console.log(validChatroomId)
     dispatch(sendMessage(validChatroomId, value));
     dispatch(getChatroomMessages(validChatroomId));
     onChangeText('');
@@ -143,15 +134,3 @@ const styles = StyleSheet.create({
 });
 
 export default ChatMessages;
-
-// Old Code
-// const chatMessages = useSelector(state => state.chat.chatrooms).find(room => room.id === id).chatMessages;
-
-// const test = useSelector(state => state.chat.test);
-// console.log("test");
-// console.log(test);
-
-// const handleSend = () => {
-//     console.log("value " + value);
-//     dispatch(addToChats(value, id));
-// };

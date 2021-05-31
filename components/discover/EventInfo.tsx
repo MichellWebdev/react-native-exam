@@ -1,24 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ImageBackground, Image, StyleSheet, Text, View } from 'react-native';
 
 // Icons
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+// Utils
+import { formatDate } from '../../utils/formatDate';
+
 // Custom components
 import Button from '../common/Button';
-
-// https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd
-function formatDate(date: Date) {
-  let d = new Date(date),
-    month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate(),
-    year = d.getFullYear();
-
-  if (month.length < 2) month = '0' + month;
-  if (day.length < 2) day = '0' + day;
-
-  return [day, month, year].join('.');
-}
 
 interface EventInfoProps {
   image: any;
@@ -27,8 +17,8 @@ interface EventInfoProps {
   eventEndDate: Date;
   eventLocation: string;
   eventGroupName: string;
-  interestedInEvent: any;
-  goingToEvent: any;
+  interestedInEvent: number;
+  goingToEvent: number;
 }
 
 const EventInfo = ({
@@ -71,7 +61,7 @@ const EventInfo = ({
             buttonWidth={'50%'}
             buttonText={'Interested'}
             onPress={() => {
-              console.log('interested..');
+              console.log('interested');
             }}
           />
           <Button
@@ -79,7 +69,7 @@ const EventInfo = ({
             buttonWidth={'50%'}
             buttonText={'Going'}
             onPress={() => {
-              console.log('going...');
+              console.log('going');
             }}
           />
         </View>

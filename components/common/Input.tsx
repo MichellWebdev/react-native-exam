@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TextInput } from 'react-native';
 // Icons
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-enum AutoCapitalizeType {
+export enum AutoCapitalizeType {
   none = 'none',
   sentences = 'sentences',
   words = 'words',

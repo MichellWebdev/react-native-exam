@@ -1,5 +1,3 @@
-import { State } from 'react-native-gesture-handler';
-
 export const SAVE_USER = 'SAVE_USER';
 export const SIGNUP = 'SIGNUP';
 export const LOGIN = 'LOGIN';
@@ -14,7 +12,7 @@ export const logout = () => {
     type: LOGOUT,
     payload: '',
   };
-}
+};
 
 export const saveUser = user => {
   return {
@@ -65,7 +63,6 @@ export const completeSignup = (displayName, photoUrl, studyProgramme) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          //javascript to json
           id: localId,
           email: signupFirstStage[0],
           profile: photoUrl,
@@ -145,7 +142,6 @@ export const searchUsers = email => {
     });
 
     const data = await response.json();
-    // console.log(Object.keys(data));
 
     if (!response.ok) {
       console.log('User retrieval failed');

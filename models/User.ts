@@ -7,7 +7,7 @@ class User {
     public studyProgramme: string,
     public chatNotification: boolean,
     public documentKey: string
-  ) { }
+  ) {}
 }
 
 export default User;

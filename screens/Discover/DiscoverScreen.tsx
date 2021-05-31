@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
+// Custom components
 import Input from '../../components/common/Input';
 import DiscoverBox from '../../components/discover/DiscoverBox';
 
+// Images for navigation boxes
 import { discoverbox1, discoverbox2, discoverbox3 } from '../../assets/Assets';
-
-// Need to improve:
-// (1) input field blurr out (grey out) when onBlurr
-// (2) input field no error even when empty when onBlurr
-// (3) top 'DISCOVER' font color & bold
 
 interface DiscoverLabels {
   saerchPlaceholder: string;
@@ -63,8 +60,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   discoverBoxContainer: {
-    flex: 1,
-    flexDirection: 'column',
     alignItems: 'center',
   },
 });

@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 
+// React navigation
+import { useNavigation } from '@react-navigation/native';
+
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { saveUser } from '../../redux-store/actions/UserActions';
-import { RootState } from '../../App';
 
-// Stack navigation
-import { useNavigation } from '@react-navigation/native';
-
-// Custom components
+// Common components
 import Input from '../common/Input';
 import Button from '../common/Button';
 
@@ -30,11 +29,11 @@ const EditProfile = ({
   errorMessage = 'Please fill out field',
   buttonText = 'Save changes',
 }: EditProfileLabels) => {
+  const profileInfo = useSelector((state: any) => state.user.loggedInUser || {});
+
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
-
-  const profileInfo = useSelector((state: any) => state.user.loggedInUser || {});
 
   // Name
   const [changeName, setChangeName] = useState(profileInfo.name);

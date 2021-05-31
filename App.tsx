@@ -1,10 +1,3 @@
-// Need to improve:
-// (1) stackHeaderOptions() causing error (but still works)
-// (2) minor red lines (Stack options, route.params.title)
-// (3) naming convention - ProfileScreen (the only one with 'Screen' in name)
-// (4) chatroom name (shown on top bar i.e. CBS Surf) - as participant user name instead?
-// (5) create chatroom icon size warning
-
 import 'react-native-gesture-handler';
 import React from 'react';
 import { StyleSheet } from 'react-native';
@@ -17,7 +10,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Icons
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-// Redux
+// React redux
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { useSelector } from 'react-redux';
 import { Provider } from 'react-redux';
@@ -28,21 +21,30 @@ import UserReducer from './redux-store/reducers/UserReducer';
 import ChatReducer from './redux-store/reducers/ChatReducer';
 
 // Screens components
+// Signup/login flow
+import Signup from './screens/SignupScreen';
+import CompleteSignup from './screens/CompleteSignup';
+import Login from './screens/LoginScreen';
+
+// Main navigation
 import Home from './screens/HomeScreen';
 import Chat from './screens/chat/ChatScreen';
-import ChatMessages from './screens/chat/ChatMessages';
-import CreateChatRoom from './screens/chat/CreateChatRoom';
-import Signup from './screens/SignupScreen';
-import Login from './screens/LoginScreen';
-import CompleteSignup from './screens/CompleteSignup';
 import ProfileScreen from './screens/ProfileScreen';
-import EditProfile from './components/profile/EditProfile';
 import Discover from './screens/discover/DiscoverScreen';
+
+// Discover
 import Events from './screens/discover/EventsScreen';
 import EventsDetail from './screens/discover/EventsDetailScreen';
 import StudentOrg from './screens/discover/StudentOrgScreen';
 import StudentOrgDetail from './screens/discover/StudentOrgDetailScreen';
 import Posts from './screens/discover/PostsScreen';
+
+// Chat
+import ChatMessages from './screens/chat/ChatMessages';
+import CreateChatRoom from './screens/chat/CreateChatRoom';
+
+// Profile
+import EditProfile from './components/profile/EditProfile';
 
 // Redux store
 const rootReducer = combineReducers({
@@ -245,8 +247,6 @@ function DiscoverStackNavigator() {
 }
 
 function DiscoverEventsStackNavigator() {
-  // const { title } = props.route.params;
-
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -323,7 +323,6 @@ function DiscoverStudentOrgStackNavigator() {
 }
 
 const MainNavigationAccess = () => {
-  // loggedInUser is giving an error but it still works
   const isSignedIn = useSelector((state: RootState) => state.user.loggedInUser);
 
   return (

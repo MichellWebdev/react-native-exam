@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 // React navigation
 import { useNavigation } from '@react-navigation/native';
 
-// Redux
+// React redux
 import { useSelector } from 'react-redux';
 
 // Common components

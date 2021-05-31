@@ -1,9 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-// React navigation
-import { useNavigation } from '@react-navigation/native';
-
 // React redux
 import { useDispatch } from 'react-redux';
 import { logout } from '../redux-store/actions/UserActions';

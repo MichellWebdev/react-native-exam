@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 // React navigation
 import { useNavigation } from '@react-navigation/native';
 
-// Redux
+// React redux
 import { useSelector, useDispatch } from 'react-redux';
 import { saveUser } from '../../redux-store/actions/UserActions';
 

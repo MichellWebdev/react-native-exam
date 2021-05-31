@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 
-// Redux
+// React redux
 import { useDispatch } from 'react-redux';
 import { getChatroomMessages, getChatrooms, getChatroomsUsersInfo } from '../redux-store/actions/ChatActions';
 

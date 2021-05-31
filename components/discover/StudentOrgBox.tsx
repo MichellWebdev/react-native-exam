@@ -10,22 +10,16 @@ import DiscoverStudOrg from '../../models/DiscoverStudOrg';
 // Custom stylesheet
 import StyleSheetFactory from '../common/StyleSheetFactory';
 
-// Custom components
+// Common components
 import Button from '../common/Button';
 
 interface StudentOrgBoxLabels {
   boxBackgroundColor: string;
   boxBackgroundImage: string;
   studentOrg: DiscoverStudOrg;
-  placeholderText: string;
 }
 
-const StudentOrgBox = ({
-  boxBackgroundColor,
-  boxBackgroundImage,
-  studentOrg,
-  placeholderText = 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto sunt magni pariatur excepturi minus adipisci fugiat accusamus vero rem culpa!',
-}: StudentOrgBoxLabels) => {
+const StudentOrgBox = ({ boxBackgroundColor, boxBackgroundImage, studentOrg }: StudentOrgBoxLabels) => {
   const navigation = useNavigation();
 
   const styles = StyleSheetFactory.getSheet(boxBackgroundColor, boxBackgroundImage);
@@ -57,7 +51,10 @@ const StudentOrgBox = ({
             </View>
           </View>
           <Text style={styles.studentOrgHeader}>{studentOrg.orgName}</Text>
-          <Text>{placeholderText}</Text>
+          <Text>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto sunt magni pariatur excepturi minus adipisci
+            fugiat accusamus vero rem culpa!
+          </Text>
         </View>
       </TouchableOpacity>
     </View>

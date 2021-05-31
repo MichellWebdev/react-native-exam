@@ -6,6 +6,15 @@ export const LOGIN = 'LOGIN';
 export const SEARH_USERS = 'SEARH_USERS';
 export const RESET_USER_RESEARCH = 'RESET_USER_RESEARCH';
 export const COMPLETE_SIGNUP = 'COMPLETE_SIGNUP';
+export const LOGOUT = 'LOGOUT';
+
+export const logout = () => {
+  console.log('User logout successful');
+  return {
+    type: LOGOUT,
+    payload: '',
+  };
+}
 
 export const saveUser = user => {
   return {

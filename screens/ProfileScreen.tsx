@@ -6,8 +6,19 @@ import Profile from '../components/profile/Profile';
 import Notification from '../components/notification/Notification';
 import Separator from '../components/common/Separator';
 import Button from '../components/common/Button';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../redux-store/actions/UserActions';
 
 const ProfileScreen = () => {
+
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <View>
       <Profile />
@@ -17,9 +28,7 @@ const ProfileScreen = () => {
       <View style={styles.buttonContainer}>
         <Button
           buttonText={'Log out'}
-          onPress={() => {
-            console.log('logging out...');
-          }}
+          onPress={handleLogout}
         />
       </View>
     </View>

@@ -1,9 +1,16 @@
 import React from 'react';
+import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
+
+// React navigation
 import { useNavigation } from '@react-navigation/native';
-import { ImageBackground, Text, StyleSheet, TouchableOpacity, View } from 'react-native';
+
+// Icons
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+// Custom stylesheet
 import StyleSheetFactory from '../common/StyleSheetFactory';
+
+// Data model
 import DiscoverEvent from '../../models/DiscoverEvent';
 
 interface EventBoxLabels {

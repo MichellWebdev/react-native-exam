@@ -1,11 +1,13 @@
 import React from 'react';
+import { ImageBackground, TouchableOpacity, View, Text, Image } from 'react-native';
+
+// React navigation
 import { useNavigation } from '@react-navigation/native';
-import { ImageBackground, StyleSheet, TouchableOpacity, View, Text, Image } from 'react-native';
 
 // Models
 import DiscoverStudOrg from '../../models/DiscoverStudOrg';
 
-// Stylesheet
+// Custom stylesheet
 import StyleSheetFactory from '../common/StyleSheetFactory';
 
 // Custom components
@@ -15,14 +17,20 @@ interface StudentOrgBoxLabels {
   boxBackgroundColor: string;
   boxBackgroundImage: string;
   studentOrg: DiscoverStudOrg;
+  placeholderText: string;
 }
 
-const StudentOrgBox = ({ boxBackgroundColor, boxBackgroundImage, studentOrg }: StudentOrgBoxLabels) => {
+const StudentOrgBox = ({
+  boxBackgroundColor,
+  boxBackgroundImage,
+  studentOrg,
+  placeholderText = 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto sunt magni pariatur excepturi minus adipisci fugiat accusamus vero rem culpa!',
+}: StudentOrgBoxLabels) => {
   const navigation = useNavigation();
 
-  // TODO: Should depend on whether a user follows the organisation or not
-  const userFollow = false;
   const styles = StyleSheetFactory.getSheet(boxBackgroundColor, boxBackgroundImage);
+
+  const userFollow = false;
   const image = { uri: boxBackgroundImage };
 
   return (
@@ -40,25 +48,20 @@ const StudentOrgBox = ({ boxBackgroundColor, boxBackgroundImage, studentOrg }: S
             <View style={styles.followBtn}>
               <Button
                 secondaryBtn={userFollow ? true : false}
-                buttonText={'Follow'}
+                buttonText={userFollow === false ? 'Follow' : 'Following'}
                 onPress={() => {
-                  console.log('follow...');
+                  console.log('follow');
                 }}
                 buttonWidth='70%'
               />
             </View>
           </View>
           <Text style={styles.studentOrgHeader}>{studentOrg.orgName}</Text>
-          <Text>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto sunt magni pariatur excepturi minus adipisci
-            fugiat accusamus vero rem culpa!
-          </Text>
+          <Text>{placeholderText}</Text>
         </View>
       </TouchableOpacity>
     </View>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default StudentOrgBox;

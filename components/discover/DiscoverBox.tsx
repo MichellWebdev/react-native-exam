@@ -1,8 +1,11 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import CSS from 'csstype';
-import StyleSheetFactory from '../common/StyleSheetFactory';
+import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
+
+// React navigation
 import { useNavigation } from '@react-navigation/native';
+
+// Custom stylehseet
+import StyleSheetFactory from '../common/StyleSheetFactory';
 
 interface DiscoverBoxLabels {
   boxHeader: string;

@@ -6,26 +6,22 @@ import { useDispatch } from 'react-redux';
 import { getChatroomMessages, getChatrooms, getChatroomsUsersInfo } from '../redux-store/actions/ChatActions';
 
 // Dummy data
-import { EVENTS, HOME, STUDORGS } from '../data/dummy';
+import { EVENTS, STUDORGS } from '../data/dummy';
 
 // Custom components
 import EventBox from '../components/discover/EventBox';
 import StudentOrgBox from '../components/discover/StudentOrgBox';
 
-// TODO:
-// Fix home so studentsorgs image and info works as well
-// I've tried to create another model but I can't get it to work
-// Alternative is to only have either events or studentorgs on homepage
-
 const Home = () => {
   const dispatch = useDispatch();
-
   const [homeScreenMounted, setHomeScreenMounted] = useState(false);
+
   if (!homeScreenMounted) {
     dispatch(getChatrooms());
     dispatch(getChatroomMessages());
     dispatch(getChatroomsUsersInfo());
   }
+
   useEffect(() => {
     setHomeScreenMounted(true);
   }, []);
@@ -40,7 +36,6 @@ const Home = () => {
           <View>
             <EventBox
               boxBackgroundColor='rgba(46, 49, 49, 0.5)'
-              // boxBackgroundImage={itemData.item.event[0].image}
               boxBackgroundImage={itemData.item.image}
               event={itemData.item}
             />

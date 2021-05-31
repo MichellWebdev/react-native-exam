@@ -1,6 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { FlatList, StyleSheet, View, SafeAreaView } from 'react-native';
 
 // Dummy data
 import { EVENTS } from '../../data/dummy';

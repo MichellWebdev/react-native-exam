@@ -1,15 +1,11 @@
-// Need to improve:
-// (1) require using variable, not string
-// (2) time display, latest message display
-// (3) chatroom name - user name instead of email
+import React from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-import React, { useState, useEffect } from 'react';
-import { View, Text, Button, StyleSheet, Image } from 'react-native';
+// React navigation
 import { useNavigation } from '@react-navigation/native';
-import { useSelector, useDispatch } from 'react-redux';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-// import { getChatroomsUsersInfo } from '../../redux-store/actions/ChatActions';
-// import { getChatroomMessages } from '../../redux-store/actions/ChatActions';
+
+// React redux
+import { useSelector } from 'react-redux';
 
 const ChatRoom = props => {
   const navigation = useNavigation();
@@ -76,9 +72,6 @@ const ChatRoom = props => {
       participantName = user.name;
     }
   });
-
-  // console.log(chatroomsUsersInfo)
-  // console.log(participantName)
 
   return (
     <View>

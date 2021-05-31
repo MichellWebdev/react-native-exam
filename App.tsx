@@ -7,8 +7,9 @@
 
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, TextInput } from 'react-native';
+import { StyleSheet } from 'react-native';
 
+// React navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -30,7 +31,7 @@ import ChatReducer from './redux-store/reducers/ChatReducer';
 import Home from './screens/HomeScreen';
 import Chat from './screens/chat/ChatScreen';
 import ChatMessages from './screens/chat/ChatMessages';
-import CreateChatRoom from './screens/chat/CraeteChatRoom';
+import CreateChatRoom from './screens/chat/CreateChatRoom';
 import Signup from './screens/SignupScreen';
 import Login from './screens/LoginScreen';
 import CompleteSignup from './screens/CompleteSignup';
@@ -42,7 +43,6 @@ import EventsDetail from './screens/discover/EventsDetailScreen';
 import StudentOrg from './screens/discover/StudentOrgScreen';
 import StudentOrgDetail from './screens/discover/StudentOrgDetailScreen';
 import Posts from './screens/discover/PostsScreen';
-import Input from './components/common/Input';
 
 // Redux store
 const rootReducer = combineReducers({

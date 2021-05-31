@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { searchUsers, resetUserResearch } from '../../redux-store/actions/UserActions';
 
 // Common components
-import Input from '../../components/common/Input';
+import Input, { AutoCapitalizeType } from '../../components/common/Input';
 import ChatUser from '../../components/chat/ChatUser';
 
 const CreateChatRoom = () => {
@@ -53,7 +53,7 @@ const CreateChatRoom = () => {
             inputValid={chatroomUserEmailValid}
             placeholder={saerchPlaceholder}
             errorMessage={errorMessageEmail}
-            autoCapitalize={'none'}
+            autoCapitalize={AutoCapitalizeType.none}
             onValid={valid => setChatroomUserEmailValid(valid)}
             setContent={content => handleEmailInput(content)}
           />

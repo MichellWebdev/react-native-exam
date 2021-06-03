@@ -121,7 +121,7 @@ export const completeSignup = (displayName, photoUrl, studyProgramme) => {
           profile: photoUrl,
           name: displayName,
           studyProgramme: studyProgramme,
-          notification: true,
+          notification: false,
         }),
       });
 

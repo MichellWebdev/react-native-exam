@@ -8,6 +8,7 @@ import {
   sendMessage,
   getChatroomMessages,
   getChatroomsUsersInfo,
+  setChatroomMessagesRead,
 } from '../../redux-store/actions/ChatActions';
 
 // Custom components
@@ -27,6 +28,7 @@ const ChatMessages = props => {
   if (!chatMessagesScreenMounted) {
     dispatch(getChatrooms());
     dispatch(getChatroomsUsersInfo());
+    dispatch(setChatroomMessagesRead(chatroomId));
     dispatch(getChatroomMessages(chatroomId));
   }
   useEffect(() => {

@@ -160,3 +160,33 @@ export const removeNewChatInfo = () => {
     payload: '',
   };
 };
+
+export const setChatroomMessagesRead = chatroomId => {
+  return async (dispatch, getState) => {
+    // const token = getState().user.idToken;
+    // const loggedInUser = getState().user.loggedInUser;
+    // const documentKey = loggedInUser.documentKey;
+
+    // const response = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/users/' + documentKey + '.json?auth=' + token, {
+    //   method: 'PATCH',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     profile: user.image,
+    //     name: user.name,
+    //     studyProgramme: user.studyProgramme
+    //   }),
+    // });
+
+    // const data = await response.json();
+
+    // if (!response.ok) {
+    //   console.log('User information update failed');
+    //   console.log(data);
+    // } else {
+    //   console.log('Users information updated');
+    //   dispatch({ type: SAVE_USER, payload: user });
+    // }
+  };
+}

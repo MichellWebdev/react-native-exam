@@ -5,6 +5,7 @@ export const SEARH_USERS = 'SEARH_USERS';
 export const RESET_USER_RESEARCH = 'RESET_USER_RESEARCH';
 export const COMPLETE_SIGNUP = 'COMPLETE_SIGNUP';
 export const LOGOUT = 'LOGOUT';
+export const LOGIN_ERROR = 'LOGIN_ERROR';
 
 export const logout = () => {
   console.log('User logout successful');
@@ -102,6 +103,7 @@ export const completeSignup = (displayName, photoUrl, studyProgramme) => {
 
     if (!response.ok) {
       console.log('Signup Failed');
+      dispatch({ type: LOGIN_ERROR, payload: true });
     } else {
       console.log('Signup Completed');
 
@@ -156,9 +158,11 @@ export const login = (email, password) => {
     );
 
     const data = await response.json();
+    console.log(data)
 
     if (!response.ok) {
-      console.log('problem');
+      console.log('User login failed');
+      dispatch({ type: LOGIN_ERROR, payload: true });
     } else {
       console.log('User logged in');
 
@@ -173,6 +177,7 @@ export const login = (email, password) => {
 
       if (!response2.ok) {
         console.log('Users retrieval failed');
+        dispatch({ type: LOGIN_ERROR, payload: true });
       } else {
         console.log('Useres retrieved');
         dispatch({ type: LOGIN, payload: { data: data2, localId: data.localId, myEmail: email, idToken: data.idToken } });

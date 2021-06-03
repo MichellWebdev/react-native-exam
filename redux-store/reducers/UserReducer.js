@@ -1,5 +1,5 @@
 import User from '../../models/User';
-import { SAVE_USER, SIGNUP, LOGIN, SEARH_USERS, RESET_USER_RESEARCH, COMPLETE_SIGNUP, LOGOUT } from '../actions/UserActions';
+import { SAVE_USER, SIGNUP, LOGIN, SEARH_USERS, RESET_USER_RESEARCH, COMPLETE_SIGNUP, LOGOUT, LOGIN_ERROR } from '../actions/UserActions';
 
 const initialState = {
   loggedInUser: null,
@@ -7,6 +7,8 @@ const initialState = {
   searchUsers: null,
   signupFirstStage: null,
   loggedInUserProfile: null,
+  loggedOut: null,
+  loginError: null,
 };
 
 const UserReducer = (state = initialState, action) => {
@@ -19,13 +21,30 @@ const UserReducer = (state = initialState, action) => {
         searchUsers: null,
         signupFirstStage: null,
         loggedInUserProfile: null,
+        loggedOut: true,
+        loginError: null,
       };
+    }
+
+    case LOGIN_ERROR: {
+      return {
+        ...state,
+        loggedInUser: null,
+        idToken: null,
+        searchUsers: null,
+        signupFirstStage: null,
+        loggedInUserProfile: null,
+        loggedOut: null,
+        loginError: true,
+      }
     }
 
     case SIGNUP: {
       return {
         ...state,
         signupFirstStage: [action.payload.email, action.payload.password],
+        loggedOut: null,
+        loginError: null,
       };
     }
 
@@ -33,6 +52,8 @@ const UserReducer = (state = initialState, action) => {
       return {
         ...state,
         signupFirstStage: null,
+        loggedOut: null,
+        loginError: null,
       };
     }
 
@@ -67,6 +88,8 @@ const UserReducer = (state = initialState, action) => {
         loggedInUser: me,
         idToken: action.payload.idToken,
         loggedInUserProfile: [me.name, me.image, me.documentKey],
+        loggedOut: null,
+        loginError: null,
       };
     }
 

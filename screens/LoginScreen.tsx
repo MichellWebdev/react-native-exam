@@ -6,7 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
 // React redux
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux-store/actions/UserActions';
 
 // Common components
@@ -15,6 +15,8 @@ import Button from '../components/common/Button';
 
 interface LoginLabels {
   loginLabel: string;
+  alertLabel1: string;
+  alertLabel2: string;
   emailLabel: string;
   emailPlaceholder: string;
   errorMessageEmail: string;
@@ -28,6 +30,8 @@ interface LoginLabels {
 
 const LoginScreen = ({
   loginLabel = 'Log in',
+  alertLabel1 = '',
+  alertLabel2 = '',
   emailLabel = 'Email',
   emailPlaceholder = 'email@student.cbs.dk',
   errorMessageEmail = 'Please fill out Email',
@@ -49,6 +53,21 @@ const LoginScreen = ({
   const [password, setPassword] = useState('');
   const [passwordValid, setPasswordValid] = useState(false);
 
+  // Logged Out
+  const loggedOut = useSelector((state: any) => state.user.loggedOut || {});
+  const loginError = useSelector((state: any) => state.user.loginError || {});
+
+  let loggedOutStatus = false;
+  if (loggedOut != null && loggedOut == true) {
+    loggedOutStatus = loggedOut;
+    alertLabel1 = 'You are logged out.'
+    alertLabel2 = 'Please log in again to get access.'
+  } else if (loginError != null && loginError == true) {
+    loggedOutStatus = loginError;
+    alertLabel1 = 'Login failed.'
+    alertLabel2 = 'Please provide correct email or password.'
+  }
+
   const handleLogin = () => {
     dispatch(login(email, password));
   };
@@ -58,7 +77,19 @@ const LoginScreen = ({
       <View>
         <Image style={styles.loginImage} source={require('../assets/images/cbsStudentsLogo.png')} />
       </View>
-      <Text style={styles.loginHeader}>{loginLabel}</Text>
+      <View>
+        <Text style={styles.loginHeader}>{loginLabel}</Text>
+      </View>
+      {
+        loggedOutStatus
+          ?
+          <View style={styles.alertContainer}>
+            <Text style={styles.alertHeader}>{alertLabel1}</Text>
+            <Text style={styles.alertHeader}>{alertLabel2}</Text>
+          </View>
+          :
+          <View style={styles.alertContainer}></View>
+      }
       <Input
         label={emailLabel}
         inputValid={emailValid}
@@ -106,6 +137,16 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     fontWeight: 'bold',
     color: '#5050A5',
+  },
+  alertContainer: {
+    // minHeight: 50,
+    marginBottom: 20,
+  },
+  alertHeader: {
+    fontSize: 15,
+    marginLeft: 20,
+    fontWeight: 'bold',
+    color: 'red',
   },
   forgotPassword: {
     textAlign: 'center',

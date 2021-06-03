@@ -12,12 +12,15 @@ import Button from '../components/common/Button';
 // Custom components
 import Profile from '../components/profile/Profile';
 import Notification from '../components/notification/Notification';
+import { useNavigation } from '@react-navigation/native';
 
 const ProfileScreen = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const handleLogout = () => {
     dispatch(logout());
+    navigation.navigate('Profile');
   };
 
   return (

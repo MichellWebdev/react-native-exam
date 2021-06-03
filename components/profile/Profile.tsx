@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 
 // Common components
 import Button from '../common/Button';
+import { images } from '../../assets/images/images';
 
 interface ProfileLabels {
   buttonText?: string;
@@ -22,6 +23,29 @@ const Profile = ({ buttonText = 'Edit profile' }: ProfileLabels) => {
     navigation.navigate('EditProfile');
   };
 
+  let path = '';
+  switch (loggedInUser.image) {
+    case 0:
+      path = images.default.uri;
+      break;
+    case 1:
+      path = images.user1.uri;
+      break;
+    case 2:
+      path = images.user2.uri;
+      break;
+    case 3:
+      path = images.user3.uri;
+      break;
+    case 4:
+      path = images.user4.uri;
+      break;
+    default:
+      path = require('../../assets/images/profile-image-placeholder.png');
+  }
+
+  console.log(loggedInUser.image)
+
   return (
     <View>
       <View style={styles.profileContainer}>
@@ -29,7 +53,7 @@ const Profile = ({ buttonText = 'Edit profile' }: ProfileLabels) => {
           {loggedInUser.image === '' ? (
             <Image style={styles.profileImage} source={require('../../assets/images/profile-image-placeholder.png')} />
           ) : (
-            <Image style={styles.profileImage} source={loggedInUser.image} />
+            <Image style={styles.profileImage} source={path} />
           )}
         </View>
         <View style={styles.profileInfoContainer}>

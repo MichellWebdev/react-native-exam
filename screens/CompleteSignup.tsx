@@ -59,11 +59,11 @@ const CompleteSignup = ({
   const [studyProgramme, setStudyProgramme] = useState('');
   const [studyProgrammeValid, setStudyProgrammeValid] = useState(false);
 
-  // Photo URL
-  const [photoUrl, setPhotoUrl] = useState('');
-  const [photoUrlValid, setPhotoUrlValid] = useState(false);
+  // Photo (when using prototype input field)
+  // const [photoUrl, setPhotoUrl] = useState('');
+  // const [photoUrlValid, setPhotoUrlValid] = useState(false);
 
-  // Dropdown picker
+  // Photo (when using dropdown picker)
   const [open, setOpen] = useState(false);
   const [listValue, setListValue] = useState(-1);
   const [items, setItems] = useState([
@@ -98,8 +98,14 @@ const CompleteSignup = ({
 
   const handleCompleteSignup = () => {
     if (displayNameValid && studyProgrammeValid) {
-      dispatch(completeSignup(displayName, photoUrl, studyProgramme));
-      console.log(displayName, photoUrl, studyProgramme);
+      // When using input field
+      // dispatch(completeSignup(displayName, photoUrl, studyProgramme));
+      // console.log(displayName, photoUrl, studyProgramme);
+
+      // When using dropdown picker
+      dispatch(completeSignup(displayName, listValue, studyProgramme));
+      console.log(displayName, listValue, studyProgramme);
+
       displayNameValid && studyProgrammeValid ? navigation.navigate('Login') : null;
     }
   };

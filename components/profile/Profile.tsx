@@ -29,7 +29,7 @@ const Profile = ({ buttonText = 'Edit profile' }: ProfileLabels) => {
           {loggedInUser.image === '' ? (
             <Image style={styles.profileImage} source={require('../../assets/images/profile-image-placeholder.png')} />
           ) : (
-            <Image style={styles.profileImage} source={{ uri: loggedInUser.image }} />
+            <Image style={styles.profileImage} source={loggedInUser.image} />
           )}
         </View>
         <View style={styles.profileInfoContainer}>

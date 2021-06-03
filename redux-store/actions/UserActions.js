@@ -44,6 +44,34 @@ export const saveUser = user => {
   };
 };
 
+export const changeNotification = status => {
+  return async (dispatch, getState) => {
+    const token = getState().user.idToken;
+    const loggedInUser = getState().user.loggedInUser;
+    const documentKey = loggedInUser.documentKey;
+
+    const response = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/users/' + documentKey + '.json?auth=' + token, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        notification: status
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.log('User notification update failed');
+      console.log(data);
+    } else {
+      console.log('Users notification updated');
+      // dispatch({ type: CHANGE_NOTIFICATION, payload: status });
+    }
+  };
+}
+
 export const signup = (email, password) => {
   return {
     type: SIGNUP,

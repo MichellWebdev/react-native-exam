@@ -20,7 +20,7 @@ export const saveUser = user => {
     const loggedInUser = getState().user.loggedInUser;
     const documentKey = loggedInUser.documentKey;
 
-    const response = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/users.json/' + documentKey + '?auth=' + token, {
+    const response = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/users/' + documentKey + '.json?auth=' + token, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

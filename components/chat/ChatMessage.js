@@ -42,6 +42,26 @@ const ChatMessage = props => {
   // Profile Image
   let image;
   if (!isMe) {
+    let path = '';
+    switch (participantImage) {
+      case 0:
+        path = images.default.uri;
+        break;
+      case 1:
+        path = images.user1.uri;
+        break;
+      case 2:
+        path = images.user2.uri;
+        break;
+      case 3:
+        path = images.user3.uri;
+        break;
+      case 4:
+        path = images.user4.uri;
+        break;
+      default:
+        path = require('../../assets/images/images.js');
+    }
     image = <Image style={styles.tinyLogo} source={props.img} />;
   }
 

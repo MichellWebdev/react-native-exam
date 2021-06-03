@@ -44,8 +44,6 @@ const Profile = ({ buttonText = 'Edit profile' }: ProfileLabels) => {
       path = require('../../assets/images/profile-image-placeholder.png');
   }
 
-  console.log(loggedInUser.image)
-
   return (
     <View>
       <View style={styles.profileContainer}>

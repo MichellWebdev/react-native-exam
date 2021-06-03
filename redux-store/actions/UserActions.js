@@ -15,9 +15,32 @@ export const logout = () => {
 };
 
 export const saveUser = user => {
-  return {
-    type: SAVE_USER,
-    payload: user,
+  return async (dispatch, getState) => {
+    const token = getState().user.idToken;
+    const loggedInUser = getState().user.loggedInUser;
+    const documentKey = loggedInUser.documentKey;
+
+    const response = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/users.json/' + documentKey + '?auth=' + token, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        profile: user.image,
+        name: user.name,
+        studyProgramme: user.studyProgramme
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.log('User information update failed');
+      console.log(data);
+    } else {
+      console.log('Users information updated');
+      dispatch({ type: SAVE_USER, payload: user });
+    }
   };
 };
 

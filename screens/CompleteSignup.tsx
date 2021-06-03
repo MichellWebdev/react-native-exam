@@ -95,7 +95,6 @@ const CompleteSignup = ({
       path = require('../assets/images/profile-image-placeholder.png');
   }
 
-
   const handleCompleteSignup = () => {
     if (displayNameValid && studyProgrammeValid) {
       // When using input field
@@ -132,7 +131,9 @@ const CompleteSignup = ({
         </View>
       </View>
       <Text style={styles.prototypeLabel}>{prototypeLabel}</Text>
-      {/* <Input
+      {/* 
+      // When using input field for photo input (prototype)
+      <Input
         label={photoLabel}
         value={photoUrl}
         inputValid={photoUrlValid}

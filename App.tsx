@@ -358,6 +358,13 @@ const MainNavigationAccess = () => {
       ) : (
         <Stack.Navigator>
           <Stack.Screen
+            name='Login'
+            component={Login}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
             name='Signup'
             component={Signup}
             options={{
@@ -367,13 +374,6 @@ const MainNavigationAccess = () => {
           <Stack.Screen
             name='CompleteSignup'
             component={CompleteSignup}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name='Login'
-            component={Login}
             options={{
               headerShown: false,
             }}

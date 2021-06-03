@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Switch } from 'react-native';
 import { useSelector } from 'react-redux';
 
+// React redux
+import { useDispatch } from 'react-redux';
+import { changeNotification } from '../../redux-store/actions/UserActions';
+
 interface ToggleSwitchProps {
   header: string;
   infoText: string;
@@ -9,10 +13,14 @@ interface ToggleSwitchProps {
 }
 
 const ToggleSwitch = ({ header, infoText, disabled = false }: ToggleSwitchProps) => {
+  const dispatch = useDispatch();
   const loggedInUser = useSelector((state: any) => state.user.loggedInUser || {});
 
   const [isEnabled, setIsEnabled] = useState(loggedInUser.chatNotification);
-  const toggleSwitchButton = () => setIsEnabled((previousState: boolean) => !previousState);
+  const toggleSwitchButton = () => {
+    setIsEnabled((previousState: boolean) => !previousState);
+    dispatch(changeNotification(!isEnabled));
+  }
 
   return (
     <View style={styles.toggleSwitchContainer}>

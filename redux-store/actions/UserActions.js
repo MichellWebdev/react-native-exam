@@ -5,6 +5,7 @@ export const SEARH_USERS = 'SEARH_USERS';
 export const RESET_USER_RESEARCH = 'RESET_USER_RESEARCH';
 export const COMPLETE_SIGNUP = 'COMPLETE_SIGNUP';
 export const LOGOUT = 'LOGOUT';
+export const LOGIN_ERROR = 'LOGIN_ERROR';
 
 export const logout = () => {
   console.log('User logout successful');
@@ -15,11 +16,62 @@ export const logout = () => {
 };
 
 export const saveUser = user => {
-  return {
-    type: SAVE_USER,
-    payload: user,
+  return async (dispatch, getState) => {
+    const token = getState().user.idToken;
+    const loggedInUser = getState().user.loggedInUser;
+    const documentKey = loggedInUser.documentKey;
+
+    const response = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/users/' + documentKey + '.json?auth=' + token, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        profile: user.image,
+        name: user.name,
+        studyProgramme: user.studyProgramme
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.log('User information update failed');
+      console.log(data);
+    } else {
+      console.log('Users information updated');
+      dispatch({ type: SAVE_USER, payload: user });
+    }
   };
 };
+
+export const changeNotification = status => {
+  return async (dispatch, getState) => {
+    const token = getState().user.idToken;
+    const loggedInUser = getState().user.loggedInUser;
+    const documentKey = loggedInUser.documentKey;
+
+    const response = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/users/' + documentKey + '.json?auth=' + token, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        notification: status
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.log('User notification update failed');
+      console.log(data);
+    } else {
+      console.log('Users notification updated');
+      // dispatch({ type: CHANGE_NOTIFICATION, payload: status });
+    }
+  };
+}
 
 export const signup = (email, password) => {
   return {
@@ -51,6 +103,7 @@ export const completeSignup = (displayName, photoUrl, studyProgramme) => {
 
     if (!response.ok) {
       console.log('Signup Failed');
+      dispatch({ type: LOGIN_ERROR, payload: true });
     } else {
       console.log('Signup Completed');
 
@@ -105,9 +158,11 @@ export const login = (email, password) => {
     );
 
     const data = await response.json();
+    console.log(data)
 
     if (!response.ok) {
-      console.log('problem');
+      console.log('User login failed');
+      dispatch({ type: LOGIN_ERROR, payload: true });
     } else {
       console.log('User logged in');
 
@@ -122,6 +177,7 @@ export const login = (email, password) => {
 
       if (!response2.ok) {
         console.log('Users retrieval failed');
+        dispatch({ type: LOGIN_ERROR, payload: true });
       } else {
         console.log('Useres retrieved');
         dispatch({ type: LOGIN, payload: { data: data2, localId: data.localId, myEmail: email, idToken: data.idToken } });

@@ -12,6 +12,10 @@ import { completeSignup } from '../redux-store/actions/UserActions';
 import Input, { AutoCapitalizeType } from './../components/common/Input';
 import Button from '../components/common/Button';
 
+// Dropdown Picker
+import DropDownPicker from 'react-native-dropdown-picker';
+import { images } from '../assets/images/images';
+
 interface CompleteSignupLabels {
   headerLabel: string;
   profilePicture: string;
@@ -39,7 +43,7 @@ const CompleteSignup = ({
   studyProgrammeLabel = 'Study programme',
   studyProgrammePlaceholder = 'Select study programme',
   studyProgrammeErrorMsg = 'Please select you study programme',
-  prototypeLabel = '* Prototype *',
+  prototypeLabel = '* Prototype - Choose an Image*',
   photoLabel = 'Photo url',
   photoUrlPlaceholder = 'Write photo URL',
   buttonText = 'Next',
@@ -55,14 +59,52 @@ const CompleteSignup = ({
   const [studyProgramme, setStudyProgramme] = useState('');
   const [studyProgrammeValid, setStudyProgrammeValid] = useState(false);
 
-  // Photo URL
-  const [photoUrl, setPhotoUrl] = useState('');
-  const [photoUrlValid, setPhotoUrlValid] = useState(false);
+  // Photo (when using prototype input field)
+  // const [photoUrl, setPhotoUrl] = useState('');
+  // const [photoUrlValid, setPhotoUrlValid] = useState(false);
+
+  // Photo (when using dropdown picker)
+  const [open, setOpen] = useState(false);
+  const [listValue, setListValue] = useState(-1);
+  const [items, setItems] = useState([
+    { label: 'Default Image', value: 0 },
+    { label: 'Image 1', value: 1 },
+    { label: 'Image 2', value: 2 },
+    { label: 'Image 3', value: 3 },
+    { label: 'Image 4', value: 4 },
+  ]);
+
+  let path = '';
+  switch (listValue) {
+    case 0:
+      path = images.default.uri;
+      break;
+    case 1:
+      path = images.user1.uri;
+      break;
+    case 2:
+      path = images.user2.uri;
+      break;
+    case 3:
+      path = images.user3.uri;
+      break;
+    case 4:
+      path = images.user4.uri;
+      break;
+    default:
+      path = require('../assets/images/profile-image-placeholder.png');
+  }
 
   const handleCompleteSignup = () => {
     if (displayNameValid && studyProgrammeValid) {
-      dispatch(completeSignup(displayName, photoUrl, studyProgramme));
-      console.log(displayName, photoUrl, studyProgramme);
+      // When using input field
+      // dispatch(completeSignup(displayName, photoUrl, studyProgramme));
+      // console.log(displayName, photoUrl, studyProgramme);
+
+      // When using dropdown picker
+      dispatch(completeSignup(displayName, listValue, studyProgramme));
+      console.log(displayName, listValue, studyProgramme);
+
       displayNameValid && studyProgrammeValid ? navigation.navigate('Login') : null;
     }
   };
@@ -79,16 +121,18 @@ const CompleteSignup = ({
             <Text style={styles.profilePictureText}>{profilePicture}</Text>
           </View>
           <View>
-            <Button buttonText={profilePictureBtn} onPress={() => {}} />
+            <Button buttonText={profilePictureBtn} onPress={() => { }} />
           </View>
         </View>
         <View style={styles.profilePictureImgContainer}>
           <View style={styles.profilePictureBorder}>
-            <Image style={styles.profilePictureImg} source={require('../assets/images/profile-image-placeholder.png')} />
+            <Image style={styles.profilePictureImg} source={path} />
           </View>
         </View>
       </View>
       <Text style={styles.prototypeLabel}>{prototypeLabel}</Text>
+      {/* 
+      // When using input field for photo input (prototype)
       <Input
         label={photoLabel}
         value={photoUrl}
@@ -97,6 +141,15 @@ const CompleteSignup = ({
         autoCapitalize={AutoCapitalizeType.none}
         onValid={valid => setPhotoUrlValid(valid)}
         setContent={content => setPhotoUrl(content)}
+      /> */}
+      <DropDownPicker
+        style={styles.list}
+        open={open}
+        value={listValue}
+        items={items}
+        setOpen={setOpen}
+        setValue={setListValue}
+        setItems={setItems}
       />
       <Input
         value={displayName}
@@ -174,6 +227,10 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     color: 'grey',
     marginBottom: 10,
+  },
+  list: {
+    maxWidth: 390,
+    margin: 20,
   },
 });
 

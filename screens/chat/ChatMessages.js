@@ -32,12 +32,16 @@ const ChatMessages = props => {
   if (!chatMessagesScreenMounted) {
     dispatch(getChatrooms());
     dispatch(getChatroomsUsersInfo());
-    dispatch(setChatroomMessagesRead(chatroomId));
+    // dispatch(setChatroomMessagesRead(chatroomId));
     dispatch(getChatroomMessages(chatroomId));
   }
   useEffect(() => {
     setChatMessagesScreenMounted(true);
   }, []);
+
+  setInterval(() => {
+    dispatch(getChatroomMessages(chatroomId));
+  }, 10000);
 
   const myChatroomMessages = useSelector(state => state.chat.myChatroomMessages);
   const openedNewChatId = useSelector(state => state.chat.openedNewChatId);

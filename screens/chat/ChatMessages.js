@@ -14,18 +14,18 @@ import {
 // Custom components
 import ChatMessage from '../../components/chat/ChatMessage';
 import { images } from '../../assets/images/images';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ChatMessages = props => {
   const dispatch = useDispatch();
   const loggedInUser = useSelector(state => state.user.loggedInUser || {});
 
   // let buttonDisabled = false;
-  const [value, onChangeText] = useState('Write message');
+  const [value, onChangeText] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const { chatroomId } = props.route.params;
   const { participantImage } = props.route.params;
   const { participantName } = props.route.params;
-  console.log(participantName)
 
   // https://stackoverflow.com/questions/62091146/componentwillmount-for-react-functional-component
   const [chatMessagesScreenMounted, setChatMessagesScreenMounted] = useState(false);
@@ -117,7 +117,12 @@ const ChatMessages = props => {
         ) : (
           <Image style={styles.tinyLogo} source={path} />
         )}
-        <TextInput autoCorrect={false} style={styles.textInput} onChangeText={text => handleTextInput(text)} value={value} />
+        <TextInput
+          autoCorrect={false}
+          style={styles.textInput}
+          onChangeText={text => handleTextInput(text)}
+          value={value}
+          placeholder={'Write message'} />
         <Button disabled={buttonDisabled} title='Send' onPress={handleSend} />
       </View>
     </View>

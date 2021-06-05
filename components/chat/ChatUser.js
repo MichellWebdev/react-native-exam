@@ -12,6 +12,9 @@ import { resetUserResearch } from '../../redux-store/actions/UserActions';
 // React uuid
 import uuid from 'react-native-uuid';
 
+// Common Components
+import { images } from '../../assets/images/images';
+
 const ChatUser = props => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -31,7 +34,7 @@ const ChatUser = props => {
         dispatch(resetUserResearch());
 
         navigation.goBack();
-        navigation.navigate('ChatMessages', { chatroomId: chatroom.id, chatroomName: invitedUser.name });
+        navigation.navigate('ChatMessages', { chatroomId: chatroom.id, chatroomName: invitedUser.name, participantImage: invitedUser.image, participantName: invitedUser.name });
       }
     });
 
@@ -43,15 +46,36 @@ const ChatUser = props => {
       dispatch(getChatroomsUsersInfo());
 
       navigation.goBack();
-      navigation.navigate('ChatMessages', { chatroomId: chatroomId, chatroomName: invitedUser.name });
+      navigation.navigate('ChatMessages', { chatroomId: chatroomId, chatroomName: invitedUser.name, participantImage: invitedUser.image, participantName: invitedUser.name });
     }
   };
+
+  let path = '';
+  switch (props.chatUser.image) {
+    case 0:
+      path = images.default.uri;
+      break;
+    case 1:
+      path = images.user1.uri;
+      break;
+    case 2:
+      path = images.user2.uri;
+      break;
+    case 3:
+      path = images.user3.uri;
+      break;
+    case 4:
+      path = images.user4.uri;
+      break;
+    default:
+      path = require('../../assets/images/profile-image-placeholder.png');
+  }
 
   return (
     <TouchableOpacity onPress={() => handleCreateChatroom(props.chatUser)} disabled={props.ownEmail || ownEmail}>
       <View style={styles.chatUser}>
         <View style={styles.imageView}>
-          <Image style={styles.tinyLogo} source={require('../../assets/images/chatroom.png')} />
+          <Image style={styles.tinyLogo} source={path} />
         </View>
         <View style={styles.textView}>
           {!props.ownEmail && !ownEmail ? (
@@ -91,6 +115,7 @@ const styles = StyleSheet.create({
   tinyLogo: {
     width: 65,
     height: 65,
+    borderRadius: 50
   },
 });
 

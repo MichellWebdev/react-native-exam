@@ -23,11 +23,11 @@ const Chat = () => {
     setChatScreenMounted(true);
   }, []);
 
-  setInterval(() => {
-    dispatch(getChatrooms());
-    dispatch(getChatroomMessages());
-    dispatch(getChatroomsUsersInfo());
-  }, 10000);
+  // setInterval(() => {
+  //   dispatch(getChatrooms());
+  //   dispatch(getChatroomMessages());
+  //   dispatch(getChatroomsUsersInfo());
+  // }, 10000);
 
   const myChatrooms = useSelector(state => state.chat.myChatrooms);
   const myChatroomMessages = useSelector(state => state.chat.myChatroomMessages);

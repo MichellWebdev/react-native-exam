@@ -6,7 +6,7 @@ class ChatMessage {
     public text: string,
     public createdDate: Date,
     public read: boolean
-  ) {}
+  ) { }
 }
 
 export default ChatMessage;

@@ -7,6 +7,7 @@ export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const GET_CHATROOM_MESSAGES = 'GET_CHATROOM_MESSAGES';
 export const GET_CHATROOMS_USERS_INFO = 'GET_CHATROOM_USER_INFO';
 export const REMOVE_NEW_CHAT_INFO = 'REMOVE_NEW_CHAT_INFO';
+export const SET_CHATROOM_MESSAGES_READ = 'SET_CHATROOM_MESSAGES_READ';
 
 export const getChatrooms = () => {
   return async (dispatch, getState) => {
@@ -162,31 +163,44 @@ export const removeNewChatInfo = () => {
 };
 
 export const setChatroomMessagesRead = chatroomId => {
-  // return async (dispatch, getState) => {
-  //   const token = getState().user.idToken;
-  //   const loggedInUser = getState().user.loggedInUser;
-  //   const documentKey = loggedInUser.documentKey;
+  return async (dispatch, getState) => {
+    const token = getState().user.idToken;
+    const myChatroomMessages = getState().chat.myChatroomMessages;
 
-  //   const response = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/users/' + documentKey + '.json?auth=' + token, {
-  //     method: 'PATCH',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       profile: user.image,
-  //       name: user.name,
-  //       studyProgramme: user.studyProgramme
-  //     }),
-  //   });
+    for (let index = 0; index < myChatroomMessages.length; index++) {
+      if (myChatroomMessages[index].chatroomId == chatroomId) {
+        const response1 = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/chatmessages/' + myChatroomMessages[index].id + '.json?auth=' + token, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            read: true
+          }),
+        });
 
-  //   const data = await response.json();
+        if (!response1.ok) {
+          console.log('Chat messages not read');
+        } else {
+          console.log('Chat messages read');
 
-  //   if (!response.ok) {
-  //     console.log('User information update failed');
-  //     console.log(data);
-  //   } else {
-  //     console.log('Users information updated');
-  //     dispatch({ type: SAVE_USER, payload: user });
-  //   }
-  // };
+          const response2 = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/chatmessages.json?auth=' + token, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+
+          const data = await response2.json();
+
+          if (!response2.ok) {
+            console.log('Chatroom messages retrieval failed');
+          } else {
+            // console.log('Chatroom messages Retrieved');
+            dispatch({ type: SET_CHATROOM_MESSAGES_READ, payload: data });
+          }
+        }
+      }
+    }
+  };
 }

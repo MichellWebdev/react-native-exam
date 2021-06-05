@@ -37,7 +37,6 @@ export const saveUser = user => {
 
     if (!response.ok) {
       console.log('User information update failed');
-      console.log(data);
     } else {
       console.log('Users information updated');
       dispatch({ type: SAVE_USER, payload: user });
@@ -65,7 +64,6 @@ export const changeNotification = status => {
 
     if (!response.ok) {
       console.log('User notification update failed');
-      console.log(data);
     } else {
       console.log('Users notification updated');
       // dispatch({ type: CHANGE_NOTIFICATION, payload: status });
@@ -158,7 +156,6 @@ export const login = (email, password) => {
     );
 
     const data = await response.json();
-    console.log(data)
 
     if (!response.ok) {
       console.log('User login failed');
@@ -179,7 +176,7 @@ export const login = (email, password) => {
         console.log('Users retrieval failed');
         dispatch({ type: LOGIN_ERROR, payload: true });
       } else {
-        console.log('Useres retrieved');
+        console.log('Users retrieved');
         dispatch({ type: LOGIN, payload: { data: data2, localId: data.localId, myEmail: email, idToken: data.idToken } });
       }
     }
@@ -201,7 +198,6 @@ export const searchUsers = email => {
 
     if (!response.ok) {
       console.log('User retrieval failed');
-      console.log(data);
     } else {
       console.log('Users retrieved');
       dispatch({ type: SEARH_USERS, payload: { data: data, email: email } });
@@ -214,3 +210,4 @@ export const resetUserResearch = () => {
     type: RESET_USER_RESEARCH,
   };
 };
+

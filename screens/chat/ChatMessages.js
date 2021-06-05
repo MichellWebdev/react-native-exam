@@ -13,6 +13,7 @@ import {
 
 // Custom components
 import ChatMessage from '../../components/chat/ChatMessage';
+import { images } from '../../assets/images/images';
 
 const ChatMessages = props => {
   const dispatch = useDispatch();
@@ -22,6 +23,9 @@ const ChatMessages = props => {
   const [value, onChangeText] = useState('Write message');
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const { chatroomId } = props.route.params;
+  const { participantImage } = props.route.params;
+  const { participantName } = props.route.params;
+  console.log(participantName)
 
   // https://stackoverflow.com/questions/62091146/componentwillmount-for-react-functional-component
   const [chatMessagesScreenMounted, setChatMessagesScreenMounted] = useState(false);
@@ -71,6 +75,27 @@ const ChatMessages = props => {
     onChangeText('');
   };
 
+  let path = '';
+  switch (loggedInUser.image) {
+    case 0:
+      path = images.default.uri;
+      break;
+    case 1:
+      path = images.user1.uri;
+      break;
+    case 2:
+      path = images.user2.uri;
+      break;
+    case 3:
+      path = images.user3.uri;
+      break;
+    case 4:
+      path = images.user4.uri;
+      break;
+    default:
+      path = require('../../assets/images/profile-image-placeholder.png');
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.messages}>
@@ -81,7 +106,7 @@ const ChatMessages = props => {
             data={openingChatroomMessages}
             showsVerticalScrollIndicator={false}
             renderItem={itemData => (
-              <ChatMessage chatmessage={itemData.item} img={require('../../assets/images/user.png')} />
+              <ChatMessage chatmessage={itemData.item} img={participantImage} participantName={participantName} />
             )}
           />
         )}
@@ -90,7 +115,7 @@ const ChatMessages = props => {
         {loggedInUser.image === '' ? (
           <Image style={styles.tinyLogo} source={require('../../assets/images/profile-image-placeholder.png')} />
         ) : (
-          <Image style={styles.tinyLogo} source={{ uri: loggedInUser.image }} />
+          <Image style={styles.tinyLogo} source={path} />
         )}
         <TextInput autoCorrect={false} style={styles.textInput} onChangeText={text => handleTextInput(text)} value={value} />
         <Button disabled={buttonDisabled} title='Send' onPress={handleSend} />
@@ -128,7 +153,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tinyLogo: {
-    marginTop: -5,
+    marginTop: -3,
     width: 30,
     height: 30,
     borderRadius: 150,

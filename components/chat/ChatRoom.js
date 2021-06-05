@@ -105,7 +105,7 @@ const ChatRoom = props => {
     <View>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('ChatMessages', { chatroomId: props.chatRoom.id, chatroomName: participantName })
+          navigation.navigate('ChatMessages', { chatroomId: props.chatRoom.id, chatroomName: participantName, participantImage: path, participantName: participantName })
         }>
         <View style={styles.chatRoom}>
           <View style={styles.imageContainer}>
@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
   dotView: {
     marginLeft: 'auto',
     marginBottom: 10,
+    marginRight: 13,
   },
   imageContainer: {
     shadowColor: '#000',

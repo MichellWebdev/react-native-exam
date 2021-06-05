@@ -4,6 +4,9 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 // React redux
 import { useSelector } from 'react-redux';
 
+// Common Component
+import { images } from '../../assets/images/images';
+
 const ChatMessage = props => {
   const loggedInUser = useSelector(state => state.user.loggedInUser);
 
@@ -36,32 +39,12 @@ const ChatMessage = props => {
 
   let name;
   if (!isMe) {
-    name = 'From ' + props.chatmessage.writtenBy + ', ';
+    name = 'From ' + props.participantName + ', ';
   }
 
   // Profile Image
   let image;
   if (!isMe) {
-    let path = '';
-    switch (participantImage) {
-      case 0:
-        path = images.default.uri;
-        break;
-      case 1:
-        path = images.user1.uri;
-        break;
-      case 2:
-        path = images.user2.uri;
-        break;
-      case 3:
-        path = images.user3.uri;
-        break;
-      case 4:
-        path = images.user4.uri;
-        break;
-      default:
-        path = require('../../assets/images/images.js');
-    }
     image = <Image style={styles.tinyLogo} source={props.img} />;
   }
 
@@ -122,6 +105,9 @@ const styles = StyleSheet.create({
   },
   tinyLogo: {
     marginRight: 10,
+    width: 50,
+    height: 50,
+    borderRadius: 50,
   },
   time: {
     color: '#333333',

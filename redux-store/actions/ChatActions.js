@@ -7,6 +7,7 @@ export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const GET_CHATROOM_MESSAGES = 'GET_CHATROOM_MESSAGES';
 export const GET_CHATROOMS_USERS_INFO = 'GET_CHATROOM_USER_INFO';
 export const REMOVE_NEW_CHAT_INFO = 'REMOVE_NEW_CHAT_INFO';
+export const SET_CHATROOM_MESSAGES_READ = 'SET_CHATROOM_MESSAGES_READ';
 
 export const getChatrooms = () => {
   return async (dispatch, getState) => {
@@ -25,7 +26,7 @@ export const getChatrooms = () => {
     if (!response.ok) {
       console.log('Chatroom retrieval failed');
     } else {
-      console.log('Chatrooms retrieved');
+      // console.log('Chatrooms retrieved');
       dispatch({ type: GET_CHATROOMS, payload: { data: data, loggedInUserId: loggedInUser.id } });
     }
   };
@@ -124,7 +125,7 @@ export const getChatroomMessages = chatroomId => {
     if (!response.ok) {
       console.log('Chatroom Messages Retrieval Failed');
     } else {
-      console.log('Chatroom Messages Retrieved');
+      // console.log('Chatroom Messages Retrieved');
       dispatch({ type: GET_CHATROOM_MESSAGES, payload: { data: data, chatroomId: chatroomId } });
     }
   };
@@ -148,7 +149,7 @@ export const getChatroomsUsersInfo = () => {
     if (!response.ok) {
       console.log('Chatroom User Information Retrieval Failed');
     } else {
-      console.log('Chatroom User Information Retrieved');
+      // console.log('Chatroom User Information Retrieved');
       dispatch({ type: GET_CHATROOMS_USERS_INFO, payload: { data: data, myId: loggedInUser.id } });
     }
   };
@@ -160,3 +161,47 @@ export const removeNewChatInfo = () => {
     payload: '',
   };
 };
+
+export const setChatroomMessagesRead = chatroomId => {
+  return async (dispatch, getState) => {
+    const token = getState().user.idToken;
+    const loggedInUser = getState().user.loggedInUser;
+    const myChatroomMessages = getState().chat.myChatroomMessages;
+
+    for (let index = 0; index < myChatroomMessages.length; index++) {
+      if (myChatroomMessages[index].chatroomId == chatroomId && myChatroomMessages[index].writtenBy != loggedInUser.id) {
+        const response1 = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/chatmessages/' + myChatroomMessages[index].id + '.json?auth=' + token, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            read: true
+          }),
+        });
+
+        if (!response1.ok) {
+          console.log('Chat messages not read');
+        } else {
+          console.log('Chat messages read');
+
+          const response2 = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/chatmessages.json?auth=' + token, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+
+          const data = await response2.json();
+
+          if (!response2.ok) {
+            console.log('Chatroom messages retrieval failed');
+          } else {
+            // console.log('Chatroom messages Retrieved');
+            dispatch({ type: SET_CHATROOM_MESSAGES_READ, payload: data });
+          }
+        }
+      }
+    }
+  };
+}

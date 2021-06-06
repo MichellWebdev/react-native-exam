@@ -4,6 +4,9 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 // React redux
 import { useSelector } from 'react-redux';
 
+// Common Component
+import { images } from '../../assets/images/images';
+
 const ChatMessage = props => {
   const loggedInUser = useSelector(state => state.user.loggedInUser);
 
@@ -36,7 +39,7 @@ const ChatMessage = props => {
 
   let name;
   if (!isMe) {
-    name = 'From ' + props.chatmessage.writtenBy + ', ';
+    name = 'From ' + props.participantName + ', ';
   }
 
   // Profile Image
@@ -102,6 +105,9 @@ const styles = StyleSheet.create({
   },
   tinyLogo: {
     marginRight: 10,
+    width: 40,
+    height: 40,
+    borderRadius: 50,
   },
   time: {
     color: '#333333',

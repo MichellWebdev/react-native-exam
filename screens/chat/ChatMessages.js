@@ -8,30 +8,41 @@ import {
   sendMessage,
   getChatroomMessages,
   getChatroomsUsersInfo,
+  setChatroomMessagesRead,
 } from '../../redux-store/actions/ChatActions';
 
 // Custom components
 import ChatMessage from '../../components/chat/ChatMessage';
+import { images } from '../../assets/images/images';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ChatMessages = props => {
   const dispatch = useDispatch();
   const loggedInUser = useSelector(state => state.user.loggedInUser || {});
 
   // let buttonDisabled = false;
-  const [value, onChangeText] = useState('Write message');
+  const [value, onChangeText] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const { chatroomId } = props.route.params;
+  const { participantImage } = props.route.params;
+  const { participantName } = props.route.params;
 
   // https://stackoverflow.com/questions/62091146/componentwillmount-for-react-functional-component
   const [chatMessagesScreenMounted, setChatMessagesScreenMounted] = useState(false);
   if (!chatMessagesScreenMounted) {
     dispatch(getChatrooms());
     dispatch(getChatroomsUsersInfo());
+    dispatch(setChatroomMessagesRead(chatroomId));
     dispatch(getChatroomMessages(chatroomId));
   }
   useEffect(() => {
     setChatMessagesScreenMounted(true);
   }, []);
+
+  // setInterval(() => {
+  //   dispatch(getChatroomMessages(chatroomId));
+  //   dispatch(setChatroomMessagesRead(chatroomId));
+  // }, 10000);
 
   const myChatroomMessages = useSelector(state => state.chat.myChatroomMessages);
   const openedNewChatId = useSelector(state => state.chat.openedNewChatId);
@@ -69,6 +80,27 @@ const ChatMessages = props => {
     onChangeText('');
   };
 
+  let path = '';
+  switch (loggedInUser.image) {
+    case 0:
+      path = images.default.uri;
+      break;
+    case 1:
+      path = images.user1.uri;
+      break;
+    case 2:
+      path = images.user2.uri;
+      break;
+    case 3:
+      path = images.user3.uri;
+      break;
+    case 4:
+      path = images.user4.uri;
+      break;
+    default:
+      path = require('../../assets/images/profile-image-placeholder.png');
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.messages}>
@@ -79,7 +111,7 @@ const ChatMessages = props => {
             data={openingChatroomMessages}
             showsVerticalScrollIndicator={false}
             renderItem={itemData => (
-              <ChatMessage chatmessage={itemData.item} img={require('../../assets/images/user.png')} />
+              <ChatMessage chatmessage={itemData.item} img={participantImage} participantName={participantName} />
             )}
           />
         )}
@@ -88,9 +120,14 @@ const ChatMessages = props => {
         {loggedInUser.image === '' ? (
           <Image style={styles.tinyLogo} source={require('../../assets/images/profile-image-placeholder.png')} />
         ) : (
-          <Image style={styles.tinyLogo} source={{ uri: loggedInUser.image }} />
+          <Image style={styles.tinyLogo} source={path} />
         )}
-        <TextInput autoCorrect={false} style={styles.textInput} onChangeText={text => handleTextInput(text)} value={value} />
+        <TextInput
+          autoCorrect={false}
+          style={styles.textInput}
+          onChangeText={text => handleTextInput(text)}
+          value={value}
+          placeholder={'Write message'} />
         <Button disabled={buttonDisabled} title='Send' onPress={handleSend} />
       </View>
     </View>
@@ -126,7 +163,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tinyLogo: {
-    marginTop: -5,
+    marginTop: -3,
     width: 30,
     height: 30,
     borderRadius: 150,

@@ -103,7 +103,7 @@ const CompleteSignup = ({
 
       // When using dropdown picker
       dispatch(completeSignup(displayName, listValue, studyProgramme));
-      console.log(displayName, listValue, studyProgramme);
+      // console.log(displayName, listValue, studyProgramme);
 
       displayNameValid && studyProgrammeValid ? navigation.navigate('Login') : null;
     }

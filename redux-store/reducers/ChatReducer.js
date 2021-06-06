@@ -9,6 +9,7 @@ import {
   GET_CHATROOM_MESSAGES,
   GET_CHATROOMS_USERS_INFO,
   REMOVE_NEW_CHAT_INFO,
+  SET_CHATROOM_MESSAGES_READ
 } from '../actions/ChatActions';
 
 const initialState = {
@@ -100,6 +101,27 @@ const ChatReducer = (state = initialState, action) => {
     case REMOVE_NEW_CHAT_INFO:
       return {
         ...state,
+      };
+
+    case SET_CHATROOM_MESSAGES_READ:
+      chatroomMessages = [];
+
+      if (action.payload != null) {
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+        for (const [key, value] of Object.entries(action.payload)) {
+          state.myChatrooms.forEach(chatroom => {
+            if (value.chatroomId == chatroom.id) {
+              chatroomMessages.push(
+                new ChatMessage(key, value.chatroomId, value.writtenBy, value.text, new Date(value.createdDate), value.read)
+              );
+            }
+          });
+        }
+      }
+
+      return {
+        ...state,
+        myChatroomMessages: chatroomMessages,
       };
 
     default:

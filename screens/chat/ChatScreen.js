@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList } from 'react-native';
 
 // React redux
 import { useSelector, useDispatch } from 'react-redux';
-import { getChatroomMessages, getChatrooms, removeNewChatInfo } from '../../redux-store/actions/ChatActions';
+import { getChatroomMessages, getChatrooms, getChatroomsUsersInfo } from '../../redux-store/actions/ChatActions';
 
 // Custom components
 import ChatRoom from '../../components/chat/ChatRoom';
@@ -16,11 +16,18 @@ const Chat = () => {
   if (!chatScreenMounted) {
     dispatch(getChatrooms());
     dispatch(getChatroomMessages());
+    dispatch(getChatroomsUsersInfo());
   }
 
   useEffect(() => {
     setChatScreenMounted(true);
   }, []);
+
+  // setInterval(() => {
+  //   dispatch(getChatrooms());
+  //   dispatch(getChatroomMessages());
+  //   dispatch(getChatroomsUsersInfo());
+  // }, 10000);
 
   const myChatrooms = useSelector(state => state.chat.myChatrooms);
   const myChatroomMessages = useSelector(state => state.chat.myChatroomMessages);

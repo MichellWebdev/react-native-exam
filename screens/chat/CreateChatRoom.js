@@ -20,6 +20,7 @@ const CreateChatRoom = () => {
   const saerchPlaceholder = 'Search user email';
 
   let matchFound;
+  let searchMatchingUser;
 
   const searchMatchingUsers = useSelector(state => state.user.searchUsers);
 
@@ -42,6 +43,7 @@ const CreateChatRoom = () => {
     matchFound = false;
   } else {
     matchFound = true;
+
   }
 
   return (

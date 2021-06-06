@@ -7,6 +7,9 @@ import { useNavigation } from '@react-navigation/native';
 // React redux
 import { useSelector } from 'react-redux';
 
+// Common component
+import { images } from '../../assets/images/images'
+
 const ChatRoom = props => {
   const navigation = useNavigation();
   const loggedInUser = useSelector(state => state.user.loggedInUser);
@@ -55,7 +58,7 @@ const ChatRoom = props => {
           read = true;
         } else {
           latestText = message.text;
-          // read = false;
+          read = false;
         }
 
         latestMessageExists = true;
@@ -65,23 +68,48 @@ const ChatRoom = props => {
 
   // Another participant name
   let participantName = '';
+  let participantImage = '';
   chatroomsUsersInfo.forEach(user => {
     if (user.id == props.chatRoom.participants[0]) {
       participantName = user.name;
+      participantImage = user.image;
     } else if (user.id == props.chatRoom.participants[1]) {
       participantName = user.name;
+      participantImage = user.image;
     }
   });
+
+  // Profile image
+  let path = '';
+  switch (participantImage) {
+    case 0:
+      path = images.default.uri;
+      break;
+    case 1:
+      path = images.user1.uri;
+      break;
+    case 2:
+      path = images.user2.uri;
+      break;
+    case 3:
+      path = images.user3.uri;
+      break;
+    case 4:
+      path = images.user4.uri;
+      break;
+    default:
+      path = require('../../assets/images/images.js');
+  }
 
   return (
     <View>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('ChatMessages', { chatroomId: props.chatRoom.id, chatroomName: participantName })
+          navigation.navigate('ChatMessages', { chatroomId: props.chatRoom.id, chatroomName: participantName, participantImage: path, participantName: participantName })
         }>
         <View style={styles.chatRoom}>
           <View style={styles.imageContainer}>
-            <Image style={styles.tinyLogo} source={require('../../assets/images/chatroom.png')} />
+            <Image style={styles.tinyLogo} source={path} />
           </View>
           <View style={styles.textView}>
             <View>
@@ -120,15 +148,19 @@ const styles = StyleSheet.create({
   },
   textView: {
     flex: 2,
-    marginLeft: 10,
+    marginLeft: 15,
+    marginRight: 15,
+    maxWidth: 225,
   },
   text: {
     fontWeight: 'bold',
     marginBottom: 5,
+    fontSize: 17,
   },
   dotView: {
     marginLeft: 'auto',
     marginBottom: 10,
+    marginRight: 13,
   },
   imageContainer: {
     shadowColor: '#000',
@@ -140,19 +172,26 @@ const styles = StyleSheet.create({
     shadowRadius: 1.0,
 
     elevation: 1,
+    marginRight: 5,
+    marginLeft: 5,
   },
   dot: {
     height: 12,
     width: 12,
     backgroundColor: '#5050A5',
     borderRadius: 100 / 2,
+    marginLeft: 7,
   },
   undot: {
     height: 12,
     width: 12,
     borderRadius: 100 / 2,
   },
-  tinyLogo: {},
+  tinyLogo: {
+    width: 60,
+    height: 60,
+    borderRadius: 50,
+  },
 });
 
 export default ChatRoom;

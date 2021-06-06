@@ -58,7 +58,7 @@ const ChatRoom = props => {
           read = true;
         } else {
           latestText = message.text;
-          // read = false;
+          read = false;
         }
 
         latestMessageExists = true;
@@ -148,11 +148,14 @@ const styles = StyleSheet.create({
   },
   textView: {
     flex: 2,
-    marginLeft: 10,
+    marginLeft: 15,
+    marginRight: 15,
+    maxWidth: 225,
   },
   text: {
     fontWeight: 'bold',
     marginBottom: 5,
+    fontSize: 17,
   },
   dotView: {
     marginLeft: 'auto',
@@ -170,12 +173,14 @@ const styles = StyleSheet.create({
 
     elevation: 1,
     marginRight: 5,
+    marginLeft: 5,
   },
   dot: {
     height: 12,
     width: 12,
     backgroundColor: '#5050A5',
     borderRadius: 100 / 2,
+    marginLeft: 7,
   },
   undot: {
     height: 12,
@@ -183,8 +188,8 @@ const styles = StyleSheet.create({
     borderRadius: 100 / 2,
   },
   tinyLogo: {
-    width: 70,
-    height: 70,
+    width: 60,
+    height: 60,
     borderRadius: 50,
   },
 });

@@ -119,8 +119,6 @@ const ChatReducer = (state = initialState, action) => {
         }
       }
 
-      console.log('set chatroom messages read: ', chatroomMessages)
-
       return {
         ...state,
         myChatroomMessages: chatroomMessages,

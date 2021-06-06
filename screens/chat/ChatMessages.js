@@ -41,6 +41,7 @@ const ChatMessages = props => {
 
   // setInterval(() => {
   //   dispatch(getChatroomMessages(chatroomId));
+  //   dispatch(setChatroomMessagesRead(chatroomId));
   // }, 10000);
 
   const myChatroomMessages = useSelector(state => state.chat.myChatroomMessages);

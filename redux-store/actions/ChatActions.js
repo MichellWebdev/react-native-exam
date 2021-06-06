@@ -165,10 +165,11 @@ export const removeNewChatInfo = () => {
 export const setChatroomMessagesRead = chatroomId => {
   return async (dispatch, getState) => {
     const token = getState().user.idToken;
+    const loggedInUser = getState().user.loggedInUser;
     const myChatroomMessages = getState().chat.myChatroomMessages;
 
     for (let index = 0; index < myChatroomMessages.length; index++) {
-      if (myChatroomMessages[index].chatroomId == chatroomId) {
+      if (myChatroomMessages[index].chatroomId == chatroomId && myChatroomMessages[index].writtenBy != loggedInUser.id) {
         const response1 = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/chatmessages/' + myChatroomMessages[index].id + '.json?auth=' + token, {
           method: 'PATCH',
           headers: {

@@ -21,7 +21,7 @@ interface SignupLabels {
   emailPlaceholder: string;
   errorMessageEmail: string;
   passwordLabel: string;
-  passwordPlaceholder: string;
+  passwordPclaceholder: string;
   passwordErrorMessage: string;
   buttonText: string;
   loginRedirectLabel: string;
@@ -77,12 +77,15 @@ const SignupScreen = ({
   }
 
   // signup success
-  const signupFirstStage = useSelector((state: any) => state.user.signupFirstStage || {});
+  const signupCompleted = useSelector((state: any) => state.user.signupCompleted || {});
 
   const handleSignup = () => {
     dispatch(signup(email, password));
-    passwordValid && emailValid && (signupFirstStage != null && signupFirstStage != {}) ? navigation.navigate('CompleteSignup') : null;
+    // passwordValid && emailValid ? navigation.navigate('CompleteSignup') : null;
   };
+
+  // Works with error
+  passwordValid && emailValid && (signupCompleted != null && signupCompleted == true) ? navigation.navigate('CompleteSignup') : null;
 
   return (
     <View style={styles.signupContainer}>

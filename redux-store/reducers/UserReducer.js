@@ -9,6 +9,8 @@ const initialState = {
   loggedInUserProfile: null,
   loggedOut: null,
   loginError: null,
+  signupError: null,
+  emailInUse: null,
 };
 
 const UserReducer = (state = initialState, action) => {
@@ -23,6 +25,8 @@ const UserReducer = (state = initialState, action) => {
         loggedInUserProfile: null,
         loggedOut: true,
         loginError: null,
+        signupError: null,
+        emailInUse: null,
       };
     }
 
@@ -36,6 +40,8 @@ const UserReducer = (state = initialState, action) => {
         loggedInUserProfile: null,
         loggedOut: null,
         loginError: true,
+        signupError: null,
+        emailInUse: null,
       }
     }
 
@@ -90,6 +96,8 @@ const UserReducer = (state = initialState, action) => {
         loggedInUserProfile: [me.name, me.image, me.documentKey],
         loggedOut: null,
         loginError: null,
+        signupError: null,
+        emailInUse: null,
       };
     }
 

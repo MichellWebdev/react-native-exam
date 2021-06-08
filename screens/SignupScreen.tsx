@@ -6,7 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
 // React redux
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signup } from '../redux-store/actions/UserActions';
 
 // Common components
@@ -15,6 +15,8 @@ import Button from '../components/common/Button';
 
 interface SignupLabels {
   signupLabel: string;
+  alertLabel1: string;
+  alertLabel2: string;
   emailLabel: string;
   emailPlaceholder: string;
   errorMessageEmail: string;
@@ -27,6 +29,8 @@ interface SignupLabels {
 
 const SignupScreen = ({
   signupLabel = 'Sign up to get access',
+  alertLabel1 = '',
+  alertLabel2 = '',
   emailLabel = 'Email*',
   emailPlaceholder = 'email@student.cbs.dk',
   errorMessageEmail = 'Please fill out Email',
@@ -47,7 +51,24 @@ const SignupScreen = ({
   const [password, setPassword] = useState('');
   const [passwordValid, setPasswordValid] = useState(false);
 
+  // error messages
+  const signupError = useSelector((state: any) => state.user.signupError || {});
+  const emailInUse = useSelector((state: any) => state.user.emailInUse || {});
+
+  let signupFailed = false;
+  if (signupError != null && signupError == true) {
+    signupFailed = true
+    alertLabel1 = 'Signup failed.'
+    alertLabel2 = 'Please provide correct email or password.'
+  } else if (emailInUse != null && emailInUse == true) {
+    signupFailed = true
+    alertLabel1 = 'Signup failed.'
+    alertLabel2 = 'Please provide correct email or password.'
+  }
+
   const handleSignup = () => {
+    console.log(password)
+    console.log(email)
     dispatch(signup(email, password));
     passwordValid && emailValid ? navigation.navigate('CompleteSignup') : null;
   };
@@ -58,6 +79,16 @@ const SignupScreen = ({
         <Image style={styles.signupImage} source={require('../assets/images/cbsStudentsLogo.png')} />
       </View>
       <Text style={styles.signupHeader}>{signupLabel}</Text>
+      {
+        signupFailed
+          ?
+          <View style={styles.alertContainer}>
+            <Text style={styles.alertHeader}>{alertLabel1}</Text>
+            <Text style={styles.alertHeader}>{alertLabel2}</Text>
+          </View>
+          :
+          <View style={styles.alertContainer}></View>
+      }
       <Input
         label={emailLabel}
         inputValid={emailValid}
@@ -109,6 +140,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 20,
     color: '#5050A5',
+  },
+  alertContainer: {
+    // minHeight: 50,
+    marginBottom: 20,
+  },
+  alertHeader: {
+    fontSize: 15,
+    marginLeft: 20,
+    fontWeight: 'bold',
+    color: 'red',
   },
 });
 

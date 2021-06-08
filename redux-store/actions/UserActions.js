@@ -115,10 +115,9 @@ export const signup = (email, password) => {
 
 export const completeSignup = (displayName, photoUrl, studyProgramme) => {
   return async (dispatch, getState) => {
-    // const token = data.idToken;
-    // const localId = data.localId;
-
-    const token = getState().user.idToken;
+    const token = getState().user.signupFirstStage[0];
+    const localId = getState().user.signupFirstStage[1];
+    const email = getState().user.signupFirstStage[2];
 
     const response = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + token, {
       method: 'POST',
@@ -127,7 +126,7 @@ export const completeSignup = (displayName, photoUrl, studyProgramme) => {
       },
       body: JSON.stringify({
         id: localId,
-        email: signupFirstStage[0],
+        email: email,
         profile: photoUrl,
         name: displayName,
         studyProgramme: studyProgramme,
@@ -138,13 +137,13 @@ export const completeSignup = (displayName, photoUrl, studyProgramme) => {
     const data = await response.json();
 
     if (!response.ok) {
-      console.log('Signup Stage 2 Failed');
+      console.log('Complete Signup Failed');
     } else {
-      console.log('Signup Stage 2 Completed');
-      dispatch({
-        type: SIGNUP,
-        payload: { key: data.name, id: localId, profile: photoUrl, name: displayName, studyProgramme: studyProgramme },
-      });
+      console.log('Complete Signup Successful');
+      // dispatch({
+      //   type: SIGNUP,
+      //   payload: { key: data.name, id: localId, profile: photoUrl, name: displayName, studyProgramme: studyProgramme },
+      // });
     }
   };
 };
@@ -167,7 +166,6 @@ export const login = (email, password) => {
     );
 
     const data = await response.json();
-    console.log(data)
 
     if (!response.ok) {
       console.log('User login failed');

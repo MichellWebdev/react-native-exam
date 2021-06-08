@@ -28,6 +28,7 @@ const initialState = {
   invalidEmailLogin: null,
   invalidEmailSignup: null,
   weakPassword: null,
+  signupCompleted: null
 };
 
 const UserReducer = (state = initialState, action) => {
@@ -47,6 +48,7 @@ const UserReducer = (state = initialState, action) => {
         invalidEmailLogin: null,
         invalidEmailSignup: null,
         weakPassword: null,
+        signupCompleted: null,
       };
     }
 
@@ -65,6 +67,7 @@ const UserReducer = (state = initialState, action) => {
         invalidEmailLogin: null,
         invalidEmailSignup: null,
         weakPassword: null,
+        signupCompleted: null
       }
     }
 
@@ -83,6 +86,7 @@ const UserReducer = (state = initialState, action) => {
         invalidEmailLogin: null,
         invalidEmailSignup: null,
         weakPassword: null,
+        signupCompleted: null
       }
     }
 
@@ -101,6 +105,7 @@ const UserReducer = (state = initialState, action) => {
         invalidEmailLogin: null,
         invalidEmailSignup: null,
         weakPassword: null,
+        signupCompleted: null
       }
     }
 
@@ -119,6 +124,7 @@ const UserReducer = (state = initialState, action) => {
         invalidEmailLogin: true,
         invalidEmailSignup: null,
         weakPassword: null,
+        signupCompleted: null
       }
     }
 
@@ -137,6 +143,7 @@ const UserReducer = (state = initialState, action) => {
         invalidEmailLogin: null,
         invalidEmailSignup: true,
         weakPassword: null,
+        signupCompleted: null
       }
     }
 
@@ -155,13 +162,14 @@ const UserReducer = (state = initialState, action) => {
         invalidEmailLogin: null,
         invalidEmailSignup: null,
         weakPassword: true,
+        signupCompleted: null
       }
     }
 
     case SIGNUP: {
       return {
         ...state,
-        signupFirstStage: [action.payload.email, action.payload.localId],
+        signupFirstStage: [action.payload.idToken, action.payload.localId, action.payload.email],
         loggedOut: null,
         loginError: null,
         signupError: null,
@@ -169,6 +177,7 @@ const UserReducer = (state = initialState, action) => {
         invalidEmailLogin: null,
         invalidEmailSignup: null,
         weakPassword: null,
+        signupCompleted: true
       };
     }
 
@@ -183,6 +192,7 @@ const UserReducer = (state = initialState, action) => {
         invalidEmailLogin: null,
         invalidEmailSignup: null,
         weakPassword: null,
+        signupCompleted: null
       };
     }
 
@@ -224,6 +234,7 @@ const UserReducer = (state = initialState, action) => {
         invalidEmailLogin: null,
         invalidEmailSignup: null,
         weakPassword: null,
+        signupCompleted: null
       };
     }
 

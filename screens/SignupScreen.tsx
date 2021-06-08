@@ -77,11 +77,11 @@ const SignupScreen = ({
   }
 
   // signup success
-  const signupCompleted = useSelector((state: any) => state.user.signupCompleted || {});
+  const signupFirstStage = useSelector((state: any) => state.user.signupFirstStage || {});
 
   const handleSignup = () => {
     dispatch(signup(email, password));
-    // passwordValid && emailValid && (signupCompleted != null && signupCompleted == true) ? navigation.navigate('CompleteSignup') : null;
+    passwordValid && emailValid && (signupFirstStage != null && signupFirstStage != {}) ? navigation.navigate('CompleteSignup') : null;
   };
 
   return (

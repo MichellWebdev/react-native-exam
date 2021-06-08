@@ -6,6 +6,11 @@ export const RESET_USER_RESEARCH = 'RESET_USER_RESEARCH';
 export const COMPLETE_SIGNUP = 'COMPLETE_SIGNUP';
 export const LOGOUT = 'LOGOUT';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const SIGNUP_ERROR = 'SIGNUP_ERROR';
+export const EMAIL_IN_USE = 'EMAIL_IN_USE';
+export const INVALID_EMAIL_LOGIN = 'INVALID_EMAIL_LOGIN';
+export const INVALID_EMAIL_SIGNUP = 'INVALID_EMAIL_SIGNUP';
+export const WEAK_PASSWORD = 'WEAK_PASSWORD';
 
 export const logout = () => {
   console.log('User logout successful');
@@ -72,16 +77,7 @@ export const changeNotification = status => {
 }
 
 export const signup = (email, password) => {
-  return {
-    type: SIGNUP,
-    payload: { email: email, password: password },
-  };
-};
-
-export const completeSignup = (displayName, photoUrl, studyProgramme) => {
   return async (dispatch, getState) => {
-    const signupFirstStage = getState().user.signupFirstStage;
-
     const response = await fetch(
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBZOK5_QuYUqtARpQyA3wS3qPPb7JXBZrM',
       {
@@ -90,8 +86,8 @@ export const completeSignup = (displayName, photoUrl, studyProgramme) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: signupFirstStage[0],
-          password: signupFirstStage[1],
+          email: email,
+          password: password,
           returnSecureToken: true,
         }),
       }
@@ -101,39 +97,53 @@ export const completeSignup = (displayName, photoUrl, studyProgramme) => {
 
     if (!response.ok) {
       console.log('Signup Failed');
-      dispatch({ type: LOGIN_ERROR, payload: true });
+      if (data.error.errors[0].message == 'EMAIL_EXISTS') {
+        dispatch({ type: EMAIL_IN_USE, payload: true });
+      } else if (data.error.errors[0].message == 'INVALID_EMAIL') {
+        dispatch({ type: INVALID_EMAIL_SIGNUP, payload: true });
+      } else if (data.error.errors[0].message.startsWith('WEAK_PASSWORD')) {
+        dispatch({ type: WEAK_PASSWORD, payload: true });
+      } else {
+        dispatch({ type: SIGNUP_ERROR, payload: true });
+      }
     } else {
       console.log('Signup Completed');
+      dispatch({ type: SIGNUP, payload: data })
+    }
+  };
+};
 
-      const token = data.idToken;
-      const localId = data.localId;
+export const completeSignup = (displayName, photoUrl, studyProgramme) => {
+  return async (dispatch, getState) => {
+    const token = getState().user.signupFirstStage[0];
+    const localId = getState().user.signupFirstStage[1];
+    const email = getState().user.signupFirstStage[2];
 
-      const response2 = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + token, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: localId,
-          email: signupFirstStage[0],
-          profile: photoUrl,
-          name: displayName,
-          studyProgramme: studyProgramme,
-          notification: false,
-        }),
-      });
+    const response = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/users.json?auth=' + token, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: localId,
+        email: email,
+        profile: photoUrl,
+        name: displayName,
+        studyProgramme: studyProgramme,
+        notification: false,
+      }),
+    });
 
-      const data2 = await response2.json();
+    const data = await response.json();
 
-      if (!response2.ok) {
-        console.log('Signup Stage 2 Failed');
-      } else {
-        console.log('Signup Stage 2 Completed');
-        dispatch({
-          type: SIGNUP,
-          payload: { key: data2.name, id: localId, profile: photoUrl, name: displayName, studyProgramme: studyProgramme },
-        });
-      }
+    if (!response.ok) {
+      console.log('Complete Signup Failed');
+    } else {
+      console.log('Complete Signup Successful');
+      // dispatch({
+      //   type: SIGNUP,
+      //   payload: { key: data.name, id: localId, profile: photoUrl, name: displayName, studyProgramme: studyProgramme },
+      // });
     }
   };
 };
@@ -159,7 +169,12 @@ export const login = (email, password) => {
 
     if (!response.ok) {
       console.log('User login failed');
-      dispatch({ type: LOGIN_ERROR, payload: true });
+
+      if (data.error.errors[0].message == 'INVALID_EMAIL') {
+        dispatch({ type: INVALID_EMAIL_LOGIN, payload: true });
+      } else {
+        dispatch({ type: LOGIN_ERROR, payload: true });
+      }
     } else {
       console.log('User logged in');
 

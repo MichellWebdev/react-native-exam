@@ -34,7 +34,7 @@ const LoginScreen = ({
   alertLabel2 = '',
   emailLabel = 'Email',
   emailPlaceholder = 'email@student.cbs.dk',
-  errorMessageEmail = 'Please fill out Email',
+  errorMessageEmail = '',
   passwordLabel = 'Password',
   passwordPlaceholder = '******',
   passwordErrorMessage = 'Please fill out password',
@@ -48,6 +48,7 @@ const LoginScreen = ({
   // email
   const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(false);
+  errorMessageEmail = 'Please fill out Email'
 
   // password
   const [password, setPassword] = useState('');
@@ -56,16 +57,21 @@ const LoginScreen = ({
   // Logged Out
   const loggedOut = useSelector((state: any) => state.user.loggedOut || {});
   const loginError = useSelector((state: any) => state.user.loginError || {});
+  const invalidEmailLogin = useSelector((state: any) => state.user.invalidEmailLogin || {});
 
-  let loggedOutStatus = false;
+  let loginErrorStatus = false;
   if (loggedOut != null && loggedOut == true) {
-    loggedOutStatus = loggedOut;
+    loginErrorStatus = true;
     alertLabel1 = 'You are logged out.'
     alertLabel2 = 'Please log in again to get access.'
   } else if (loginError != null && loginError == true) {
-    loggedOutStatus = loginError;
+    loginErrorStatus = true;
     alertLabel1 = 'Login failed.'
     alertLabel2 = 'Please provide correct email or password.'
+  } else if (invalidEmailLogin != null && invalidEmailLogin == true) {
+    loginErrorStatus = true;
+    alertLabel1 = 'Invalid email address.'
+    alertLabel2 = 'Please provide valid email address.'
   }
 
   const handleLogin = () => {
@@ -81,7 +87,7 @@ const LoginScreen = ({
         <Text style={styles.loginHeader}>{loginLabel}</Text>
       </View>
       {
-        loggedOutStatus
+        loginErrorStatus
           ?
           <View style={styles.alertContainer}>
             <Text style={styles.alertHeader}>{alertLabel1}</Text>

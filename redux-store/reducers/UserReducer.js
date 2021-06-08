@@ -1,5 +1,15 @@
 import User from '../../models/User';
-import { SAVE_USER, SIGNUP, LOGIN, SEARH_USERS, RESET_USER_RESEARCH, COMPLETE_SIGNUP, LOGOUT, LOGIN_ERROR } from '../actions/UserActions';
+import {
+  SAVE_USER,
+  SIGNUP, LOGIN,
+  SEARH_USERS,
+  RESET_USER_RESEARCH,
+  COMPLETE_SIGNUP,
+  LOGOUT,
+  LOGIN_ERROR,
+  SIGNUP_ERROR,
+  EMAIL_IN_USE
+} from '../actions/UserActions';
 
 const initialState = {
   loggedInUser: null,
@@ -42,6 +52,36 @@ const UserReducer = (state = initialState, action) => {
         loginError: true,
         signupError: null,
         emailInUse: null,
+      }
+    }
+
+    case SIGNUP_ERROR: {
+      return {
+        ...state,
+        loggedInUser: null,
+        idToken: null,
+        searchUsers: null,
+        signupFirstStage: null,
+        loggedInUserProfile: null,
+        loggedOut: null,
+        loginError: null,
+        signupError: true,
+        emailInUse: null,
+      }
+    }
+
+    case EMAIL_IN_USE: {
+      return {
+        ...state,
+        loggedInUser: null,
+        idToken: null,
+        searchUsers: null,
+        signupFirstStage: null,
+        loggedInUserProfile: null,
+        loggedOut: null,
+        loginError: null,
+        signupError: null,
+        emailInUse: true,
       }
     }
 

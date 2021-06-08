@@ -54,23 +54,29 @@ const SignupScreen = ({
   // error messages
   const signupError = useSelector((state: any) => state.user.signupError || {});
   const emailInUse = useSelector((state: any) => state.user.emailInUse || {});
+  const invalidEmailSignup = useSelector((state: any) => state.user.invalidEmailSignup || {});
 
-  let signupFailed = false;
+  var signupFailed = false;
   if (signupError != null && signupError == true) {
     signupFailed = true
     alertLabel1 = 'Signup failed.'
-    alertLabel2 = 'Please provide correct email or password.'
+    alertLabel2 = 'Please contact administration.'
   } else if (emailInUse != null && emailInUse == true) {
     signupFailed = true
-    alertLabel1 = 'Signup failed.'
-    alertLabel2 = 'Please provide correct email or password.'
+    alertLabel1 = 'Email already in use.'
+    alertLabel2 = 'Please try another email.'
+  } else if (invalidEmailSignup != null && invalidEmailSignup == true) {
+    signupFailed = true;
+    alertLabel1 = 'Invalid email address.'
+    alertLabel2 = 'Please provide valid email address.'
   }
 
+  // signup success
+  const signupCompleted = useSelector((state: any) => state.user.signupCompleted || {});
+
   const handleSignup = () => {
-    console.log(password)
-    console.log(email)
     dispatch(signup(email, password));
-    passwordValid && emailValid ? navigation.navigate('CompleteSignup') : null;
+    // passwordValid && emailValid && (signupCompleted != null && signupCompleted == true) ? navigation.navigate('CompleteSignup') : null;
   };
 
   return (

@@ -8,6 +8,7 @@ export const LOGOUT = 'LOGOUT';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const SIGNUP_ERROR = 'SIGNUP_ERROR';
 export const EMAIL_IN_USE = 'EMAIL_IN_USE';
+export const INVALID_EMAIL_LOGIN = 'INVALID_EMAIL_LOGIN';
 
 export const logout = () => {
   console.log('User logout successful');
@@ -91,6 +92,7 @@ export const signup = (email, password) => {
     );
 
     const data = await response.json();
+    console.log(data)
 
     if (!response.ok) {
       console.log('Signup Failed');
@@ -101,7 +103,7 @@ export const signup = (email, password) => {
       }
     } else {
       console.log('Signup Completed');
-      // dispatch({})
+      dispatch({ type: SIGNUP_ERROR, payload: true })
     }
   };
 };
@@ -158,10 +160,16 @@ export const login = (email, password) => {
     );
 
     const data = await response.json();
+    console.log(data)
 
     if (!response.ok) {
       console.log('User login failed');
-      dispatch({ type: LOGIN_ERROR, payload: true });
+
+      if (data.error.errors[0].message == 'INVALID_EMAIL') {
+        dispatch({ type: INVALID_EMAIL_LOGIN, payload: true });
+      } else {
+        dispatch({ type: LOGIN_ERROR, payload: true });
+      }
     } else {
       console.log('User logged in');
 

@@ -70,8 +70,8 @@ const LoginScreen = ({
     alertLabel2 = 'Please provide correct email or password.'
   } else if (invalidEmailLogin != null && invalidEmailLogin == true) {
     loginErrorStatus = true;
-    alertLabel1 = 'Invalid email address.'
-    alertLabel2 = 'Please provide valid email address.'
+    alertLabel1 = 'Invalid email address format.'
+    alertLabel2 = 'Please provide a valid email address.'
   }
 
   const handleLogin = () => {

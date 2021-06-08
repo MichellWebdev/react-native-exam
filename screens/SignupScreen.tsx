@@ -64,12 +64,12 @@ const SignupScreen = ({
     alertLabel2 = 'Please contact administration.'
   } else if (emailInUse != null && emailInUse == true) {
     signupFailed = true
-    alertLabel1 = 'Email already in use.'
-    alertLabel2 = 'Please try another email.'
+    alertLabel1 = 'Email already registered.'
+    alertLabel2 = 'Please log in using the link below.'
   } else if (invalidEmailSignup != null && invalidEmailSignup == true) {
     signupFailed = true;
-    alertLabel1 = 'Invalid email address.'
-    alertLabel2 = 'Please provide valid email address.'
+    alertLabel1 = 'Invalid email address format.'
+    alertLabel2 = 'Please provide a valid email address.'
   } else if (weakPassword != null && weakPassword == true) {
     signupFailed = true;
     alertLabel1 = 'Password is too weak.'

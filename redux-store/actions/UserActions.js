@@ -140,10 +140,7 @@ export const completeSignup = (displayName, photoUrl, studyProgramme) => {
       console.log('Complete Signup Failed');
     } else {
       console.log('Complete Signup Successful');
-      // dispatch({
-      //   type: SIGNUP,
-      //   payload: { key: data.name, id: localId, profile: photoUrl, name: displayName, studyProgramme: studyProgramme },
-      // });
+      dispatch({ type: COMPLETE_SIGNUP, payload: {} });
     }
   };
 };

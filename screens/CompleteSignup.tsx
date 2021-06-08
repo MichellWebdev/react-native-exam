@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 // React redux
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { completeSignup } from '../redux-store/actions/UserActions';
 
 // Common components

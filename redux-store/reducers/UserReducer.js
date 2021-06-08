@@ -12,7 +12,7 @@ import {
   EMAIL_IN_USE,
   INVALID_EMAIL_LOGIN,
   INVALID_EMAIL_SIGNUP,
-  WEAK_PASSWORD,
+  WEAK_PASSWORD
 } from '../actions/UserActions';
 
 const initialState = {
@@ -48,8 +48,9 @@ const UserReducer = (state = initialState, action) => {
         invalidEmailLogin: null,
         invalidEmailSignup: null,
         weakPassword: null,
-        signupCompleted: null,
+        signupCompleted: null
       };
+      break;
     }
 
     case LOGIN_ERROR: {
@@ -69,6 +70,7 @@ const UserReducer = (state = initialState, action) => {
         weakPassword: null,
         signupCompleted: null
       }
+      break;
     }
 
     case SIGNUP_ERROR: {
@@ -88,6 +90,7 @@ const UserReducer = (state = initialState, action) => {
         weakPassword: null,
         signupCompleted: null
       }
+      break;
     }
 
     case EMAIL_IN_USE: {
@@ -107,6 +110,7 @@ const UserReducer = (state = initialState, action) => {
         weakPassword: null,
         signupCompleted: null
       }
+      break;
     }
 
     case INVALID_EMAIL_LOGIN: {
@@ -126,6 +130,7 @@ const UserReducer = (state = initialState, action) => {
         weakPassword: null,
         signupCompleted: null
       }
+      break;
     }
 
     case INVALID_EMAIL_SIGNUP: {
@@ -145,6 +150,7 @@ const UserReducer = (state = initialState, action) => {
         weakPassword: null,
         signupCompleted: null
       }
+      break;
     }
 
     case WEAK_PASSWORD: {
@@ -164,6 +170,7 @@ const UserReducer = (state = initialState, action) => {
         weakPassword: true,
         signupCompleted: null
       }
+      break;
     }
 
     case SIGNUP: {
@@ -172,13 +179,9 @@ const UserReducer = (state = initialState, action) => {
         signupFirstStage: [action.payload.idToken, action.payload.localId, action.payload.email],
         loggedOut: null,
         loginError: null,
-        signupError: null,
-        emailInUse: null,
-        invalidEmailLogin: null,
-        invalidEmailSignup: null,
-        weakPassword: null,
         signupCompleted: true
       };
+      break;
     }
 
     case COMPLETE_SIGNUP: {
@@ -194,13 +197,15 @@ const UserReducer = (state = initialState, action) => {
         weakPassword: null,
         signupCompleted: null
       };
+      break;
     }
 
     case SAVE_USER: {
       return {
         ...state,
         loggedInUser: action.payload,
-      };
+      }
+      break;
     }
 
     case LOGIN: {
@@ -236,6 +241,8 @@ const UserReducer = (state = initialState, action) => {
         weakPassword: null,
         signupCompleted: null
       };
+
+      break;
     }
 
     case SEARH_USERS:
@@ -253,12 +260,14 @@ const UserReducer = (state = initialState, action) => {
         ...state,
         searchUsers: users,
       };
+      break;
 
     case RESET_USER_RESEARCH:
       return {
         ...state,
-        searchUsers: null,
+        searchUsers: null
       };
+      break;
 
     default:
       return state;

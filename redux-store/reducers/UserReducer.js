@@ -11,6 +11,8 @@ import {
   SIGNUP_ERROR,
   EMAIL_IN_USE,
   INVALID_EMAIL_LOGIN,
+  INVALID_EMAIL_SIGNUP,
+  WEAK_PASSWORD,
 } from '../actions/UserActions';
 
 const initialState = {
@@ -25,6 +27,7 @@ const initialState = {
   emailInUse: null,
   invalidEmailLogin: null,
   invalidEmailSignup: null,
+  weakPassword: null,
 };
 
 const UserReducer = (state = initialState, action) => {
@@ -42,7 +45,8 @@ const UserReducer = (state = initialState, action) => {
         signupError: null,
         emailInUse: null,
         invalidEmailLogin: null,
-        invalidEmailSignup: null
+        invalidEmailSignup: null,
+        weakPassword: null,
       };
     }
 
@@ -59,7 +63,8 @@ const UserReducer = (state = initialState, action) => {
         signupError: null,
         emailInUse: null,
         invalidEmailLogin: null,
-        invalidEmailSignup: null
+        invalidEmailSignup: null,
+        weakPassword: null,
       }
     }
 
@@ -76,7 +81,8 @@ const UserReducer = (state = initialState, action) => {
         signupError: true,
         emailInUse: null,
         invalidEmailLogin: null,
-        invalidEmailSignup: null
+        invalidEmailSignup: null,
+        weakPassword: null,
       }
     }
 
@@ -93,7 +99,8 @@ const UserReducer = (state = initialState, action) => {
         signupError: null,
         emailInUse: true,
         invalidEmailLogin: null,
-        invalidEmailSignup: null
+        invalidEmailSignup: null,
+        weakPassword: null,
       }
     }
 
@@ -110,20 +117,58 @@ const UserReducer = (state = initialState, action) => {
         signupError: null,
         emailInUse: null,
         invalidEmailLogin: true,
-        invalidEmailSignup: null
+        invalidEmailSignup: null,
+        weakPassword: null,
+      }
+    }
+
+    case INVALID_EMAIL_SIGNUP: {
+      return {
+        ...state,
+        loggedInUser: null,
+        idToken: null,
+        searchUsers: null,
+        signupFirstStage: null,
+        loggedInUserProfile: null,
+        loggedOut: null,
+        loginError: null,
+        signupError: null,
+        emailInUse: null,
+        invalidEmailLogin: null,
+        invalidEmailSignup: true,
+        weakPassword: null,
+      }
+    }
+
+    case WEAK_PASSWORD: {
+      return {
+        ...state,
+        loggedInUser: null,
+        idToken: null,
+        searchUsers: null,
+        signupFirstStage: null,
+        loggedInUserProfile: null,
+        loggedOut: null,
+        loginError: null,
+        signupError: null,
+        emailInUse: null,
+        invalidEmailLogin: null,
+        invalidEmailSignup: null,
+        weakPassword: true,
       }
     }
 
     case SIGNUP: {
       return {
         ...state,
-        signupFirstStage: [action.payload.email, action.payload.password],
+        signupFirstStage: [action.payload.email, action.payload.localId],
         loggedOut: null,
         loginError: null,
         signupError: null,
         emailInUse: null,
         invalidEmailLogin: null,
-        invalidEmailSignup: null
+        invalidEmailSignup: null,
+        weakPassword: null,
       };
     }
 
@@ -136,7 +181,8 @@ const UserReducer = (state = initialState, action) => {
         signupError: null,
         emailInUse: null,
         invalidEmailLogin: null,
-        invalidEmailSignup: null
+        invalidEmailSignup: null,
+        weakPassword: null,
       };
     }
 
@@ -176,7 +222,8 @@ const UserReducer = (state = initialState, action) => {
         signupError: null,
         emailInUse: null,
         invalidEmailLogin: null,
-        invalidEmailSignup: null
+        invalidEmailSignup: null,
+        weakPassword: null,
       };
     }
 

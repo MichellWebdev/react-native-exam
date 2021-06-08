@@ -55,6 +55,7 @@ const SignupScreen = ({
   const signupError = useSelector((state: any) => state.user.signupError || {});
   const emailInUse = useSelector((state: any) => state.user.emailInUse || {});
   const invalidEmailSignup = useSelector((state: any) => state.user.invalidEmailSignup || {});
+  const weakPassword = useSelector((state: any) => state.user.weakPassword || {});
 
   var signupFailed = false;
   if (signupError != null && signupError == true) {
@@ -69,6 +70,10 @@ const SignupScreen = ({
     signupFailed = true;
     alertLabel1 = 'Invalid email address.'
     alertLabel2 = 'Please provide valid email address.'
+  } else if (weakPassword != null && weakPassword == true) {
+    signupFailed = true;
+    alertLabel1 = 'Password is too weak.'
+    alertLabel2 = 'Password should be at least 6 characters.'
   }
 
   // signup success

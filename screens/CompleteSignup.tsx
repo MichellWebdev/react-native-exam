@@ -114,7 +114,9 @@ const CompleteSignup = ({
   };
 
   return (
-    <KeyboardAwareScrollView>
+    <KeyboardAwareScrollView
+      style={styles.outerContainer}
+    >
       <View style={styles.completeSignupContainer}>
         <View>
           <Image style={styles.completeSignupImage} source={require('../assets/images/cbsStudentsLogo.png')} />
@@ -180,6 +182,9 @@ const CompleteSignup = ({
 };
 
 const styles = StyleSheet.create({
+  outerContainer: {
+    backgroundColor: 'white',
+  },
   profilePicture: {
     display: 'flex',
     flexDirection: 'row',

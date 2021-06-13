@@ -82,7 +82,9 @@ const LoginScreen = ({
   };
 
   return (
-    <KeyboardAwareScrollView>
+    <KeyboardAwareScrollView
+      style={styles.outerContainer}
+    >
       <View style={styles.loginContainer}>
         <View>
           <Image style={styles.loginImage} source={require('../assets/images/cbsStudentsLogo.png')} />
@@ -132,6 +134,9 @@ const LoginScreen = ({
 };
 
 const styles = StyleSheet.create({
+  outerContainer: {
+    backgroundColor: 'white',
+  },
   loginContainer: {
     backgroundColor: 'white',
     height: '100%',

@@ -13,6 +13,9 @@ import { signup } from '../redux-store/actions/UserActions';
 import Input, { AutoCapitalizeType } from './../components/common/Input';
 import Button from '../components/common/Button';
 
+// Scroll
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 interface SignupLabels {
   signupLabel: string;
   alertLabel1: string;
@@ -21,8 +24,11 @@ interface SignupLabels {
   emailPlaceholder: string;
   errorMessageEmail: string;
   passwordLabel: string;
-  passwordPclaceholder: string;
+  repeatPasswordLabel: string;
+  passwordPlaceholder: string;
+  repeatPasswordPlaceholder: string;
   passwordErrorMessage: string;
+  repeatPasswordErrorMessage: string;
   buttonText: string;
   loginRedirectLabel: string;
 }
@@ -35,8 +41,11 @@ const SignupScreen = ({
   emailPlaceholder = 'email@student.cbs.dk',
   errorMessageEmail = 'Please fill out Email',
   passwordLabel = 'Password*',
+  repeatPasswordLabel = 'Repeat Password*',
   passwordPlaceholder = '******',
+  repeatPasswordPlaceholder = '******',
   passwordErrorMessage = 'Please fill out password',
+  repeatPasswordErrorMessage = 'Please repeat your password',
   buttonText = 'Sign up',
   loginRedirectLabel = 'Already have a user? Log in',
 }: SignupLabels) => {
@@ -51,17 +60,22 @@ const SignupScreen = ({
   const [password, setPassword] = useState('');
   const [passwordValid, setPasswordValid] = useState(false);
 
+  // repeat password
+  const [repeatPassword, setRepeatPassword] = useState('');
+  const [repeatPasswordValid, setRepeatPasswordValid] = useState(false);
+
   // error messages
   const signupError = useSelector((state: any) => state.user.signupError || {});
   const emailInUse = useSelector((state: any) => state.user.emailInUse || {});
   const invalidEmailSignup = useSelector((state: any) => state.user.invalidEmailSignup || {});
   const weakPassword = useSelector((state: any) => state.user.weakPassword || {});
+  const repeatNotSame = useSelector((state: any) => state.user.weakPassword || {});
 
   var signupFailed = false;
   if (signupError != null && signupError == true) {
-    signupFailed = true
-    alertLabel1 = 'Signup failed.'
-    alertLabel2 = 'Please contact administration.'
+    signupFailed = true;
+    alertLabel1 = 'The passwords does not match.'
+    alertLabel2 = 'Please try again.'
   } else if (emailInUse != null && emailInUse == true) {
     signupFailed = true
     alertLabel1 = 'Email already registered.'
@@ -80,55 +94,67 @@ const SignupScreen = ({
   const signupCompleted = useSelector((state: any) => state.user.signupCompleted || {});
 
   const handleSignup = () => {
-    dispatch(signup(email, password));
+    dispatch(signup(email, password, repeatPassword));
     // passwordValid && emailValid ? navigation.navigate('CompleteSignup') : null;
   };
 
-  // Works with error
-  passwordValid && emailValid && (signupCompleted != null && signupCompleted == true) ? navigation.navigate('CompleteSignup') : null;
+  // "after_submission_3" - Works with error
+  // "after_submission_4" -> no more using checks or navigation (App.tsx line 363)
+  // passwordValid && emailValid && (signupCompleted != null && signupCompleted == true) ? navigation.navigate('CompleteSignup') : null;
 
   return (
-    <View style={styles.signupContainer}>
-      <View>
-        <Image style={styles.signupImage} source={require('../assets/images/cbsStudentsLogo.png')} />
+    <KeyboardAwareScrollView>
+      <View style={styles.signupContainer}>
+        <View>
+          <Image style={styles.signupImage} source={require('../assets/images/cbsStudentsLogo.png')} />
+        </View>
+        <Text style={styles.signupHeader}>{signupLabel}</Text>
+        {
+          signupFailed
+            ?
+            <View style={styles.alertContainer}>
+              <Text style={styles.alertHeader}>{alertLabel1}</Text>
+              <Text style={styles.alertHeader}>{alertLabel2}</Text>
+            </View>
+            :
+            <View style={styles.alertContainer}></View>
+        }
+        <Input
+          label={emailLabel}
+          inputValid={emailValid}
+          placeholder={emailPlaceholder}
+          errorMessage={errorMessageEmail}
+          autoCapitalize={AutoCapitalizeType.none}
+          onValid={valid => setEmailValid(valid)}
+          setContent={content => setEmail(content)}
+        />
+        <Input
+          label={passwordLabel}
+          password={true}
+          inputValid={passwordValid}
+          placeholder={passwordPlaceholder}
+          errorMessage={passwordErrorMessage}
+          onValid={valid => setPasswordValid(valid)}
+          setContent={content => setPassword(content)}
+        />
+        <Input
+          label={repeatPasswordLabel}
+          password={true}
+          inputValid={repeatPasswordValid}
+          placeholder={repeatPasswordPlaceholder}
+          errorMessage={repeatPasswordErrorMessage}
+          onValid={valid => setRepeatPasswordValid(valid)}
+          setContent={content => setRepeatPassword(content)}
+        />
+        <Button buttonText={buttonText} onPress={handleSignup} />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Login');
+          }}>
+          <Text style={styles.loginRedirect}>{loginRedirectLabel}</Text>
+        </TouchableOpacity>
       </View>
-      <Text style={styles.signupHeader}>{signupLabel}</Text>
-      {
-        signupFailed
-          ?
-          <View style={styles.alertContainer}>
-            <Text style={styles.alertHeader}>{alertLabel1}</Text>
-            <Text style={styles.alertHeader}>{alertLabel2}</Text>
-          </View>
-          :
-          <View style={styles.alertContainer}></View>
-      }
-      <Input
-        label={emailLabel}
-        inputValid={emailValid}
-        placeholder={emailPlaceholder}
-        errorMessage={errorMessageEmail}
-        autoCapitalize={AutoCapitalizeType.none}
-        onValid={valid => setEmailValid(valid)}
-        setContent={content => setEmail(content)}
-      />
-      <Input
-        label={passwordLabel}
-        password={true}
-        inputValid={passwordValid}
-        placeholder={passwordPlaceholder}
-        errorMessage={passwordErrorMessage}
-        onValid={valid => setPasswordValid(valid)}
-        setContent={content => setPassword(content)}
-      />
-      <Button buttonText={buttonText} onPress={handleSignup} />
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Login');
-        }}>
-        <Text style={styles.loginRedirect}>{loginRedirectLabel}</Text>
-      </TouchableOpacity>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -136,6 +162,7 @@ const styles = StyleSheet.create({
   signupContainer: {
     backgroundColor: 'white',
     height: '100%',
+    marginBottom: 50,
   },
   signupImage: {
     alignSelf: 'center',

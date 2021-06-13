@@ -76,39 +76,44 @@ export const changeNotification = status => {
   };
 }
 
-export const signup = (email, password) => {
+export const signup = (email, password, repeatPassword) => {
   return async (dispatch, getState) => {
-    const response = await fetch(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBZOK5_QuYUqtARpQyA3wS3qPPb7JXBZrM',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-          returnSecureToken: true,
-        }),
-      }
-    );
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.log('Signup Failed');
-      if (data.error.errors[0].message == 'EMAIL_EXISTS') {
-        dispatch({ type: EMAIL_IN_USE, payload: true });
-      } else if (data.error.errors[0].message == 'INVALID_EMAIL') {
-        dispatch({ type: INVALID_EMAIL_SIGNUP, payload: true });
-      } else if (data.error.errors[0].message.startsWith('WEAK_PASSWORD')) {
-        dispatch({ type: WEAK_PASSWORD, payload: true });
-      } else {
-        dispatch({ type: SIGNUP_ERROR, payload: true });
-      }
+    if (password !== repeatPassword) {
+      dispatch({ type: SIGNUP_ERROR, payload: true });
     } else {
-      console.log('Signup Completed');
-      dispatch({ type: SIGNUP, payload: data })
+      const response = await fetch(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBZOK5_QuYUqtARpQyA3wS3qPPb7JXBZrM',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+            returnSecureToken: true,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.log('Signup Failed');
+        if (data.error.errors[0].message == 'EMAIL_EXISTS') {
+          dispatch({ type: EMAIL_IN_USE, payload: true });
+        } else if (data.error.errors[0].message == 'INVALID_EMAIL') {
+          dispatch({ type: INVALID_EMAIL_SIGNUP, payload: true });
+        } else if (data.error.errors[0].message.startsWith('WEAK_PASSWORD')) {
+          dispatch({ type: WEAK_PASSWORD, payload: true });
+        } else {
+          dispatch({ type: SIGNUP_ERROR, payload: true });
+        }
+      } else {
+        console.log('Signup Completed');
+        dispatch({ type: SIGNUP, payload: data })
+      }
     }
   };
 };

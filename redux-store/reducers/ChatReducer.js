@@ -17,6 +17,7 @@ const initialState = {
   openedNewChatId: null,
   myChatroomMessages: null,
   chatroomsUsersInfo: null,
+  newMessage: null,
 };
 
 const ChatReducer = (state = initialState, action) => {
@@ -52,16 +53,20 @@ const ChatReducer = (state = initialState, action) => {
       return {
         ...state,
         myChatroomMessages: [...state.myChatroomMessages, action.payload],
+        newMessage: null,
       };
 
     case GET_CHATROOM_MESSAGES:
       let chatroomMessages = [];
+      let anyUnead = true;
 
       if (action.payload.data != null) {
         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
         for (const [key, value] of Object.entries(action.payload.data)) {
           state.myChatrooms.forEach(chatroom => {
             if (value.chatroomId == chatroom.id) {
+              if (value.writtenBy != action.payload.loggedInUser && !value.read) { anyUnead = false; }
+
               chatroomMessages.push(
                 new ChatMessage(key, value.chatroomId, value.writtenBy, value.text, new Date(value.createdDate), value.read)
               );
@@ -70,10 +75,19 @@ const ChatReducer = (state = initialState, action) => {
         }
       }
 
-      return {
-        ...state,
-        myChatroomMessages: chatroomMessages,
-      };
+      if (anyUnead) {
+        return {
+          ...state,
+          myChatroomMessages: chatroomMessages,
+          newMessage: null
+        };
+      } else {
+        return {
+          ...state,
+          myChatroomMessages: chatroomMessages,
+          newMessage: true
+        };
+      }
 
     case GET_CHATROOMS_USERS_INFO:
       let chatroomsUsers = [];
@@ -122,6 +136,7 @@ const ChatReducer = (state = initialState, action) => {
       return {
         ...state,
         myChatroomMessages: chatroomMessages,
+        newMessage: null
       };
 
     default:

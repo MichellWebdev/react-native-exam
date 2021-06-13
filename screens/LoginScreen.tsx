@@ -13,6 +13,9 @@ import { login } from '../redux-store/actions/UserActions';
 import Input, { AutoCapitalizeType } from './../components/common/Input';
 import Button from '../components/common/Button';
 
+// Scroll
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 interface LoginLabels {
   loginLabel: string;
   alertLabel1: string;
@@ -79,50 +82,52 @@ const LoginScreen = ({
   };
 
   return (
-    <View style={styles.loginContainer}>
-      <View>
-        <Image style={styles.loginImage} source={require('../assets/images/cbsStudentsLogo.png')} />
+    <KeyboardAwareScrollView>
+      <View style={styles.loginContainer}>
+        <View>
+          <Image style={styles.loginImage} source={require('../assets/images/cbsStudentsLogo.png')} />
+        </View>
+        <View>
+          <Text style={styles.loginHeader}>{loginLabel}</Text>
+        </View>
+        {
+          loginErrorStatus
+            ?
+            <View style={styles.alertContainer}>
+              <Text style={styles.alertHeader}>{alertLabel1}</Text>
+              <Text style={styles.alertHeader}>{alertLabel2}</Text>
+            </View>
+            :
+            <View style={styles.alertContainer}></View>
+        }
+        <Input
+          label={emailLabel}
+          inputValid={emailValid}
+          placeholder={emailPlaceholder}
+          errorMessage={errorMessageEmail}
+          autoCapitalize={AutoCapitalizeType.none}
+          onValid={valid => setEmailValid(valid)}
+          setContent={content => setEmail(content)}
+        />
+        <Input
+          label={passwordLabel}
+          password={true}
+          inputValid={passwordValid}
+          placeholder={passwordPlaceholder}
+          errorMessage={passwordErrorMessage}
+          onValid={valid => setPasswordValid(valid)}
+          setContent={content => setPassword(content)}
+        />
+        <Text style={styles.forgotPassword}>{forgotPassword}</Text>
+        <Button buttonText={buttonText} onPress={handleLogin} />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Signup');
+          }}>
+          <Text style={styles.signupRedirect}>{signupRedirectLabel}</Text>
+        </TouchableOpacity>
       </View>
-      <View>
-        <Text style={styles.loginHeader}>{loginLabel}</Text>
-      </View>
-      {
-        loginErrorStatus
-          ?
-          <View style={styles.alertContainer}>
-            <Text style={styles.alertHeader}>{alertLabel1}</Text>
-            <Text style={styles.alertHeader}>{alertLabel2}</Text>
-          </View>
-          :
-          <View style={styles.alertContainer}></View>
-      }
-      <Input
-        label={emailLabel}
-        inputValid={emailValid}
-        placeholder={emailPlaceholder}
-        errorMessage={errorMessageEmail}
-        autoCapitalize={AutoCapitalizeType.none}
-        onValid={valid => setEmailValid(valid)}
-        setContent={content => setEmail(content)}
-      />
-      <Input
-        label={passwordLabel}
-        password={true}
-        inputValid={passwordValid}
-        placeholder={passwordPlaceholder}
-        errorMessage={passwordErrorMessage}
-        onValid={valid => setPasswordValid(valid)}
-        setContent={content => setPassword(content)}
-      />
-      <Text style={styles.forgotPassword}>{forgotPassword}</Text>
-      <Button buttonText={buttonText} onPress={handleLogin} />
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Signup');
-        }}>
-        <Text style={styles.signupRedirect}>{signupRedirectLabel}</Text>
-      </TouchableOpacity>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -130,6 +135,7 @@ const styles = StyleSheet.create({
   loginContainer: {
     backgroundColor: 'white',
     height: '100%',
+    marginBottom: 50,
   },
   loginImage: {
     alignSelf: 'center',

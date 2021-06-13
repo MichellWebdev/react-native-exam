@@ -38,7 +38,7 @@ const ProfileScreen = () => {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    marginTop: '15%',
+    marginTop: '5%',
   },
 });
 

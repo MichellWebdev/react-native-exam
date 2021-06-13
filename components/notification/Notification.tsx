@@ -19,7 +19,8 @@ const Notification = () => {
 const styles = StyleSheet.create({
   notificationContainer: {
     margin: 20,
-    marginTop: '10%',
+    marginTop: '5%',
+    marginBottom: '-5%',
   },
   notificationHeader: {
     fontSize: 24,

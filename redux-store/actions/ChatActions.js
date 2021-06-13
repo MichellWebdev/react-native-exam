@@ -116,6 +116,7 @@ export const sendMessage = (chatRoomId, message) => {
 export const getChatroomMessages = chatroomId => {
   return async (dispatch, getState) => {
     const token = getState().user.idToken;
+    const loggedInUser = getState().user.loggedInUser;
 
     const response = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/chatmessages.json?auth=' + token, {
       method: 'GET',
@@ -130,7 +131,7 @@ export const getChatroomMessages = chatroomId => {
       console.log('Chatroom Messages Retrieval Failed');
     } else {
       // console.log('Chatroom Messages Retrieved');
-      dispatch({ type: GET_CHATROOM_MESSAGES, payload: { data: data, chatroomId: chatroomId } });
+      dispatch({ type: GET_CHATROOM_MESSAGES, payload: { data: data, chatroomId: chatroomId, loggedInUser: loggedInUser.id } });
     }
   };
 };

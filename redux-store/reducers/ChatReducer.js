@@ -53,6 +53,7 @@ const ChatReducer = (state = initialState, action) => {
       return {
         ...state,
         myChatroomMessages: [...state.myChatroomMessages, action.payload],
+        newMessage: null,
       };
 
     case GET_CHATROOM_MESSAGES:
@@ -64,8 +65,7 @@ const ChatReducer = (state = initialState, action) => {
         for (const [key, value] of Object.entries(action.payload.data)) {
           state.myChatrooms.forEach(chatroom => {
             if (value.chatroomId == chatroom.id) {
-
-              if (!value.read) { anyUnead = false; }
+              if (value.writtenBy != action.payload.loggedInUser && !value.read) { anyUnead = false; }
 
               chatroomMessages.push(
                 new ChatMessage(key, value.chatroomId, value.writtenBy, value.text, new Date(value.createdDate), value.read)

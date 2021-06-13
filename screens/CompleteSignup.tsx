@@ -105,7 +105,7 @@ const CompleteSignup = ({
       dispatch(completeSignup(displayName, listValue, studyProgramme));
       // console.log(displayName, listValue, studyProgramme);
 
-      displayNameValid && studyProgrammeValid ? navigation.navigate('Login') : null;
+      // displayNameValid && studyProgrammeValid ? navigation.navigate('Login') : null;
     }
   };
 

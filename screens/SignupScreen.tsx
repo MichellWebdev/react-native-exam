@@ -85,7 +85,7 @@ const SignupScreen = ({
   };
 
   // Works with error
-  passwordValid && emailValid && (signupCompleted != null && signupCompleted == true) ? navigation.navigate('CompleteSignup') : null;
+  // passwordValid && emailValid && (signupCompleted != null && signupCompleted == true) ? navigation.navigate('CompleteSignup') : null;
 
   return (
     <View style={styles.signupContainer}>

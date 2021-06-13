@@ -324,6 +324,7 @@ function DiscoverStudentOrgStackNavigator() {
 
 const MainNavigationAccess = () => {
   const isSignedIn = useSelector((state: RootState) => state.user.loggedInUser);
+  const signupCompleted = useSelector((state: RootState) => state.user.signupCompleted);
 
   return (
     <NavigationContainer>
@@ -357,27 +358,39 @@ const MainNavigationAccess = () => {
         </Tab.Navigator>
       ) : (
         <Stack.Navigator>
-          <Stack.Screen
-            name='Login'
-            component={Login}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name='Signup'
-            component={Signup}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name='CompleteSignup'
-            component={CompleteSignup}
-            options={{
-              headerShown: false,
-            }}
-          />
+
+          {
+            !signupCompleted
+              ?
+              (
+                <>
+                  <Stack.Screen
+                    name='Login'
+                    component={Login}
+                    options={{
+                      headerShown: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name='Signup'
+                    component={Signup}
+                    options={{
+                      headerShown: false,
+                    }}
+                  />
+                </>
+              )
+              :
+              (
+                <Stack.Screen
+                  name='CompleteSignup'
+                  component={CompleteSignup}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+              )
+          }
         </Stack.Navigator>
       )}
     </NavigationContainer>

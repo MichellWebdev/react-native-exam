@@ -84,7 +84,8 @@ const SignupScreen = ({
     // passwordValid && emailValid ? navigation.navigate('CompleteSignup') : null;
   };
 
-  // Works with error
+  // "after_submission_3" - Works with error
+  // "after_submission_4" -> no more using checks or navigation (App.tsx line 363)
   // passwordValid && emailValid && (signupCompleted != null && signupCompleted == true) ? navigation.navigate('CompleteSignup') : null;
 
   return (

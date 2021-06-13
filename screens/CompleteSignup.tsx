@@ -105,6 +105,7 @@ const CompleteSignup = ({
       dispatch(completeSignup(displayName, listValue, studyProgramme));
       // console.log(displayName, listValue, studyProgramme);
 
+      // "after_submission_4" -> no more using checks or navigation (App.tsx line 363)
       // displayNameValid && studyProgrammeValid ? navigation.navigate('Login') : null;
     }
   };

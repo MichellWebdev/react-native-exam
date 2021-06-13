@@ -27,7 +27,7 @@ export const getChatrooms = () => {
       console.log('Chatroom retrieval failed');
     } else {
       // console.log('Chatrooms retrieved');
-      dispatch({ type: GET_CHATROOMS, payload: { data: data, loggedInUserId: loggedInUser.id } });
+      dispatch({ type: GET_CHATROOMS, payload: { data: data, loggedInUser: loggedInUser.id } });
     }
   };
 };
@@ -108,7 +108,7 @@ export const sendMessage = (chatRoomId, message) => {
       console.log('Chat Message Sent');
 
       const newMessage = new ChatMessage(data.name, chatRoomId, writtenBy, message, createdDate, false);
-      dispatch({ type: SEND_MESSAGE, payload: newMessage });
+      dispatch({ type: SEND_MESSAGE, payload: { newMessage: newMessage, loggedInUser: loggedInUser.id } });
     }
   };
 };
@@ -203,7 +203,7 @@ export const setChatroomMessagesRead = chatroomId => {
             console.log('Chatroom messages retrieval failed');
           } else {
             // console.log('Chatroom messages Retrieved');
-            dispatch({ type: SET_CHATROOM_MESSAGES_READ, payload: data });
+            dispatch({ type: SET_CHATROOM_MESSAGES_READ, payload: { data: data, loggedInUser: loggedInUser, chatroomId: chatroomId } });
           }
         }
       }

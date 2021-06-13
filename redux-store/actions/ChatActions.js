@@ -79,6 +79,10 @@ export const sendMessage = (chatRoomId, message) => {
     const newChatId = getState().chat.openedNewChatId;
     const createdDate = new Date();
 
+    if (newChatId != null && newChatId != undefined && newChatId[0] == chatRoomId) {
+      chatRoomId = newChatId[1]
+    }
+
     const writtenBy = loggedInUser.id;
 
     const response = await fetch('https://cbsstudentapp-default-rtdb.firebaseio.com/chatmessages.json?auth=' + token, {

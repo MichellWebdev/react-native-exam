@@ -325,6 +325,7 @@ function DiscoverStudentOrgStackNavigator() {
 const MainNavigationAccess = () => {
   const isSignedIn = useSelector((state: RootState) => state.user.loggedInUser);
   const signupCompleted = useSelector((state: RootState) => state.user.signupCompleted);
+  const newMessage = useSelector((state: RootState) => state.chat.newMessage);
 
   return (
     <NavigationContainer>
@@ -339,7 +340,12 @@ const MainNavigationAccess = () => {
               } else if (route.name === 'Discover') {
                 iconName = 'search-outline';
               } else if (route.name === 'Chat') {
-                iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
+                if (newMessage != null && newMessage == true) {
+                  iconName = focused ? 'ios-chatbubble-ellipses' : 'ios-chatbubble-ellipses-outline';
+                  color = '#FF1493'
+                } else {
+                  iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
+                }
               } else if (route.name === 'Profile') {
                 iconName = focused ? 'person' : 'person-outline';
               }

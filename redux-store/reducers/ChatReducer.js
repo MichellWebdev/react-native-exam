@@ -31,8 +31,8 @@ const ChatReducer = (state = initialState, action) => {
           // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
           for (const [key, value] of Object.entries(action.payload.data)) {
             if (
-              value.participants[0] == action.payload.loggedInUserId ||
-              value.participants[1] == action.payload.loggedInUserId
+              value.participants[0] == action.payload.loggedInUser ||
+              value.participants[1] == action.payload.loggedInUser
             ) {
               chatrooms.push(new ChatRoom(key, value.participants, new Date(value.createdDate), value.messages));
             }
@@ -58,8 +58,11 @@ const ChatReducer = (state = initialState, action) => {
       {
         let anyUnreadMessage = false;
         state.myChatrooms.forEach(chatroom => {
-          if (chatroom.participants[0] == action.payload.loggedInUserId || chatroom.participants[1] == action.payload.loggedInUserId) {
+          if (chatroom.participants[0] == action.payload.loggedInUser || chatroom.participants[1] == action.payload.loggedInUser) {
             state.allChatMessages.forEach(message => {
+
+              console.log(message)
+
               if ((message.chatroomId == chatroom.id) && (message.writtenBy != action.payload.loggedInUser) && message.read == false) {
                 anyUnreadMessage = true;
               }
@@ -110,8 +113,6 @@ const ChatReducer = (state = initialState, action) => {
             );
           }
         }
-
-        console.log(allChatMessages)
 
         if (anyUnread) {
           return {
@@ -185,7 +186,7 @@ const ChatReducer = (state = initialState, action) => {
 
         let anyUnread = false;
         state.myChatrooms.forEach(chatroom => {
-          if (chatroom.participants[0] == action.payload.loggedInUserId || chatroom.participants[1] == action.payload.loggedInUserId) {
+          if (chatroom.participants[0] == action.payload.loggedInUser || chatroom.participants[1] == action.payload.loggedInUser) {
             state.allChatMessages.forEach(message => {
               if (action.payload.chatroomId != message.chatroomId && message.writtenBy != action.payload.loggedInUser && message.read == false) {
                 anyUnread = true;

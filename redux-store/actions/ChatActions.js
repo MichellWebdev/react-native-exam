@@ -27,7 +27,7 @@ export const getChatrooms = () => {
       console.log('Chatroom retrieval failed');
     } else {
       // console.log('Chatrooms retrieved');
-      dispatch({ type: GET_CHATROOMS, payload: { data: data, loggedInUserId: loggedInUser.id } });
+      dispatch({ type: GET_CHATROOMS, payload: { data: data, loggedInUser: loggedInUser.id } });
     }
   };
 };

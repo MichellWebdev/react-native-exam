@@ -16,6 +16,9 @@ import Button from '../components/common/Button';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { images } from '../assets/images/images';
 
+// Scroll
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 interface CompleteSignupLabels {
   headerLabel: string;
   profilePicture: string;
@@ -111,28 +114,29 @@ const CompleteSignup = ({
   };
 
   return (
-    <View style={styles.completeSignupContainer}>
-      <View>
-        <Image style={styles.completeSignupImage} source={require('../assets/images/cbsStudentsLogo.png')} />
-      </View>
-      <Text style={styles.completeSignupHeader}>{headerLabel}</Text>
-      <View style={styles.profilePicture}>
+    <KeyboardAwareScrollView>
+      <View style={styles.completeSignupContainer}>
         <View>
-          <View style={styles.profilePictureContainer}>
-            <Text style={styles.profilePictureText}>{profilePicture}</Text>
-          </View>
+          <Image style={styles.completeSignupImage} source={require('../assets/images/cbsStudentsLogo.png')} />
+        </View>
+        <Text style={styles.completeSignupHeader}>{headerLabel}</Text>
+        <View style={styles.profilePicture}>
           <View>
-            <Button buttonText={profilePictureBtn} onPress={() => { }} />
+            <View style={styles.profilePictureContainer}>
+              <Text style={styles.profilePictureText}>{profilePicture}</Text>
+            </View>
+            <View>
+              <Button buttonText={profilePictureBtn} onPress={() => { }} />
+            </View>
+          </View>
+          <View style={styles.profilePictureImgContainer}>
+            <View style={styles.profilePictureBorder}>
+              <Image style={styles.profilePictureImg} source={path} />
+            </View>
           </View>
         </View>
-        <View style={styles.profilePictureImgContainer}>
-          <View style={styles.profilePictureBorder}>
-            <Image style={styles.profilePictureImg} source={path} />
-          </View>
-        </View>
-      </View>
-      <Text style={styles.prototypeLabel}>{prototypeLabel}</Text>
-      {/* 
+        <Text style={styles.prototypeLabel}>{prototypeLabel}</Text>
+        {/* 
       // When using input field for photo input (prototype)
       <Input
         label={photoLabel}
@@ -143,34 +147,35 @@ const CompleteSignup = ({
         onValid={valid => setPhotoUrlValid(valid)}
         setContent={content => setPhotoUrl(content)}
       /> */}
-      <DropDownPicker
-        style={styles.list}
-        open={open}
-        value={listValue}
-        items={items}
-        setOpen={setOpen}
-        setValue={setListValue}
-        setItems={setItems}
-      />
-      <Input
-        value={displayName}
-        label={userNameLabel}
-        inputValid={displayNameValid}
-        placeholder={userNamePlaceholder}
-        errorMessage={userNameErrorMsg}
-        onValid={valid => setDisplayNameValid(valid)}
-        setContent={content => setDisplayName(content)}
-      />
-      <Input
-        label={studyProgrammeLabel}
-        inputValid={studyProgrammeValid}
-        placeholder={studyProgrammePlaceholder}
-        errorMessage={studyProgrammeErrorMsg}
-        onValid={valid => setStudyProgrammeValid(valid)}
-        setContent={content => setStudyProgramme(content)}
-      />
-      <Button buttonText={buttonText} onPress={handleCompleteSignup} />
-    </View>
+        <DropDownPicker
+          style={styles.list}
+          open={open}
+          value={listValue}
+          items={items}
+          setOpen={setOpen}
+          setValue={setListValue}
+          setItems={setItems}
+        />
+        <Input
+          value={displayName}
+          label={userNameLabel}
+          inputValid={displayNameValid}
+          placeholder={userNamePlaceholder}
+          errorMessage={userNameErrorMsg}
+          onValid={valid => setDisplayNameValid(valid)}
+          setContent={content => setDisplayName(content)}
+        />
+        <Input
+          label={studyProgrammeLabel}
+          inputValid={studyProgrammeValid}
+          placeholder={studyProgrammePlaceholder}
+          errorMessage={studyProgrammeErrorMsg}
+          onValid={valid => setStudyProgrammeValid(valid)}
+          setContent={content => setStudyProgramme(content)}
+        />
+        <Button buttonText={buttonText} onPress={handleCompleteSignup} />
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -208,6 +213,7 @@ const styles = StyleSheet.create({
   completeSignupContainer: {
     backgroundColor: 'white',
     height: '100%',
+    marginBottom: 50,
   },
   completeSignupImage: {
     alignSelf: 'center',
@@ -230,7 +236,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   list: {
-    maxWidth: 390,
+    maxWidth: 370,
     margin: 20,
   },
 });

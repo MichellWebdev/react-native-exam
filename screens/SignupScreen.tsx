@@ -13,6 +13,9 @@ import { signup } from '../redux-store/actions/UserActions';
 import Input, { AutoCapitalizeType } from './../components/common/Input';
 import Button from '../components/common/Button';
 
+// Scroll
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 interface SignupLabels {
   signupLabel: string;
   alertLabel1: string;
@@ -89,47 +92,49 @@ const SignupScreen = ({
   // passwordValid && emailValid && (signupCompleted != null && signupCompleted == true) ? navigation.navigate('CompleteSignup') : null;
 
   return (
-    <View style={styles.signupContainer}>
-      <View>
-        <Image style={styles.signupImage} source={require('../assets/images/cbsStudentsLogo.png')} />
+    <KeyboardAwareScrollView>
+      <View style={styles.signupContainer}>
+        <View>
+          <Image style={styles.signupImage} source={require('../assets/images/cbsStudentsLogo.png')} />
+        </View>
+        <Text style={styles.signupHeader}>{signupLabel}</Text>
+        {
+          signupFailed
+            ?
+            <View style={styles.alertContainer}>
+              <Text style={styles.alertHeader}>{alertLabel1}</Text>
+              <Text style={styles.alertHeader}>{alertLabel2}</Text>
+            </View>
+            :
+            <View style={styles.alertContainer}></View>
+        }
+        <Input
+          label={emailLabel}
+          inputValid={emailValid}
+          placeholder={emailPlaceholder}
+          errorMessage={errorMessageEmail}
+          autoCapitalize={AutoCapitalizeType.none}
+          onValid={valid => setEmailValid(valid)}
+          setContent={content => setEmail(content)}
+        />
+        <Input
+          label={passwordLabel}
+          password={true}
+          inputValid={passwordValid}
+          placeholder={passwordPlaceholder}
+          errorMessage={passwordErrorMessage}
+          onValid={valid => setPasswordValid(valid)}
+          setContent={content => setPassword(content)}
+        />
+        <Button buttonText={buttonText} onPress={handleSignup} />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Login');
+          }}>
+          <Text style={styles.loginRedirect}>{loginRedirectLabel}</Text>
+        </TouchableOpacity>
       </View>
-      <Text style={styles.signupHeader}>{signupLabel}</Text>
-      {
-        signupFailed
-          ?
-          <View style={styles.alertContainer}>
-            <Text style={styles.alertHeader}>{alertLabel1}</Text>
-            <Text style={styles.alertHeader}>{alertLabel2}</Text>
-          </View>
-          :
-          <View style={styles.alertContainer}></View>
-      }
-      <Input
-        label={emailLabel}
-        inputValid={emailValid}
-        placeholder={emailPlaceholder}
-        errorMessage={errorMessageEmail}
-        autoCapitalize={AutoCapitalizeType.none}
-        onValid={valid => setEmailValid(valid)}
-        setContent={content => setEmail(content)}
-      />
-      <Input
-        label={passwordLabel}
-        password={true}
-        inputValid={passwordValid}
-        placeholder={passwordPlaceholder}
-        errorMessage={passwordErrorMessage}
-        onValid={valid => setPasswordValid(valid)}
-        setContent={content => setPassword(content)}
-      />
-      <Button buttonText={buttonText} onPress={handleSignup} />
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Login');
-        }}>
-        <Text style={styles.loginRedirect}>{loginRedirectLabel}</Text>
-      </TouchableOpacity>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -137,6 +142,7 @@ const styles = StyleSheet.create({
   signupContainer: {
     backgroundColor: 'white',
     height: '100%',
+    marginBottom: 50,
   },
   signupImage: {
     alignSelf: 'center',

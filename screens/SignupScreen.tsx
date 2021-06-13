@@ -24,8 +24,11 @@ interface SignupLabels {
   emailPlaceholder: string;
   errorMessageEmail: string;
   passwordLabel: string;
-  passwordPclaceholder: string;
+  repeatPasswordLabel: string;
+  passwordPlaceholder: string;
+  repeatPasswordPlaceholder: string;
   passwordErrorMessage: string;
+  repeatPasswordErrorMessage: string;
   buttonText: string;
   loginRedirectLabel: string;
 }
@@ -38,8 +41,11 @@ const SignupScreen = ({
   emailPlaceholder = 'email@student.cbs.dk',
   errorMessageEmail = 'Please fill out Email',
   passwordLabel = 'Password*',
+  repeatPasswordLabel = 'Repeat Password*',
   passwordPlaceholder = '******',
+  repeatPasswordPlaceholder = '******',
   passwordErrorMessage = 'Please fill out password',
+  repeatPasswordErrorMessage = 'Please repeat your password',
   buttonText = 'Sign up',
   loginRedirectLabel = 'Already have a user? Log in',
 }: SignupLabels) => {
@@ -54,17 +60,22 @@ const SignupScreen = ({
   const [password, setPassword] = useState('');
   const [passwordValid, setPasswordValid] = useState(false);
 
+  // repeat password
+  const [repeatPassword, setRepeatPassword] = useState('');
+  const [repeatPasswordValid, setRepeatPasswordValid] = useState(false);
+
   // error messages
   const signupError = useSelector((state: any) => state.user.signupError || {});
   const emailInUse = useSelector((state: any) => state.user.emailInUse || {});
   const invalidEmailSignup = useSelector((state: any) => state.user.invalidEmailSignup || {});
   const weakPassword = useSelector((state: any) => state.user.weakPassword || {});
+  const repeatNotSame = useSelector((state: any) => state.user.weakPassword || {});
 
   var signupFailed = false;
   if (signupError != null && signupError == true) {
-    signupFailed = true
-    alertLabel1 = 'Signup failed.'
-    alertLabel2 = 'Please contact administration.'
+    signupFailed = true;
+    alertLabel1 = 'The passwords does not match.'
+    alertLabel2 = 'Please try again.'
   } else if (emailInUse != null && emailInUse == true) {
     signupFailed = true
     alertLabel1 = 'Email already registered.'
@@ -83,7 +94,7 @@ const SignupScreen = ({
   const signupCompleted = useSelector((state: any) => state.user.signupCompleted || {});
 
   const handleSignup = () => {
-    dispatch(signup(email, password));
+    dispatch(signup(email, password, repeatPassword));
     // passwordValid && emailValid ? navigation.navigate('CompleteSignup') : null;
   };
 
@@ -125,6 +136,15 @@ const SignupScreen = ({
           errorMessage={passwordErrorMessage}
           onValid={valid => setPasswordValid(valid)}
           setContent={content => setPassword(content)}
+        />
+        <Input
+          label={repeatPasswordLabel}
+          password={true}
+          inputValid={repeatPasswordValid}
+          placeholder={repeatPasswordPlaceholder}
+          errorMessage={repeatPasswordErrorMessage}
+          onValid={valid => setRepeatPasswordValid(valid)}
+          setContent={content => setRepeatPassword(content)}
         />
         <Button buttonText={buttonText} onPress={handleSignup} />
         <TouchableOpacity

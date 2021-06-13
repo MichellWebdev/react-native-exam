@@ -103,7 +103,9 @@ const SignupScreen = ({
   // passwordValid && emailValid && (signupCompleted != null && signupCompleted == true) ? navigation.navigate('CompleteSignup') : null;
 
   return (
-    <KeyboardAwareScrollView>
+    <KeyboardAwareScrollView
+      style={styles.outerContainer}
+    >
       <View style={styles.signupContainer}>
         <View>
           <Image style={styles.signupImage} source={require('../assets/images/cbsStudentsLogo.png')} />
@@ -159,6 +161,9 @@ const SignupScreen = ({
 };
 
 const styles = StyleSheet.create({
+  outerContainer: {
+    backgroundColor: 'white',
+  },
   signupContainer: {
     backgroundColor: 'white',
     height: '100%',

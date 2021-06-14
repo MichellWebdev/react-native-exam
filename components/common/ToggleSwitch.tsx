@@ -33,7 +33,7 @@ const ToggleSwitch = ({ header, infoText, disabled = false }: ToggleSwitchProps)
           trackColor={{ false: '#D4D4D4', true: '#DCDCEE' }}
           thumbColor={isEnabled ? '#5050A5' : '#F5F5F5'}
           onValueChange={toggleSwitchButton}
-          value={disabled ? false : isEnabled}
+          value={isEnabled}
           disabled={disabled}
         />
       </View>

@@ -127,7 +127,8 @@ const ChatMessages = props => {
           style={styles.textInput}
           onChangeText={text => handleTextInput(text)}
           value={value}
-          placeholder={'Write message'} />
+          placeholder={'Write message'}
+        />
         <Button disabled={buttonDisabled} title='Send' onPress={handleSend} />
       </View>
     </View>

@@ -14,7 +14,7 @@ import Input, { AutoCapitalizeType } from './../components/common/Input';
 import Button from '../components/common/Button';
 
 // Scroll
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 interface LoginLabels {
   loginLabel: string;
@@ -51,7 +51,7 @@ const LoginScreen = ({
   // email
   const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(false);
-  errorMessageEmail = 'Please fill out Email'
+  errorMessageEmail = 'Please fill out Email';
 
   // password
   const [password, setPassword] = useState('');
@@ -63,18 +63,21 @@ const LoginScreen = ({
   const invalidEmailLogin = useSelector((state: any) => state.user.invalidEmailLogin || {});
 
   let loginErrorStatus = false;
+  // Logged out
   if (loggedOut != null && loggedOut == true) {
     loginErrorStatus = true;
-    alertLabel1 = 'You are logged out.'
-    alertLabel2 = 'Please log in again to get access.'
+    alertLabel1 = 'You are logged out.';
+    alertLabel2 = 'Please log in again to get access.';
+    // Login failed - wrong email or password
   } else if (loginError != null && loginError == true) {
     loginErrorStatus = true;
-    alertLabel1 = 'Login failed.'
-    alertLabel2 = 'Please provide correct email or password.'
+    alertLabel1 = 'Login failed.';
+    alertLabel2 = 'Please provide correct email or password.';
+    // Invalid email
   } else if (invalidEmailLogin != null && invalidEmailLogin == true) {
     loginErrorStatus = true;
-    alertLabel1 = 'Invalid email address format.'
-    alertLabel2 = 'Please provide a valid email address.'
+    alertLabel1 = 'Invalid email address format.';
+    alertLabel2 = 'Please provide a valid email address.';
   }
 
   const handleLogin = () => {
@@ -82,9 +85,7 @@ const LoginScreen = ({
   };
 
   return (
-    <KeyboardAwareScrollView
-      style={styles.outerContainer}
-    >
+    <KeyboardAwareScrollView style={styles.outerContainer}>
       <View style={styles.loginContainer}>
         <View>
           <Image style={styles.loginImage} source={require('../assets/images/cbsStudentsLogo.png')} />
@@ -92,16 +93,14 @@ const LoginScreen = ({
         <View>
           <Text style={styles.loginHeader}>{loginLabel}</Text>
         </View>
-        {
-          loginErrorStatus
-            ?
-            <View style={styles.alertContainer}>
-              <Text style={styles.alertHeader}>{alertLabel1}</Text>
-              <Text style={styles.alertHeader}>{alertLabel2}</Text>
-            </View>
-            :
-            <View style={styles.alertContainer}></View>
-        }
+        {loginErrorStatus ? (
+          <View style={styles.alertContainer}>
+            <Text style={styles.alertHeader}>{alertLabel1}</Text>
+            <Text style={styles.alertHeader}>{alertLabel2}</Text>
+          </View>
+        ) : (
+          <View style={styles.alertContainer}></View>
+        )}
         <Input
           label={emailLabel}
           inputValid={emailValid}

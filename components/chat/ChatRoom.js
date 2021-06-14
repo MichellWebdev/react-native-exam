@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
 // Common component
-import { images } from '../../assets/images/images'
+import { images } from '../../assets/images/images';
 
 const ChatRoom = props => {
   const navigation = useNavigation();
@@ -69,6 +69,7 @@ const ChatRoom = props => {
   // Another participant name
   let participantName = '';
   let participantImage = '';
+  // going through the participants in the chatroom
   chatroomsUsersInfo.forEach(user => {
     if (user.id == props.chatRoom.participants[0]) {
       participantName = user.name;
@@ -105,7 +106,12 @@ const ChatRoom = props => {
     <View>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('ChatMessages', { chatroomId: props.chatRoom.id, chatroomName: participantName, participantImage: path, participantName: participantName })
+          navigation.navigate('ChatMessages', {
+            chatroomId: props.chatRoom.id,
+            chatroomName: participantName,
+            participantImage: path,
+            participantName: participantName,
+          })
         }>
         <View style={styles.chatRoom}>
           <View style={styles.imageContainer}>

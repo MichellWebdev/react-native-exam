@@ -14,7 +14,7 @@ import Input, { AutoCapitalizeType } from './../components/common/Input';
 import Button from '../components/common/Button';
 
 // Scroll
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 interface SignupLabels {
   signupLabel: string;
@@ -72,22 +72,26 @@ const SignupScreen = ({
   const repeatNotSame = useSelector((state: any) => state.user.weakPassword || {});
 
   var signupFailed = false;
+  // Passwords do not match
   if (signupError != null && signupError == true) {
     signupFailed = true;
-    alertLabel1 = 'The passwords does not match.'
-    alertLabel2 = 'Please try again.'
+    alertLabel1 = 'The passwords does not match.';
+    alertLabel2 = 'Please try again.';
+    // email already registered
   } else if (emailInUse != null && emailInUse == true) {
-    signupFailed = true
-    alertLabel1 = 'Email already registered.'
-    alertLabel2 = 'Please log in using the link below.'
+    signupFailed = true;
+    alertLabel1 = 'Email already registered.';
+    alertLabel2 = 'Please log in using the link below.';
+    // Invalid email address
   } else if (invalidEmailSignup != null && invalidEmailSignup == true) {
     signupFailed = true;
-    alertLabel1 = 'Invalid email address format.'
-    alertLabel2 = 'Please provide a valid email address.'
+    alertLabel1 = 'Invalid email address format.';
+    alertLabel2 = 'Please provide a valid email address.';
+    // Password is too weak
   } else if (weakPassword != null && weakPassword == true) {
     signupFailed = true;
-    alertLabel1 = 'Password is too weak.'
-    alertLabel2 = 'Password should be at least 6 characters.'
+    alertLabel1 = 'Password is too weak.';
+    alertLabel2 = 'Password should be at least 6 characters.';
   }
 
   // signup success
@@ -95,32 +99,23 @@ const SignupScreen = ({
 
   const handleSignup = () => {
     dispatch(signup(email, password, repeatPassword));
-    // passwordValid && emailValid ? navigation.navigate('CompleteSignup') : null;
   };
 
-  // "after_submission_3" - Works with error
-  // "after_submission_4" -> no more using checks or navigation (App.tsx line 363)
-  // passwordValid && emailValid && (signupCompleted != null && signupCompleted == true) ? navigation.navigate('CompleteSignup') : null;
-
   return (
-    <KeyboardAwareScrollView
-      style={styles.outerContainer}
-    >
+    <KeyboardAwareScrollView style={styles.outerContainer}>
       <View style={styles.signupContainer}>
         <View>
           <Image style={styles.signupImage} source={require('../assets/images/cbsStudentsLogo.png')} />
         </View>
         <Text style={styles.signupHeader}>{signupLabel}</Text>
-        {
-          signupFailed
-            ?
-            <View style={styles.alertContainer}>
-              <Text style={styles.alertHeader}>{alertLabel1}</Text>
-              <Text style={styles.alertHeader}>{alertLabel2}</Text>
-            </View>
-            :
-            <View style={styles.alertContainer}></View>
-        }
+        {signupFailed ? (
+          <View style={styles.alertContainer}>
+            <Text style={styles.alertHeader}>{alertLabel1}</Text>
+            <Text style={styles.alertHeader}>{alertLabel2}</Text>
+          </View>
+        ) : (
+          <View style={styles.alertContainer}></View>
+        )}
         <Input
           label={emailLabel}
           inputValid={emailValid}

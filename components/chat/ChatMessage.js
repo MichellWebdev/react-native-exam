@@ -4,9 +4,6 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 // React redux
 import { useSelector } from 'react-redux';
 
-// Common Component
-import { images } from '../../assets/images/images';
-
 const ChatMessage = props => {
   const loggedInUser = useSelector(state => state.user.loggedInUser);
 

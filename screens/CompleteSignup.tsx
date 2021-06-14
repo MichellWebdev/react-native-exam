@@ -17,7 +17,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { images } from '../assets/images/images';
 
 // Scroll
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 interface CompleteSignupLabels {
   headerLabel: string;
@@ -100,23 +100,13 @@ const CompleteSignup = ({
 
   const handleCompleteSignup = () => {
     if (displayNameValid && studyProgrammeValid) {
-      // When using input field
-      // dispatch(completeSignup(displayName, photoUrl, studyProgramme));
-      // console.log(displayName, photoUrl, studyProgramme);
-
       // When using dropdown picker
       dispatch(completeSignup(displayName, listValue, studyProgramme));
-      // console.log(displayName, listValue, studyProgramme);
-
-      // "after_submission_4" -> no more using checks or navigation (App.tsx line 363)
-      // displayNameValid && studyProgrammeValid ? navigation.navigate('Login') : null;
     }
   };
 
   return (
-    <KeyboardAwareScrollView
-      style={styles.outerContainer}
-    >
+    <KeyboardAwareScrollView style={styles.outerContainer}>
       <View style={styles.completeSignupContainer}>
         <View>
           <Image style={styles.completeSignupImage} source={require('../assets/images/cbsStudentsLogo.png')} />
@@ -128,7 +118,7 @@ const CompleteSignup = ({
               <Text style={styles.profilePictureText}>{profilePicture}</Text>
             </View>
             <View>
-              <Button buttonText={profilePictureBtn} onPress={() => { }} />
+              <Button buttonText={profilePictureBtn} onPress={() => {}} />
             </View>
           </View>
           <View style={styles.profilePictureImgContainer}>
@@ -138,17 +128,6 @@ const CompleteSignup = ({
           </View>
         </View>
         <Text style={styles.prototypeLabel}>{prototypeLabel}</Text>
-        {/* 
-      // When using input field for photo input (prototype)
-      <Input
-        label={photoLabel}
-        value={photoUrl}
-        inputValid={photoUrlValid}
-        placeholder={photoUrlPlaceholder}
-        autoCapitalize={AutoCapitalizeType.none}
-        onValid={valid => setPhotoUrlValid(valid)}
-        setContent={content => setPhotoUrl(content)}
-      /> */}
         <DropDownPicker
           style={styles.list}
           open={open}

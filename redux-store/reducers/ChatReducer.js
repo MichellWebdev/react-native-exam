@@ -61,8 +61,6 @@ const ChatReducer = (state = initialState, action) => {
           if (chatroom.participants[0] == action.payload.loggedInUser || chatroom.participants[1] == action.payload.loggedInUser) {
             state.allChatMessages.forEach(message => {
 
-              console.log(message)
-
               if ((message.chatroomId == chatroom.id) && (message.writtenBy != action.payload.loggedInUser) && message.read == false) {
                 anyUnreadMessage = true;
               }
